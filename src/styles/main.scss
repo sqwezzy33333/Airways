@@ -1,0 +1,20 @@
+//Base
+@import './base/normalize.scss';
+
+//Abstracts
+@import './abstracts/constants.scss';
+
+//App Component
+@import '../app/app.component.scss';
+
+//Home Component
+@import '../app/pages/home/home.component.scss';
+
+//Booking Component
+@import '../app/pages/booking/booking.component.scss';
+
+//Shoping-cart Component
+@import '../app/pages/shoping-cart/shoping-cart.component.scss';
+
+//Auth Component
+@import '../app/pages/auth/auth.component.scss';

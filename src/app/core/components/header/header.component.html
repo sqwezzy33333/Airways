@@ -1,28 +1,59 @@
 <div class="header__wrapper">
   <div class="header">
     <div class="header__flex">
-      <div class="header__logo">
+      <a class="header__logo _pointer">
         <img src="../../../../assets/images/logo.svg" alt="" />
-      </div>
+      </a>
 
       <nav class="header__menu header-menu">
         <ul>
-          <li class="header-menu__item">
-            <button type="button">Book flights</button>
+          <li class="header-menu__item mr-book">
+            <button color="red" class="header__book-btn" mat-button>
+              <span class="header__book-span"> Book flights </span>
+            </button>
           </li>
-          <li class="header-menu__item">mhmm\mm\m</li>
+
           <li class="header-menu__item">
-            <button type="button">EUR</button>
+            <mat-form-field
+              class="header__list"
+              appearance="fill"
+            >
+              <mat-select
+                [formControl]="dateSelect"
+                disableRipple
+                [(value)]="selected"
+              >
+                <mat-option value="0">MM/DD/YYYY</mat-option>
+                <mat-option value="1">DD/MM/YYYY</mat-option>
+                <mat-option value="2">YYYY/DD/MM</mat-option>
+                <mat-option value="3">YYYY/MM/DD</mat-option>
+              </mat-select>
+            </mat-form-field>
           </li>
-          <li class="header-menu__item">
-            <button type="button">Sign in</button>
+
+          <li class="header-menu__item mr-eur">
+            <button class="header-btn-bg" mat-stroked-button type="button">
+              <span class="header-span"> EUR </span>
+            </button>
           </li>
+
           <li class="header-menu__item">
-            <img src="../../../../assets/images/shopping_basket.svg" alt="" />
+            <button class="header-btn-bg" mat-stroked-button type="button">
+              <span class="header-span"> Sign in </span>
+            </button>
+          </li>
+
+          <li class="header-menu__item _pointer mr-cart">
+            <a href="">
+              <img src="../../../../assets/images/shopping_basket.svg" alt="" />
+            </a>
           </li>
         </ul>
       </nav>
     </div>
   </div>
 </div>
+
+
+
 

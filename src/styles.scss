@@ -1,14 +1,15 @@
-@import './styles/main.scss';
+@import "./styles/main.scss";
 
 html {
   font-size: 10px;
   box-sizing: border-box;
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: inherit;
 }
-
 
 body {
   font-family: "Rooto", sans-serif;
@@ -22,5 +23,11 @@ body {
   margin: 0 auto;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

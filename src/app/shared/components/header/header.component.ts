@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 
@@ -8,8 +8,10 @@ import { ViewEncapsulation } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent {
-  dateSelect = new FormControl();
+export class HeaderComponent implements OnInit {
+  ngOnInit(): void {
+    console.log(this.dateSelectForm);
+  }
 
-  selected = 'MM/DD/YYYY';
+  dateSelectForm = new FormControl('MM/DD/YYYY');
 }

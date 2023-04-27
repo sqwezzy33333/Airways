@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header__flex">
       <a class="header__logo _pointer">
-        <img src="../../../../assets/images/logo.svg" alt="" />
+        <img src="./assets/images/logo.svg" alt="" />
       </a>
 
       <nav class="header__menu header-menu">
@@ -14,19 +14,15 @@
           </li>
 
           <li class="header-menu__item">
-            <mat-form-field
-              class="header__list"
-              appearance="fill"
-            >
+            <mat-form-field placeholder="'sdsd" class="header__list" appearance="fill">
               <mat-select
-                [formControl]="dateSelect"
+                [formControl]="dateSelectForm"
                 disableRipple
-                [(value)]="selected"
               >
-                <mat-option value="0">MM/DD/YYYY</mat-option>
-                <mat-option value="1">DD/MM/YYYY</mat-option>
-                <mat-option value="2">YYYY/DD/MM</mat-option>
-                <mat-option value="3">YYYY/MM/DD</mat-option>
+                <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+                <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+                <mat-option value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
+                <mat-option value="YYYY/MM/DD">YYYY/MM/DD</mat-option>
               </mat-select>
             </mat-form-field>
           </li>
@@ -45,7 +41,7 @@
 
           <li class="header-menu__item _pointer mr-cart">
             <a href="">
-              <img src="../../../../assets/images/shopping_basket.svg" alt="" />
+              <img src="./assets/images/shopping_basket.svg" alt="" />
             </a>
           </li>
         </ul>
@@ -53,7 +49,3 @@
     </div>
   </div>
 </div>
-
-
-
-

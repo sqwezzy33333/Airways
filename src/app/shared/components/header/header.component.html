@@ -1,0 +1,51 @@
+<div class="header__wrapper">
+  <div class="header">
+    <div class="header__flex">
+      <a class="header__logo _pointer">
+        <img src="./assets/images/logo.svg" alt="" />
+      </a>
+
+      <nav class="header__menu header-menu">
+        <ul>
+          <li class="header-menu__item mr-book">
+            <button color="red" class="header__book-btn" mat-button>
+              <span class="header__book-span"> Book flights </span>
+            </button>
+          </li>
+
+          <li class="header-menu__item">
+            <mat-form-field placeholder="'sdsd" class="header__list" appearance="fill">
+              <mat-select
+                [formControl]="dateSelectForm"
+                disableRipple
+              >
+                <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+                <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+                <mat-option value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
+                <mat-option value="YYYY/MM/DD">YYYY/MM/DD</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </li>
+
+          <li class="header-menu__item mr-eur">
+            <button class="header-btn-bg" mat-stroked-button type="button">
+              <span class="header-span"> EUR </span>
+            </button>
+          </li>
+
+          <li class="header-menu__item">
+            <button class="header-btn-bg" mat-stroked-button type="button">
+              <span class="header-span"> Sign in </span>
+            </button>
+          </li>
+
+          <li class="header-menu__item _pointer mr-cart">
+            <a href="">
+              <img src="./assets/images/shopping_basket.svg" alt="" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

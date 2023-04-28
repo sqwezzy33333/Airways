@@ -1,12 +1,5 @@
 @import "../../../../styles/abstracts/constants.scss";
 
-:host {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
 .header {
   position: relative;
   width: 100%;
@@ -15,7 +8,7 @@
   padding: 12.5px 0px;
 
   &__wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

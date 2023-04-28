@@ -5,10 +5,10 @@
   width: 100%;
   max-width: $container-width;
   margin: 0 auto;
-  padding: 12.5px 0px;
+  padding: 8px 0px;
 
   &__wrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;

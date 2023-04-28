@@ -1,7 +1,11 @@
 @import "./../../../../styles/abstracts/constants.scss";
 
-:host{
+:host {
   position: relative;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .footer {
@@ -44,7 +48,7 @@
     margin-right: 16px;
   }
 
-  &__line{
+  &__line {
     position: absolute;
     top: 0;
     left: 0;

@@ -14,11 +14,8 @@
           </li>
 
           <li class="header-menu__item">
-            <mat-form-field placeholder="'sdsd" class="header__list" appearance="fill">
-              <mat-select
-                [formControl]="dateSelectForm"
-                disableRipple
-              >
+            <mat-form-field class="header__list" appearance="fill">
+              <mat-select [formControl]="dateSelectForm" disableRipple>
                 <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
                 <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
                 <mat-option value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
@@ -28,9 +25,22 @@
           </li>
 
           <li class="header-menu__item mr-eur">
-            <button class="header-btn-bg" mat-stroked-button type="button">
-              <span class="header-span"> EUR </span>
-            </button>
+            <form class="header__list currency-list" appearance="fill">
+
+              <mat-select
+                [formControl]="currencySelectForm"
+                disableRipple
+                class="header-btn-bg header-span"
+                style="padding: 10px 15px;"
+              >
+                <mat-option value="EUR">EUR</mat-option>
+                <mat-option value="USA">USA</mat-option>
+                <mat-option value="RUB">RUB</mat-option>
+                <mat-option value="PLN">PLN</mat-option>
+              </mat-select>
+
+
+            </form>
           </li>
 
           <li class="header-menu__item">

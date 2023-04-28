@@ -14,4 +14,5 @@ export class HeaderComponent implements OnInit {
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
+  currencySelectForm = new FormControl('EUR');
 }

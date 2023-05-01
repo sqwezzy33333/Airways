@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { LocalStorageService } from '../../../core/index';
+import { IAuthResponse, LocalStorageService } from '../../../core/index';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,9 @@ export class TokenService {
     .set('client_id', this.apiKey)
     .set('client_secret', this.apiSecret);
 
-    return this.http.post(this.apiTokenEndpoint, body.toString(), {headers})
+    return this.http.post<IAuthResponse>(this.apiTokenEndpoint, body.toString(), {headers})
       .pipe(
-        map((response: any) => {
+        map((response: IAuthResponse): string => {
           const token = response.access_token;
           const expiresIn = response.expires_in;
           const expirationTime = new Date().getTime() + expiresIn * 1000;

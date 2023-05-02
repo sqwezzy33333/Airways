@@ -12,12 +12,14 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {}
 
-  getData() {
-    this.http.get<any>('v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2023-05-02&adults=1&nonStop=false&max=250')
-    .pipe(
-      map(response => {
-      return response;
-      })
-    ).subscribe(data => console.log(data));
-  }
+  //remove after implement request logic
+
+  // getData() {
+  //   this.http.get<any>('v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2023-05-02&adults=1&nonStop=false&max=250')
+  //   .pipe(
+  //     map(response => {
+  //     return response;
+  //     })
+  //   ).subscribe(data => console.log(data));
+  // }
 }

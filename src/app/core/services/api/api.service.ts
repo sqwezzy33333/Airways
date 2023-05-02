@@ -15,7 +15,7 @@ export class ApiService {
     return this.http.get<IFlightOffer>(urlSearch);
   }
 
-  public getFlightOffer(locationCode: string, destinationCode: string, departureDate: string, adultsAmount: string): Observable<IFlightOffer> {
+  public getFlightOffer(locationCode: string, destinationCode: string, departureDate: string, adultsAmount: string, stop: boolean): Observable<IFlightOffer> {
     return this.fetchFlightOffer(locationCode, destinationCode, departureDate, adultsAmount, stop)
     .pipe(
       map(

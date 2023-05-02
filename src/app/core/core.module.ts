@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material/material.module'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenService, ApiInterceptor } from '../core/index';
 
@@ -7,6 +8,7 @@ import { TokenService, ApiInterceptor } from '../core/index';
   declarations: [],
   imports: [
     CommonModule,
+    MaterialModule,
     HttpClientModule,
   ],
   providers: [
@@ -18,4 +20,4 @@ import { TokenService, ApiInterceptor } from '../core/index';
     }
   ]
 })
-export class CoreModule { }
+export class CoreModule {}

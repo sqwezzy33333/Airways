@@ -1,0 +1,26 @@
+@import "../../../styles/abstracts/constants.scss";
+
+.home {
+  height: 779px;
+  padding: 88px 0px 77px 0px;
+  background: url("./assets/images/background.png") no-repeat;
+  background-size: cover;
+  background-position-y: -77px;
+
+  &__wrapper {
+    max-width: $container-width;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+.home-booking {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 300px;
+  height: 500px;
+  border: 2px solid beige;
+
+  padding: 28px 24px 24px 24px;
+}

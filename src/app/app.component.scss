@@ -1,0 +1,15 @@
+.app-wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+  width: 100%;
+}
+.app-content {
+	flex: 1 0 auto;
+}
+.app-footer {
+	flex: 0 0 auto;
+}
+.app-header{
+  flex: 0 0 auto;
+}

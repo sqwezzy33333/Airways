@@ -6,7 +6,11 @@ import { AppComponent } from './app.component';
 import { AuthComponent, BookingComponent, HomeComponent, ShopingCartComponent} from './pages/index';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-
+import {MaterialModule} from "./material/material.module";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +24,12 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    MaterialModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
   providers: [
 ],

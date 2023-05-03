@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [],
@@ -21,6 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
+    MatDialogModule,
+    MatButtonToggleModule
   ],
   exports: [
     FormsModule,
@@ -31,6 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
+    MatDialogModule,
+    MatButtonToggleModule
   ],
 })
 export class MaterialModule {}

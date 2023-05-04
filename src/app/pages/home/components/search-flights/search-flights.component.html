@@ -107,8 +107,6 @@
           </mat-datepicker>
         </mat-form-field>
       </div>
-
-      <p *ngIf="dateIsFalse">FALSE</p>
     </div>
 
     <div
@@ -243,3 +241,8 @@
   *ngIf="showPassengersOptions"
   (click)="closeOptions()"
 ></div>
+
+
+<p class="error"
+[ngClass]="{ flexReverse: dateIsFalse }"
+*ngIf="dateIsFalse">DATE IS FALSE</p>

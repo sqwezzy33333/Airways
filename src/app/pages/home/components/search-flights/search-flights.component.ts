@@ -13,18 +13,18 @@ export class SearchFlightsComponent implements OnInit {
   }
 
   searchForm = new FormGroup({
-    tripType: new FormControl<string>('roundTrip', []),
-    from: new FormControl<string>('', []),
-    dest: new FormControl<string>('', []),
+    tripType: new FormControl<string>('roundTrip', [Validators.required]),
+    from: new FormControl<string>('', [Validators.required]),
+    dest: new FormControl<string>('', [Validators.required]),
     date: new FormGroup({
       singleDate: new FormControl<string>('', []),
-      startDate: new FormControl<string>('', []),
-      endDate: new FormControl<string>('', []),
+      startDate: new FormControl<string>(''),
+      endDate: new FormControl<string>(''),
     }),
     passengers: new FormGroup({
-      adult: new FormControl<number>(0, []),
-      child: new FormControl<number>(0, []),
-      infant: new FormControl<number>(0, []),
+      adult: new FormControl<number>(0),
+      child: new FormControl<number>(0),
+      infant: new FormControl<number>(0),
     }),
   });
 
@@ -51,13 +51,28 @@ export class SearchFlightsComponent implements OnInit {
     ['Minsk', 'MNSK'],
   ];
 
+  get adult() {
+    return this.searchForm.value.passengers?.adult;
+  }
+
+  get child() {
+    return this.searchForm.value.passengers?.child;
+  }
+
+  get infant() {
+    return this.searchForm.value.passengers?.infant;
+  }
+
   formSubmit() {
     let formObject = { ...this.searchForm.value };
     if (this.isPlaceBlocksReverse) {
       formObject.from = this.searchForm.value.dest;
       formObject.dest = this.searchForm.value.from;
     }
-    console.log(formObject);
+
+    if (this.adult || this.child || this.infant) {
+      console.log(this.searchForm.valid);
+    }
   }
 
   reversePlaceBlocks() {
@@ -183,5 +198,12 @@ export class SearchFlightsComponent implements OnInit {
 
   closeOptions() {
     this.showPassengersOptions = false;
+  }
+
+  onewWayDateCheck(control: FormControl<string>) {
+    const todayDate = new Date().getTime();
+    const videoDate = new Date(control.value).getTime();
+    if (videoDate < todayDate) return { dateCheck: true };
+    return null;
   }
 }

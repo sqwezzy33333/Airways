@@ -1,0 +1,31 @@
+
+<div class="booking-journey__carousel">
+  <button class="carousel-btn carousel-btn_prev">
+    <span class="carousel-btn_icon">
+      <img src="./assets/booking/arrow.svg" alt="Arrow">
+    </span>
+  </button>
+  <ul class="carousel__container">
+    <li class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <button class="date-item">
+        <div class="date-item__date">
+          <div class="date-item__day-of-month">
+            <span class="date-item__day">01</span>
+            <span class="date-item__month">Mar</span>
+          </div>
+          <div class="date-item__day-of-week">Wednesday</div>
+        </div>
+        <div class="date-item__price">
+          <span class="price__symbol">€</span>
+          <span class="price__numbers">146.70</span>
+        </div>
+      </button>
+    </li>
+  </ul>
+  <button class="carousel-btn carousel-btn_next">
+    <span class="carousel-btn_icon">
+      <img src="./assets/booking/arrow.svg" alt="Arrow">
+    </span>
+  </button>
+
+</div>

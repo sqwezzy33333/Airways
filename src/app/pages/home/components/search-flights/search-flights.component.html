@@ -111,17 +111,26 @@
 
     <div
       class="home-form__params-pas params-pas home-form__params-item"
-      [ngClass]="{ fillBgOptions: showPassengersOptions }"
+      [ngClass]="{
+        fillBgOptions: showPassengersOptions,
+        errorBorderBottom: !isPassengers && wasPassOptionsBlockOpen
+      }"
     >
       <div class="params-pas__wrapper" (click)="openPassengersOptions()">
-        <div *ngIf="!isInfoPassSpanOnep" class="params-pas__start-title">
+        <div
+          *ngIf="!isPassengers"
+          class="params-pas__start-title"
+          [ngClass]="{
+            errorTextColor: !isPassengers && wasPassOptionsBlockOpen
+          }"
+        >
           Passengers
         </div>
 
-        <div *ngIf="isInfoPassSpanOnep" class="params-pas__end-title">
+        <div *ngIf="isPassengers" class="params-pas__end-title">
           <span>Passengers</span>
         </div>
-        <div *ngIf="isInfoPassSpanOnep" class="params-pas__info-spans">
+        <div *ngIf="isInfoPassSpanOpen" class="params-pas__info-spans">
           <span *ngIf="passengers.adult">{{ passengers.adult }} Adult,</span
           ><span *ngIf="passengers.child">{{ passengers.child }} Child,</span
           ><span *ngIf="passengers.infant">{{ passengers.infant }} Infant</span>
@@ -242,7 +251,6 @@
   (click)="closeOptions()"
 ></div>
 
-
-<p class="error"
-[ngClass]="{ flexReverse: dateIsFalse }"
-*ngIf="dateIsFalse">DATE IS FALSE</p>
+<p class="error" [ngClass]="{ flexReverse: dateIsFalse }" *ngIf="dateIsFalse">
+  DATE IS FALSE
+</p>

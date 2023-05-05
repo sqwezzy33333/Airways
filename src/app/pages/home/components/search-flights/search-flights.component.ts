@@ -8,9 +8,7 @@ import { ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchFlightsComponent implements OnInit {
-  ngOnInit(): void {
-    console.log(this.searchForm);
-  }
+  ngOnInit(): void {}
 
   searchForm = new FormGroup({
     tripType: new FormControl<string>('roundTrip', [Validators.required]),
@@ -34,18 +32,15 @@ export class SearchFlightsComponent implements OnInit {
     infant: 0,
   };
 
-  isInfoPassSpanOnep = false;
-
+  isInfoPassSpanOpen = false;
   showPassengersOptions = false;
-
   isPlaceBlocksReverse = false;
-
   isOneWay = false;
-
   dateIsFalse = false;
+  isPassengers = false;
+  wasPassOptionsBlockOpen = false;
 
   namesOfLabels = ['From', 'Destination'];
-
   exampleArrayOfPlace: Array<[string, string]> = [
     ['Chicago', 'CH'],
     ['Minsk', 'MNSK'],
@@ -70,9 +65,7 @@ export class SearchFlightsComponent implements OnInit {
       formObject.dest = this.searchForm.value.from;
     }
 
-    if (this.adult || this.child || this.infant) {
-      console.log(this.searchForm.valid);
-    }
+    if (this.searchForm.valid && this.isPassengers) console.log(formObject);
   }
 
   reversePlaceBlocks() {
@@ -109,7 +102,7 @@ export class SearchFlightsComponent implements OnInit {
 
   openPassengersOptions() {
     this.showPassengersOptions = true;
-    this.isInfoPassSpanOnep = true;
+    this.isInfoPassSpanOpen = true;
   }
 
   moreAdult() {
@@ -197,6 +190,8 @@ export class SearchFlightsComponent implements OnInit {
   }
 
   closeOptions() {
+    this.wasPassOptionsBlockOpen = true;
+    this.checkPassengers();
     this.showPassengersOptions = false;
   }
 
@@ -205,5 +200,14 @@ export class SearchFlightsComponent implements OnInit {
     const videoDate = new Date(control.value).getTime();
     if (videoDate < todayDate) return { dateCheck: true };
     return null;
+  }
+
+  checkPassengers(): void {
+    let emptyPassObjectString: string = '{"adult":0,"child":0,"infant":0}';
+    if (JSON.stringify(this.passengers) !== emptyPassObjectString) {
+      this.isPassengers = true;
+    } else {
+      this.isPassengers = false;
+    }
   }
 }

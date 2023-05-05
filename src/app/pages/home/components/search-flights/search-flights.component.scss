@@ -231,3 +231,11 @@
 .fillBgOptions {
   background-color: #d1d1d1;
 }
+
+.errorBorderBottom {
+  border-bottom: 0.2em solid var(--mdc-theme-error, #f44336);
+}
+
+.errorTextColor {
+  color: var(--mdc-theme-error, #f44336);
+}

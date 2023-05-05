@@ -1,0 +1,220 @@
+@import '../../../../../../styles/abstracts/constants.scss';
+
+.flight-card {
+  display: block;
+  padding: 8px 0;
+  .card-wrapper {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    display: block;
+    transition: transform .2s ease,
+    box-shadow .2s ease;
+    &:hover {
+      box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+      transform: scale(1.01);
+    }
+
+    .card-body {
+      display: flex;
+      align-items: center;
+      border: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      cursor: pointer;
+      
+      .card-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        align-self: stretch;
+        min-width: 70%;
+        padding: 27px 41px;
+
+        .card-info__cols {
+          display: flex;
+          align-items: center;
+          align-self: stretch;
+          padding: 0;
+
+          .card-info__col {
+            display: flex;
+            text-align: center;
+            flex-grow: 1;
+            padding-right: 20px;
+            .flight-arrival {
+              text-align: end;
+              .arrival-time_hour {
+                padding-left: 16px;
+              }
+            }
+            .flight-departure {
+              text-align: start;
+              .departure-time_hour {
+                padding-right: 16px;
+              }
+            }
+            .flight-departure, .flight-arrival {
+              width: 127px;
+
+              .departure-date, .arrival-date {
+                font-weight: 400;
+                font-size: 1.6rem;
+                line-height: 1.6rem;
+                color: $color-text;
+              }
+              .departure-time, .arrival-time {
+                display: flex;
+                align-items: center;
+
+                .departure-time_hour, .arrival-time_hour {
+                  font-weight: 700;
+                  font-size: 3rem;
+                  line-height: 3.6rem;
+                }
+                .departure-time_utc, .arrival-time_utc {
+                  font-weight: 400;
+                  font-size: 0.8rem;
+                  line-height: 2rem;
+                  color: $color-text;
+                  vertical-align: middle;
+                  text-align: center;
+                }
+              }
+              .arrival-time {
+                justify-content: flex-end;
+              }
+
+              .departure-city, .arrival-city {
+                font-weight: 400;
+                font-size: 1.2rem;
+                line-height: 1.6rem;
+                color: $color-text;
+                letter-spacing: 0.4px;
+              }
+            }
+
+            .flight-duration {
+              flex-grow: 1;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+
+              .duration-img {
+                position: relative;
+                .duration-icon {
+                  &::before, &::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    height: 2px;
+                    width: 40%;
+                    background-color: #D0D9DF;
+                    transform: translateY(-50%);
+                  }
+                  &::before {
+                    top: 50%;
+                    left: 50%;
+                  }
+                  &::after {
+                    bottom: 50%;
+                    right: 50%;
+                  }
+                  img {
+                    display: inline-block;
+                    position: absolute;
+                    background-color: #fff;
+                    padding: 0 10px;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -80%);
+                    z-index: 1;
+                  }
+                }
+              }
+              .duration-time, .duration-label {
+                font-weight: 400;
+                font-size: 1.2rem;
+                line-height: 1.6rem;
+                align-items: center;
+                letter-spacing: 0.4px;
+              }
+            }
+          }
+          .card-flight-label {
+            font-weight: 400;
+            font-size: 1.4rem;
+            line-height: 2rem;
+            color: $color-text;
+            padding-right: 12px;
+          }
+
+          .card-flight-num {
+            font-weight: 400;
+            font-size: 1.4rem;
+            line-height: 2rem;
+          }
+        }
+      }
+      .card-price {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15.5px 41px 15.5px 30px;
+        border-left: 2px dashed #D0D9DF;
+        text-align: right;
+        width: 314px;
+        .price-wrapper {
+          display: flex;
+          align-items: flex-end;
+          flex: 1;
+          flex-direction: column;
+          justify-content: space-between;
+          flex-grow: 1;
+          text-align: right;
+          
+          .seats-availabel {
+            padding: 4px 8px 4px 32px;
+            width: 133px;
+            background: rgba(241, 201, 51, 0.3);
+            border-radius: 2px;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 16px;
+          }
+
+          .price-fare {
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+            color: $color-text;
+            padding: 6px 0 0;
+          }
+
+          .price-value {
+            font-weight: 700;
+            font-size: 3rem;
+            line-height: 3.6rem;
+            color: $color-primary;
+          }
+        }
+        .card-price__btn {
+          background: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
+          border: 1px solid #11397E;
+          border-radius: 4px;
+          padding: 8px 16px;
+          margin-left: 32px;
+          width: 78px;
+          height: 36px;
+          font-weight: 500;
+          font-size: 1.6rem;
+          line-height: 2rem;
+          color: #ffffff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

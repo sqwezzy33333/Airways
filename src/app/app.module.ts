@@ -6,21 +6,22 @@ import { AppComponent } from './app.component';
 import { AuthComponent, BookingComponent, HomeComponent, ShopingCartComponent} from './pages/index';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { BookingModule } from './pages/booking/booking.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    BookingComponent,
     HomeComponent,
-    ShopingCartComponent
+    ShopingCartComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    BookingModule,
   ],
   providers: [
 ],

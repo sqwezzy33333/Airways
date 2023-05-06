@@ -71,10 +71,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+
   .form-field{
     width: 100%;
-    height: 56px;
-    background: #F4F6F9;
     border-radius: 4px;
     .label-form{
       font-style: normal;
@@ -92,11 +91,7 @@
       align-items: center;
       letter-spacing: 0.5px;
       color: #49454F;
-      height: 56px;
     }
-  }
-  .form-field:not(:last-child){
-  margin-bottom: 16px;
   }
   .form-field-bday{
     margin-bottom: 0px !important;
@@ -116,7 +111,7 @@
     background: #F4F6F9;
     border: 0.5px solid #CECECE;
     border-radius: 6px;
-    margin: 20px 0;
+    margin-bottom: 20px;
     .nav-button{
       width: 100%;
       font-weight: 500;
@@ -129,15 +124,15 @@
   }
   .phone{
     display: flex;
-    .form-field:not(:last-child){
-      margin-right:8px ;
+    .form-field:not(:last-child) {
+      margin-right: 8px;
     }
   }
 }
 .agreement{
   text-align: left;
   display: flex;
-  margin: 35px 0;
+  margin: 20px 0;
   label{
     font-style: normal;
     font-weight: 500;

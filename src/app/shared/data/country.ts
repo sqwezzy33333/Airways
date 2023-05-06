@@ -1,4 +1,4 @@
-import {ICountry} from "../../core/models/county.model";
+import {ICountry} from "../../core/models/auth.model";
 
 export const Country: ICountry[] = [
   {

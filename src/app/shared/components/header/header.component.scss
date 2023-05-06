@@ -75,8 +75,21 @@
   line-height: 24px;
   color: white;
 }
+.header-btn-bg .mdc-button__label{
+  display: flex;
+  img{
+    margin-right: 4px;
+  }
+}
 
-.header-btn-bg {
+.header-logout{
+  margin-top: 4px;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.header-btn-bg{
   background: linear-gradient(
     0deg,
     rgba(241, 243, 246, 0.15),
@@ -85,7 +98,8 @@
   border-radius: 5px;
 }
 
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+
+.header .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background: linear-gradient(
     0deg,
     rgba(241, 243, 246, 0.15),
@@ -94,7 +108,7 @@
   border-radius: 5px;
 }
 
-mat-label {
+.header mat-label {
   color: white;
 }
 
@@ -102,15 +116,15 @@ mat-label {
   height: 50px;
 }
 
-.mat-mdc-form-field-infix {
+.header .mat-mdc-form-field-infix {
   padding: 5px 0px !important;
   min-height: 38px;
 }
 
-.mat-mdc-form-field-subscript-wrapper {
+.header .mat-mdc-form-field-subscript-wrapper {
   display: none;
 }
 
-.currency-list .mat-mdc-select-arrow-wrapper {
+.header .currency-list .mat-mdc-select-arrow-wrapper {
   display: none !important;
 }

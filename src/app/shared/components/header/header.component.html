@@ -44,9 +44,19 @@
           </li>
 
           <li class="header-menu__item">
-            <button class="header-btn-bg" mat-stroked-button type="button" (click)="openDialog()">
-              <span class="header-span" > Sign in </span>
+            <button *ngIf="!(isAuth$ | async)" class="header-btn-bg" mat-stroked-button type="button" (click)="openDialog()">
+              <img src="assets/images/account_circle_filled_24px.svg">
+              <span class="header-span" >Sign in </span>
             </button>
+            <button *ngIf="isAuth$ | async" class="header-btn-bg " mat-stroked-button type="button" beforeClosed="(isAuth$ | async)">
+              <img src="assets/images/account_circle_filled_24px.svg">
+              <span class="header-span" > {{firstName$ | async}}</span>
+            </button>
+          </li>
+          <li class="header-menu__item" *ngIf="isAuth$ | async">
+            <mat-icon  class="header-logout" aria-hidden="false" aria-label="Example home icon"
+                       (click)="onLogout()"
+                       fontIcon="logout"></mat-icon>
           </li>
 
           <li class="header-menu__item _pointer mr-cart">

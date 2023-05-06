@@ -4,7 +4,7 @@ import { ViewEncapsulation } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {AuthService} from "../../../core";
 import {MatDialog} from "@angular/material/dialog";
-import {AuthComponent} from "../../../pages";
+import {AuthComponent} from "../auth/auth.component";
 
 @Component({
   selector: 'app-header',
@@ -15,25 +15,26 @@ import {AuthComponent} from "../../../pages";
 export class HeaderComponent implements OnInit {
 
   isOpen$!: BehaviorSubject<boolean>;
+  isAuth$! :BehaviorSubject<boolean>
+  firstName$! :BehaviorSubject<string | null | undefined>
 
   ngOnInit(): void {
     this.isOpen$ = this.AuthService.dialogIsOpen$;
-    console.log(this.dateSelectForm);
+    this.isAuth$ = this.AuthService.isAuth$;
+    this.firstName$ = this.AuthService.firstName$;
   }
-  constructor(private AuthService: AuthService, public dialog: MatDialog) {
+  constructor(private AuthService: AuthService) {
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
   currencySelectForm = new FormControl('EUR');
 
   openDialog() {
-    const dialogRef = this.dialog.open(AuthComponent, {
-      width:"494px"
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.AuthService.isLogin$.next(true)
-    });
-    this.AuthService.toOpen()
+    this.AuthService.onOpen()
+  }
+  onLogout(){
+    this.AuthService.onLogout()
   }
 }
+
+

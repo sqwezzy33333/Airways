@@ -54,14 +54,19 @@
           [formGroup]="searchForm.controls.date"
         >
           <mat-label>Date</mat-label>
-          <mat-date-range-input [rangePicker]="rangePicker" xPosition="100px">
+          <mat-date-range-input
+            [rangePicker]="rangePicker"
+            xPosition="100px"
+            [min]="minDate"
+          >
             <input
-              (dateChange)="checkDates()"
+              required="true"
               formControlName="startDate"
               matStartDate
               placeholder="Start date"
             />
             <input
+              required="true"
               formControlName="endDate"
               matEndDate
               placeholder="End date"
@@ -72,7 +77,7 @@
             matIconSuffix
             [for]="rangePicker"
           ></mat-datepicker-toggle>
-          <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker #rangePicker (closed)="checkDateInput()">
             <mat-date-range-picker-actions>
               <button mat-button matDateRangePickerCancel>Cancel</button>
               <button mat-raised-button matDateRangePickerApply>Ok</button>
@@ -89,7 +94,8 @@
         >
           <mat-label>Date</mat-label>
           <input
-            (dateChange)="checkDates()"
+            required="true"
+            [min]="minDate"
             formControlName="singleDate"
             matInput
             [matDatepicker]="datepicker"
@@ -99,7 +105,7 @@
             matIconSuffix
             [for]="datepicker"
           ></mat-datepicker-toggle>
-          <mat-datepicker #datepicker>
+          <mat-datepicker #datepicker (closed)="checkDateInput()">
             <mat-datepicker-actions>
               <button mat-button matDatepickerCancel>Cancel</button>
               <button mat-raised-button matDatepickerApply>Ok</button>
@@ -107,23 +113,30 @@
           </mat-datepicker>
         </mat-form-field>
       </div>
-
-      <p *ngIf="dateIsFalse">FALSE</p>
     </div>
 
     <div
       class="home-form__params-pas params-pas home-form__params-item"
-      [ngClass]="{ fillBgOptions: showPassengersOptions }"
+      [ngClass]="{
+        fillBgOptions: showPassengersOptions,
+        errorBorderBottom: !isPassengers && wasPassOptionsBlockOpen
+      }"
     >
       <div class="params-pas__wrapper" (click)="openPassengersOptions()">
-        <div *ngIf="!isInfoPassSpanOnep" class="params-pas__start-title">
+        <div
+          *ngIf="!isPassengers"
+          class="params-pas__start-title"
+          [ngClass]="{
+            errorTextColor: !isPassengers && wasPassOptionsBlockOpen
+          }"
+        >
           Passengers
         </div>
 
-        <div *ngIf="isInfoPassSpanOnep" class="params-pas__end-title">
+        <div *ngIf="isPassengers" class="params-pas__end-title">
           <span>Passengers</span>
         </div>
-        <div *ngIf="isInfoPassSpanOnep" class="params-pas__info-spans">
+        <div *ngIf="isInfoPassSpanOpen" class="params-pas__info-spans">
           <span *ngIf="passengers.adult">{{ passengers.adult }} Adult,</span
           ><span *ngIf="passengers.child">{{ passengers.child }} Child,</span
           ><span *ngIf="passengers.infant">{{ passengers.infant }} Infant</span>

@@ -1,1 +1,258 @@
-<p>search-flights works!</p>
+<form class="home-form" action="#" [formGroup]="searchForm">
+  <div class="home-form__type-of-trip" style="margin-bottom: 26px">
+    <mat-radio-group formControlName="tripType">
+      <mat-radio-button
+        color="primary"
+        style="margin-right: 62px"
+        value="roundTrip"
+        (click)="oneWayIsFalse()"
+        [checked]="true"
+        >Round Trip</mat-radio-button
+      >
+      <mat-radio-button color="primary" value="oneWay" (click)="oneWayIsTrue()"
+        >One Way</mat-radio-button
+      >
+    </mat-radio-group>
+  </div>
+
+  <div
+    class="home-form__place"
+    style="margin-bottom: 28px"
+    [ngClass]="{ flexReverse: isPlaceBlocksReverse }"
+  >
+    <mat-form-field class="home-form__place-item" appearance="fill">
+      <mat-label>{{ namesOfLabels[0] }}</mat-label>
+      <mat-select formControlName="from" disableRipple>
+        <mat-option *ngFor="let item of exampleArrayOfPlace" [value]="item[1]"
+          ><span class="mr-10px home-form__place-span">{{ item[0] }}</span>
+          <span class="gray-bg home-form__place-span"> {{ item[1] }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="home-form__place-item" appearance="fill">
+      <mat-label ng-switch-when="">{{ namesOfLabels[1] }}</mat-label>
+      <mat-select formControlName="dest" disableRipple>
+        <mat-option *ngFor="let item of exampleArrayOfPlace" [value]="item[1]"
+          ><span class="mr-10px home-form__place-span">{{ item[0] }}</span>
+          <span class="gray-bg home-form__place-span"> {{ item[1] }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="home-form__place-reverse-btn" (click)="reversePlaceBlocks()">
+      <img src="./assets/home-page/btn-reverse.svg" alt="reverse-btn" />
+    </div>
+  </div>
+
+  <div class="home-form__params">
+    <div class="home-form__params-dates">
+      <div class="home-form__params-item" *ngIf="!isOneWay">
+        <mat-form-field
+          appearance="fill"
+          class="calendar"
+          [formGroup]="searchForm.controls.date"
+        >
+          <mat-label>Date</mat-label>
+          <mat-date-range-input
+            [rangePicker]="rangePicker"
+            xPosition="100px"
+            [min]="minDate"
+          >
+            <input
+              required="true"
+              formControlName="startDate"
+              matStartDate
+              placeholder="Start date"
+            />
+            <input
+              required="true"
+              formControlName="endDate"
+              matEndDate
+              placeholder="End date"
+            />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="rangePicker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker (closed)="checkDateInput()">
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancel</button>
+              <button mat-raised-button matDateRangePickerApply>Ok</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <div class="home-form__params-item" *ngIf="isOneWay">
+        <mat-form-field
+          appearance="fill"
+          class="calendar"
+          [formGroup]="searchForm.controls.date"
+        >
+          <mat-label>Date</mat-label>
+          <input
+            required="true"
+            [min]="minDate"
+            formControlName="singleDate"
+            matInput
+            [matDatepicker]="datepicker"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker (closed)="checkDateInput()">
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button matDatepickerApply>Ok</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      class="home-form__params-pas params-pas home-form__params-item"
+      [ngClass]="{
+        fillBgOptions: showPassengersOptions,
+        errorBorderBottom: !isPassengers && wasPassOptionsBlockOpen
+      }"
+    >
+      <div class="params-pas__wrapper" (click)="openPassengersOptions()">
+        <div
+          *ngIf="!isPassengers"
+          class="params-pas__start-title"
+          [ngClass]="{
+            errorTextColor: !isPassengers && wasPassOptionsBlockOpen
+          }"
+        >
+          Passengers
+        </div>
+
+        <div *ngIf="isPassengers" class="params-pas__end-title">
+          <span>Passengers</span>
+        </div>
+        <div *ngIf="isInfoPassSpanOpen" class="params-pas__info-spans">
+          <span *ngIf="passengers.adult">{{ passengers.adult }} Adult,</span
+          ><span *ngIf="passengers.child">{{ passengers.child }} Child,</span
+          ><span *ngIf="passengers.infant">{{ passengers.infant }} Infant</span>
+        </div>
+
+        <div class="params-pas__options-block" *ngIf="showPassengersOptions">
+          <div class="params-pas__options-wrapper">
+            <div value="1" class="params-pas__div mb-12px">
+              <div class="params-pas__option">
+                <div class="params-pas__option-info">
+                  <span
+                    class="params-pas__option-title"
+                    [ngClass]="{ activeCount: !!passengers.adult }"
+                    >Adults</span
+                  >
+                  <span class="params-pas__option-subtitle">14+ years</span>
+                </div>
+
+                <div class="params-pas__option-btns">
+                  <button
+                    class="params-pas__option-btns-less"
+                    (click)="lessAdult()"
+                  >
+                    -
+                  </button>
+                  <span
+                    class="params-pas__option-count"
+                    [ngClass]="{ unactiveCount: !passengers.adult }"
+                    >{{ passengers.adult }}</span
+                  >
+                  <button
+                    class="params-pas__option-btns-more"
+                    (click)="moreAdult()"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div value="2" class="params-pas__div mb-12px">
+              <div class="params-pas__option">
+                <div class="params-pas__option-info">
+                  <span
+                    class="params-pas__option-title"
+                    [ngClass]="{ activeCount: !!passengers.child }"
+                    >Child
+                  </span>
+                  <span class="params-pas__option-subtitle">2-14 years</span>
+                </div>
+
+                <div class="params-pas__option-btns">
+                  <button
+                    class="params-pas__option-btns-less"
+                    (click)="lessChild()"
+                  >
+                    -
+                  </button>
+                  <span
+                    class="params-pas__option-count"
+                    [ngClass]="{ unactiveCount: !passengers.child }"
+                    >{{ passengers.child }}</span
+                  >
+                  <button
+                    class="params-pas__option-btns-more"
+                    (click)="moreChild()"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div value="3" class="params-pas__div">
+              <div class="params-pas__option">
+                <div class="params-pas__option-info">
+                  <span
+                    class="params-pas__option-title"
+                    [ngClass]="{ activeCount: !!passengers.infant }"
+                    >Infant
+                  </span>
+                  <span class="params-pas__option-subtitle">0-2 years</span>
+                </div>
+
+                <div class="params-pas__option-btns">
+                  <button
+                    class="params-pas__option-btns-less"
+                    (click)="lessInfant()"
+                  >
+                    -
+                  </button>
+                  <span
+                    class="params-pas__option-count"
+                    [ngClass]="{ unactiveCount: !passengers.infant }"
+                    >{{ passengers.infant }}</span
+                  >
+                  <button
+                    class="params-pas__option-btns-more"
+                    (click)="moreInfant()"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="formSubmit()" class="home-form__submit-btn">Search</button>
+</form>
+
+<div
+  class="params-pas__close-options"
+  *ngIf="showPassengersOptions"
+  (click)="closeOptions()"
+></div>

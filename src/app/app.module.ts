@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import {  BookingComponent, HomeComponent, ShopingCartComponent} from './pages/index';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import {MaterialModule} from "./material/material.module";
+import { HomeModule } from './pages/home/home.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,7 @@ import {MaterialModule} from "./material/material.module";
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    MaterialModule,
+    HomeModule,
   ],
   providers: [
 ],

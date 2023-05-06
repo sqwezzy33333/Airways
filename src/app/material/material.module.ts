@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -26,6 +27,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
+    MatRadioModule,
     MatDialogModule,
     MatButtonToggleModule,
     MatCheckboxModule,
@@ -41,6 +43,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
+    MatRadioModule,
     MatDialogModule,
     MatButtonToggleModule,
     MatCheckboxModule,

@@ -36,9 +36,11 @@ export class SearchFlightsComponent implements OnInit {
   showPassengersOptions = false;
   isPlaceBlocksReverse = false;
   isOneWay = false;
-  dateIsFalse = false;
+  isDate = false;
   isPassengers = false;
   wasPassOptionsBlockOpen = false;
+
+  minDate = new Date();
 
   namesOfLabels = ['From', 'Destination'];
   exampleArrayOfPlace: Array<[string, string]> = [
@@ -49,23 +51,35 @@ export class SearchFlightsComponent implements OnInit {
   get adult() {
     return this.searchForm.value.passengers?.adult;
   }
-
   get child() {
     return this.searchForm.value.passengers?.child;
   }
-
   get infant() {
     return this.searchForm.value.passengers?.infant;
+  }
+  get tripType() {
+    return this.searchForm.value.tripType;
+  }
+  get singleDate() {
+    return this.searchForm.value.date?.singleDate;
+  }
+  get startDate() {
+    return this.searchForm.value.date?.startDate;
+  }
+  get endDate() {
+    return this.searchForm.value.date?.endDate;
   }
 
   formSubmit() {
     let formObject = { ...this.searchForm.value };
+
     if (this.isPlaceBlocksReverse) {
       formObject.from = this.searchForm.value.dest;
       formObject.dest = this.searchForm.value.from;
     }
 
-    if (this.searchForm.valid && this.isPassengers) console.log(formObject);
+    if (this.searchForm.valid && this.isPassengers && this.isDate)
+      console.log(formObject);
   }
 
   reversePlaceBlocks() {
@@ -80,24 +94,6 @@ export class SearchFlightsComponent implements OnInit {
 
   oneWayIsFalse() {
     this.isOneWay = false;
-  }
-
-  checkDates() {
-    let tripType = this.searchForm.get('tripType')?.value;
-    let today = new Date();
-    let startDate = this.searchForm.controls.date.get('startDate')?.value;
-    let singleDate = this.searchForm.controls.date.get('singleDate')?.value;
-
-    if (tripType === 'roundTrip') {
-      let isStardDayOlder;
-      if (startDate) isStardDayOlder = new Date(startDate);
-      if (isStardDayOlder) this.dateIsFalse = today > isStardDayOlder;
-    }
-    if (tripType === 'oneWay') {
-      let isSingleDateOlder;
-      if (singleDate) isSingleDateOlder = new Date(singleDate);
-      if (isSingleDateOlder) this.dateIsFalse = today > isSingleDateOlder;
-    }
   }
 
   openPassengersOptions() {
@@ -208,6 +204,18 @@ export class SearchFlightsComponent implements OnInit {
       this.isPassengers = true;
     } else {
       this.isPassengers = false;
+    }
+  }
+
+  checkDateInput() {
+    if (this.tripType === 'roundTrip') {
+      if (this.startDate && this.endDate) {
+        this.isDate = true;
+      } else this.isDate = false;
+    } else {
+      if (this.singleDate) {
+        this.isDate = true;
+      } else this.isDate = false;
     }
   }
 }

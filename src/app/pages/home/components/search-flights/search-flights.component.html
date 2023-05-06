@@ -54,14 +54,19 @@
           [formGroup]="searchForm.controls.date"
         >
           <mat-label>Date</mat-label>
-          <mat-date-range-input [rangePicker]="rangePicker" xPosition="100px">
+          <mat-date-range-input
+            [rangePicker]="rangePicker"
+            xPosition="100px"
+            [min]="minDate"
+          >
             <input
-              (dateChange)="checkDates()"
+              required="true"
               formControlName="startDate"
               matStartDate
               placeholder="Start date"
             />
             <input
+              required="true"
               formControlName="endDate"
               matEndDate
               placeholder="End date"
@@ -72,7 +77,7 @@
             matIconSuffix
             [for]="rangePicker"
           ></mat-datepicker-toggle>
-          <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker #rangePicker (closed)="checkDateInput()">
             <mat-date-range-picker-actions>
               <button mat-button matDateRangePickerCancel>Cancel</button>
               <button mat-raised-button matDateRangePickerApply>Ok</button>
@@ -89,7 +94,8 @@
         >
           <mat-label>Date</mat-label>
           <input
-            (dateChange)="checkDates()"
+            required="true"
+            [min]="minDate"
             formControlName="singleDate"
             matInput
             [matDatepicker]="datepicker"
@@ -99,7 +105,7 @@
             matIconSuffix
             [for]="datepicker"
           ></mat-datepicker-toggle>
-          <mat-datepicker #datepicker>
+          <mat-datepicker #datepicker (closed)="checkDateInput()">
             <mat-datepicker-actions>
               <button mat-button matDatepickerCancel>Cancel</button>
               <button mat-raised-button matDatepickerApply>Ok</button>
@@ -250,7 +256,3 @@
   *ngIf="showPassengersOptions"
   (click)="closeOptions()"
 ></div>
-
-<p class="error" [ngClass]="{ flexReverse: dateIsFalse }" *ngIf="dateIsFalse">
-  DATE IS FALSE
-</p>

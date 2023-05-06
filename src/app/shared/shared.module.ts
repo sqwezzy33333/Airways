@@ -5,19 +5,10 @@ import { MaterialModule } from '../material/material.module';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SearchFlightsComponent } from '../pages/home/components/search-flights/search-flights.component';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SearchFlightsComponent,
-  ],
+  declarations: [HeaderComponent, FooterComponent],
   imports: [CommonModule, MaterialModule],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SearchFlightsComponent,
-  ],
+  exports: [HeaderComponent, FooterComponent],
 })
 export class SharedModule {}

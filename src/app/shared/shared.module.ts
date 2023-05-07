@@ -5,10 +5,16 @@ import { MaterialModule } from '../material/material.module';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {AuthComponent} from "./components/auth/auth.component";
+import { AuthComponent } from './components/auth/auth.component';
+import { BookingStepsComponent } from './components/header/booking-steps/booking-steps/booking-steps.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, AuthComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    AuthComponent,
+    BookingStepsComponent,
+  ],
   imports: [CommonModule, MaterialModule],
   exports: [HeaderComponent, FooterComponent, AuthComponent],
 })

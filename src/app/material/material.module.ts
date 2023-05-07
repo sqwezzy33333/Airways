@@ -9,8 +9,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [],
@@ -25,6 +28,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
+    MatDialogModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
   ],
@@ -38,6 +44,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatRadioModule,
+    MatDialogModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
   ],

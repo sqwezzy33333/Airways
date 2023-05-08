@@ -7,8 +7,6 @@ import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./step2.component.scss'],
 })
 export class Step2Component implements OnInit {
-  stepForm: FormGroup = new FormGroup({});
-
   value = 'Clear me';
 
   passArrayOfString: string[] = [];
@@ -40,7 +38,6 @@ export class Step2Component implements OnInit {
   ngOnInit(): void {
     this.transformPass();
     this.createForm();
-    console.log(this.passArrayOfString);
     console.log(this.arrayForms);
   }
 
@@ -76,7 +73,7 @@ export class Step2Component implements OnInit {
         ),
       });
       let keys = Object.keys(allForms.controls);
-      itemArray.push(spanText, allForms, keys);
+      itemArray.push(spanText, allForms, keys, '');
       this.arrayForms.push(itemArray);
     });
   }
@@ -85,7 +82,8 @@ export class Step2Component implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  submitForm(){
-    console.log(this.arrayForms)
+  submitForm() {
+    console.log(this.arrayForms);
   }
+
 }

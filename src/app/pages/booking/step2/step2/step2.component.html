@@ -11,41 +11,66 @@
 <div *ngFor="let item of arrayForms" class="step2-item">
   <div class="step2-item__title">{{ item[0] }}</div>
   <div class="step2-item__form-wrapper">
-    <mat-form-field class="field-width">
+    <mat-form-field class="field-width" [formGroup]="item[1]">
       <mat-label>First Name</mat-label>
-      <input matInput />
+      <input matInput [formControlName]="item[2][0]" />
     </mat-form-field>
 
-    <mat-form-field class="field-width">
+    <mat-form-field class="field-width" [formGroup]="item[1]">
       <mat-label>Last Name</mat-label>
-      <input matInput />
+      <input matInput [formControlName]="item[2][1]" />
     </mat-form-field>
 
-    <div style="display: flex">
+    <form style="display: flex" [formGroup]="item[1]">
       <label
         class="step2-item__select-label boreder-left-select"
         style="margin-right: -2px"
         for="step2Male"
-        >Male</label
+        (click)="item[3] = 'male'"
+        [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
       >
-      <input style="display: none" type="radio" value="male" id="step2Male" />
+        <img
+          *ngIf="item[3] === 'male'"
+          src="./assets/booking/step2/selected.svg"
+          alt=""
+        />
+        <span [ngClass]="{ step2LabelSelected: item[3] === 'male' }">Male</span></label
+      >
+      <input
+        style="display: none"
+        type="radio"
+        value="male"
+        id="step2Male"
+        [formControlName]="item[2][2]"
+      />
 
       <label
         class="step2-item__select-label boreder-right-select"
         for="step2Female"
-        >Female</label
+        (click)="item[3] = 'female'"
       >
+        <img
+          *ngIf="item[3] === 'female'"
+          src="./assets/booking/step2/selected.svg"
+          alt="" />
+        <span [ngClass]="{ step2LabelSelected: item[3] === 'female' }">Female</span
+      ></label>
       <input
         type="radio"
         style="display: none"
         value="female"
         id="step2Female"
+        [formControlName]="item[2][2]"
       />
-    </div>
+    </form>
 
-    <mat-form-field appearance="fill" class="field-width">
+    <mat-form-field appearance="fill" class="field-width" [formGroup]="item[1]">
       <mat-label>Date of birth</mat-label>
-      <input matInput [matDatepicker]="datepicker" />
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        [formControlName]="item[2][3]"
+      />
       <mat-datepicker-toggle
         matIconSuffix
         [for]="datepicker"
@@ -82,5 +107,5 @@
 
 <div class="step2__btns">
   <button>Back</button>
-  <button class="step2__continue">Continue</button>
+  <button (click)="submitForm()" class="step2__continue">Continue</button>
 </div>

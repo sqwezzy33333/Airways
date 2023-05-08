@@ -1,0 +1,86 @@
+<section class="step2">
+  <div class="step2__title">
+    <img src="./assets/booking/step2/person.svg" alt="" />
+    <span>Passengers</span>
+  </div>
+  <div class="step2__sub-title">
+    Enter the passenger's names as they appear on document (passport or ID).
+  </div>
+</section>
+
+<div *ngFor="let item of arrayForms" class="step2-item">
+  <div class="step2-item__title">{{ item[0] }}</div>
+  <div class="step2-item__form-wrapper">
+    <mat-form-field class="field-width">
+      <mat-label>First Name</mat-label>
+      <input matInput />
+    </mat-form-field>
+
+    <mat-form-field class="field-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput />
+    </mat-form-field>
+
+    <div style="display: flex">
+      <label
+        class="step2-item__select-label boreder-left-select"
+        style="margin-right: -2px"
+        for="step2Male"
+        >Male</label
+      >
+      <input style="display: none" type="radio" value="male" id="step2Male" />
+
+      <label
+        class="step2-item__select-label boreder-right-select"
+        for="step2Female"
+        >Female</label
+      >
+      <input
+        type="radio"
+        style="display: none"
+        value="female"
+        id="step2Female"
+      />
+    </div>
+
+    <mat-form-field appearance="fill" class="field-width">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="datepicker" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+
+<div>
+  <div class="step2-contact__title step2__title" style="margin-top: 48px">
+    <img src="./assets/booking/step2/contact.svg" alt="" />
+    <span>Contact details</span>
+  </div>
+  <div class="step2__sub-title">
+    We need contact details to be able to deliver the latest information
+    regarding your flight.
+  </div>
+
+  <div class="step2__contact">
+    <mat-form-field class="example-full-width" style="width: 418px">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="Ex. pat@example.com" />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="step2__btns">
+  <button>Back</button>
+  <button class="step2__continue">Continue</button>
+</div>

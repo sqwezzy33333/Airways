@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './shared/components/auth/auth.component';
+import { AuthComponent } from './shared/index';
 
 const routes: Routes = [
   {

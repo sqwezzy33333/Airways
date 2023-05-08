@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService, ISignUp, IUser} from "../../../core";
+import {AuthService, ISignUp, IUser, ICountry} from "../../../core/index";
 import {BehaviorSubject} from "rxjs";
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {ICountry} from "../../../core";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-auth',

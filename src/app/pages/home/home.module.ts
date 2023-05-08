@@ -5,8 +5,16 @@ import { SearchFlightsComponent } from './components/search-flights/search-fligh
 import { HomeComponent } from './home.component';
 
 @NgModule({
-  declarations: [SearchFlightsComponent, HomeComponent],
-  imports: [CommonModule, MaterialModule],
-  exports: [HomeComponent],
+  declarations: [
+    SearchFlightsComponent,
+    HomeComponent
+  ],
+  imports: [
+    CommonModule,
+    MaterialModule
+  ],
+  exports: [
+    HomeComponent
+  ],
 })
 export class HomeModule {}

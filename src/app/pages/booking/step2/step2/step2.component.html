@@ -7,105 +7,183 @@
     Enter the passenger's names as they appear on document (passport or ID).
   </div>
 </section>
-
-<div *ngFor="let item of arrayForms" class="step2-item">
-  <div class="step2-item__title">{{ item[0] }}</div>
-  <div class="step2-item__form-wrapper">
-    <mat-form-field class="field-width" [formGroup]="item[1]">
-      <mat-label>First Name</mat-label>
-      <input matInput [formControlName]="item[2][0]" />
-    </mat-form-field>
-
-    <mat-form-field class="field-width" [formGroup]="item[1]">
-      <mat-label>Last Name</mat-label>
-      <input matInput [formControlName]="item[2][1]" />
-    </mat-form-field>
-
-    <form style="display: flex" [formGroup]="item[1]">
-      <label
-        class="step2-item__select-label boreder-left-select"
-        style="margin-right: -2px"
-        for="step2Male"
-        (click)="item[3] = 'male'"
-        [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
+<form (ngSubmit)="submitForm()">
+  <div *ngFor="let item of arrayForms" class="step2-item">
+    <div class="step2-item__title">{{ item[0] }}</div>
+    <div class="step2-item__form-wrapper">
+      <mat-form-field
+        class="field-width"
+        [formGroup]="item[1]"
+        [ngClass]="{
+          borderError: isNoValid
+        }"
       >
-        <img
-          *ngIf="item[3] === 'male'"
-          src="./assets/booking/step2/selected.svg"
-          alt=""
+        <mat-label>First Name</mat-label>
+        <input matInput [formControlName]="item[2][0]" />
+      </mat-form-field>
+
+      <mat-form-field
+        class="field-width"
+        [formGroup]="item[1]"
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+      >
+        <mat-label>Last Name</mat-label>
+        <input matInput [formControlName]="item[2][1]" />
+      </mat-form-field>
+
+      <form
+        style="display: flex"
+        [formGroup]="item[1]"
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+      >
+        <label
+          class="step2-item__select-label boreder-left-select"
+          style="margin-right: -2px"
+          [for]="item[2][2] + 'male'"
+          [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
+          (click)="item[3] = 'male'"
+        >
+          <img
+            *ngIf="item[3] === 'male'"
+            src="./assets/booking/step2/selected.svg"
+            alt=""
+          />
+          <span [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
+            >Male</span
+          ></label
+        >
+        <input
+          style="display: none"
+          type="radio"
+          value="male"
+          [id]="item[2][2] + 'male'"
+          [formControlName]="item[2][2]"
         />
-        <span [ngClass]="{ step2LabelSelected: item[3] === 'male' }">Male</span></label
+
+        <label
+          class="step2-item__select-label boreder-right-select"
+          [for]="item[2][2] + 'female'"
+          (click)="item[3] = 'female'"
+        >
+          <img
+            *ngIf="item[3] === 'female'"
+            src="./assets/booking/step2/selected.svg"
+            alt=""
+          />
+          <span [ngClass]="{ step2LabelSelected: item[3] === 'female' }"
+            >Female</span
+          ></label
+        >
+        <input
+          type="radio"
+          style="display: none"
+          value="female"
+          [id]="item[2][2] + 'female'"
+          [formControlName]="item[2][2]"
+        />
+      </form>
+
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+        appearance="fill"
+        class="field-width"
+        [formGroup]="item[1]"
       >
-      <input
-        style="display: none"
-        type="radio"
-        value="male"
-        id="step2Male"
-        [formControlName]="item[2][2]"
-      />
+        <mat-label>Date of birth</mat-label>
+        <input
+          [max]="today"
+          matInput
+          [matDatepicker]="datepicker"
+          [formControlName]="item[2][3]"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker startView="multi-year">
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Apply
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
 
-      <label
-        class="step2-item__select-label boreder-right-select"
-        for="step2Female"
-        (click)="item[3] = 'female'"
+  <div>
+    <div class="step2-contact__title step2__title" style="margin-top: 48px">
+      <img src="./assets/booking/step2/contact.svg" alt="" />
+      <span>Contact details</span>
+    </div>
+    <div class="step2__sub-title">
+      We need contact details to be able to deliver the latest information
+      regarding your flight.
+    </div>
+
+    <div class="step2__contact">
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+        class="home-form__place-item"
+        appearance="fill"
+        [formGroup]="contactForm"
       >
-        <img
-          *ngIf="item[3] === 'female'"
-          src="./assets/booking/step2/selected.svg"
-          alt="" />
-        <span [ngClass]="{ step2LabelSelected: item[3] === 'female' }">Female</span
-      ></label>
-      <input
-        type="radio"
-        style="display: none"
-        value="female"
-        id="step2Female"
-        [formControlName]="item[2][2]"
-      />
-    </form>
+        <mat-label>Country code</mat-label>
+        <mat-select formControlName="code" disableRipple>
+          <mat-option *ngFor="let item of countries" [value]="item"
+            ><span class="mr-10px home-form__place-span">{{ item.code }}</span>
+            <span class="gray-bg home-form__place-span">
+              {{ item.name | slice : 0 : 3 | uppercase }}</span
+            >
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill" class="field-width" [formGroup]="item[1]">
-      <mat-label>Date of birth</mat-label>
-      <input
-        matInput
-        [matDatepicker]="datepicker"
-        [formControlName]="item[2][3]"
-      />
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="datepicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #datepicker>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field>
-  </div>
-</div>
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+        [formGroup]="contactForm"
+        style="margin: 0px 40px 0px 20px"
+      >
+        <mat-label>Mobile phone number</mat-label>
+        <input
+          type="tel"
+          matInput
+          placeholder="e.g. 1111111111"
+          formControlName="tel"
+        />
+      </mat-form-field>
 
-<div>
-  <div class="step2-contact__title step2__title" style="margin-top: 48px">
-    <img src="./assets/booking/step2/contact.svg" alt="" />
-    <span>Contact details</span>
-  </div>
-  <div class="step2__sub-title">
-    We need contact details to be able to deliver the latest information
-    regarding your flight.
+      <mat-form-field
+        style="width: 418px"
+        [formGroup]="contactForm"
+        [ngClass]="{
+          borderError: isNoValid
+        }"
+      >
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Ex. pat@example.com"
+          formControlName="email"
+        />
+      </mat-form-field>
+    </div>
   </div>
 
-  <div class="step2__contact">
-    <mat-form-field class="example-full-width" style="width: 418px">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput placeholder="Ex. pat@example.com" />
-    </mat-form-field>
+  <div class="step2__btns">
+    <button>Back</button>
+    <button type="submit" class="step2__continue">Continue</button>
   </div>
-</div>
-
-<div class="step2__btns">
-  <button>Back</button>
-  <button (click)="submitForm()" class="step2__continue">Continue</button>
-</div>
+</form>

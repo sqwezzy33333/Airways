@@ -7,5 +7,9 @@
   </h3>
 </div>
 
-<app-journey-dates></app-journey-dates>
+<app-journey-dates
+  [selectedButton] = "selectedButton"
+  (onButtonClickEvent)="onButtonClick($event)"
+>
+</app-journey-dates>
 <app-journey-flights></app-journey-flights>

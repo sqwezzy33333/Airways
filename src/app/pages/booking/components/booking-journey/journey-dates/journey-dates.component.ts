@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./journey-dates.component.scss']
 })
 export class JourneyDatesComponent {
+  @Input() public selectedButton: number | null = null ;
+  @Output() public onButtonClickEvent = new EventEmitter();
 
+  onButtonClick(item: number) {
+    this.onButtonClickEvent.emit(item);
+  }
 }

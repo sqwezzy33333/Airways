@@ -6,7 +6,11 @@
     </span>
   </button>
   <ul class="carousel__container">
-    <li class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+    <li class="item"
+        *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        (click)="onButtonClick(item)"
+        [ngClass]="{'selected': selectedButton === item}"
+        >
       <button class="date-item">
         <div class="date-item__date">
           <div class="date-item__day-of-month">

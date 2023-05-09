@@ -1,0 +1,245 @@
+<section class="step2">
+  <div class="step2__title">
+    <img src="./assets/booking/step2/person.svg" alt="" />
+    <span>Passengers</span>
+  </div>
+  <div class="step2__sub-title">
+    Enter the passenger's names as they appear on document (passport or ID).
+  </div>
+</section>
+<form (ngSubmit)="submitForm()">
+  <div *ngFor="let item of arrayForms" class="step2-item">
+    <div class="step2-item__title">{{ item[0] }}</div>
+
+    <div class="step2-item__form-wrapper">
+      <div class="step2__form-item">
+        <mat-form-field
+          class="field-width"
+          [formGroup]="item[1]"
+          [ngClass]="{
+            borderError: isNoValid && !item[1].get(item[2][0]).value
+          }"
+        >
+          <mat-label>First Name</mat-label>
+          <input matInput [formControlName]="item[2][0]" />
+          <div
+            *ngIf="!isNoValid && !item[1].get(item[2][0]).value"
+            class="step2__form-attention"
+            (mouseenter)="item[5] = true"
+            (mouseleave)="item[5] = false"
+          >
+            <img src="./assets/booking/step2/info.svg" alt="" />
+          </div>
+          <div
+            *ngIf="isNoValid && !item[1].get(item[2][0]).value"
+            class="step2__form-attention"
+          >
+            <img src="./assets/booking/step2/error.svg" alt="" />
+          </div>
+        </mat-form-field>
+        <div class="step2-info" *ngIf="item[5]">
+          Add the passenger's name as it is written on their documents (passport
+          or ID). Do not use any accents or special characters. Do not use a
+          nickname.
+        </div>
+      </div>
+      <div class="step2__form-item">
+        <mat-form-field
+          class="field-width"
+          [formGroup]="item[1]"
+          [ngClass]="{
+            borderError: isNoValid && !item[1].get(item[2][1]).value
+          }"
+        >
+          <mat-label>Last Name</mat-label>
+          <input matInput [formControlName]="item[2][1]" />
+          <div
+            (mouseenter)="item[4] = true"
+            (mouseleave)="item[4] = false"
+            *ngIf="!isNoValid && !item[1].get(item[2][0]).value"
+            class="step2__form-attention"
+          >
+            <img src="./assets/booking/step2/info.svg" alt="" />
+          </div>
+
+          <div
+            *ngIf="isNoValid && !item[1].get(item[2][0]).value"
+            class="step2__form-attention"
+          >
+            <img src="./assets/booking/step2/error.svg" alt="" />
+          </div>
+        </mat-form-field>
+        <div class="step2-info" *ngIf="item[4]">
+          Add the passenger's name as it is written on their documents (passport
+          or ID). Do not use any accents or special characters. Do not use a
+          nickname.
+        </div>
+      </div>
+
+      <form
+        style="display: flex"
+        [formGroup]="item[1]"
+        [ngClass]="{
+          borderError: isNoValid && !item[1].get(item[2][2]).value
+        }"
+      >
+        <label
+          class="step2-item__select-label boreder-left-select"
+          style="margin-right: -2px"
+          [for]="item[2][2] + 'male'"
+          [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
+          (click)="item[3] = 'male'"
+        >
+          <img
+            *ngIf="item[3] === 'male'"
+            src="./assets/booking/step2/selected.svg"
+            alt=""
+          />
+          <span [ngClass]="{ step2LabelSelected: item[3] === 'male' }"
+            >Male</span
+          ></label
+        >
+        <input
+          style="display: none"
+          type="radio"
+          value="male"
+          [id]="item[2][2] + 'male'"
+          [formControlName]="item[2][2]"
+        />
+
+        <label
+          class="step2-item__select-label boreder-right-select"
+          [for]="item[2][2] + 'female'"
+          (click)="item[3] = 'female'"
+        >
+          <img
+            *ngIf="item[3] === 'female'"
+            src="./assets/booking/step2/selected.svg"
+            alt=""
+          />
+          <span [ngClass]="{ step2LabelSelected: item[3] === 'female' }"
+            >Female</span
+          ></label
+        >
+        <input
+          type="radio"
+          style="display: none"
+          value="female"
+          [id]="item[2][2] + 'female'"
+          [formControlName]="item[2][2]"
+        />
+      </form>
+
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid && !item[1].get(item[2][3]).value
+        }"
+        appearance="fill"
+        class="field-width"
+        [formGroup]="item[1]"
+      >
+        <mat-label>Date of birth</mat-label>
+        <input
+          [max]="today"
+          matInput
+          [matDatepicker]="datepicker"
+          [formControlName]="item[2][3]"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker startView="multi-year">
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Apply
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="step2__special" style="margin-top: 15px">
+      <form action="" [formGroup]="item[1]">
+        <mat-slide-toggle [formControlName]="item[2][4]" color="#0007D1">
+          <img
+            style="margin: 0px 7px"
+            src="./assets/booking/step2/invalid.svg"
+            alt=""
+          />
+          <span>Need special assistance?</span>
+        </mat-slide-toggle>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <div class="step2-contact__title step2__title" style="margin-top: 48px">
+      <img src="./assets/booking/step2/contact.svg" alt="" />
+      <span>Contact details</span>
+    </div>
+    <div class="step2__sub-title">
+      We need contact details to be able to deliver the latest information
+      regarding your flight.
+    </div>
+
+    <div class="step2__contact">
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid && !contactForm.controls.code.value
+        }"
+        class="home-form__place-item"
+        appearance="fill"
+        [formGroup]="contactForm"
+      >
+        <mat-label>Country code</mat-label>
+        <mat-select formControlName="code" disableRipple>
+          <mat-option *ngFor="let item of countries" [value]="item"
+            ><span class="mr-10px home-form__place-span">{{ item.code }}</span>
+            <span class="gray-bg home-form__place-span">
+              {{ item.name | slice : 0 : 3 | uppercase }}</span
+            >
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field
+        [ngClass]="{
+          borderError: isNoValid && !contactForm.controls.tel.value
+        }"
+        [formGroup]="contactForm"
+        style="margin: 0px 40px 0px 20px"
+      >
+        <mat-label>Mobile phone number</mat-label>
+        <input
+          type="tel"
+          matInput
+          placeholder="e.g. 1111111111"
+          formControlName="tel"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        style="width: 418px"
+        [formGroup]="contactForm"
+        [ngClass]="{
+          borderError: isNoValid && !contactForm.controls.email.value
+        }"
+      >
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          placeholder="Ex. pat@example.com"
+          formControlName="email"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="step2__btns">
+    <button>Back</button>
+    <button type="submit" class="step2__continue">Continue</button>
+  </div>
+</form>

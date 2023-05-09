@@ -1,0 +1,59 @@
+:host{
+  display: flex;
+  align-items: center;
+}
+
+.booking-steps {
+  display: flex;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // .booking-steps__item
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+  // .booking-steps__icon
+  &__icon {
+    margin-right: 9px;
+    width: 16px;
+    height: 16px;
+    background: rgba(116, 118, 122, 1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  // .booking-steps__step
+  &__step {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+
+  &__line {
+    display: inline-block;
+    height: 1px;
+    width: 80px;
+    background-color: black;
+    margin: 0px 8px;
+  }
+
+  &__icon-number {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: white;
+  }
+}
+
+.blueBg {
+  background: rgba(0, 144, 189, 1);
+}

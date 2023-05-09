@@ -1,0 +1,51 @@
+<div class="header__booking-steps booking-steps">
+  <ul class="booking-steps__wrapper">
+    <li class="booking-steps__item">
+      <div class="booking-steps__icon" [ngClass]="{ blueBg: !routerEx }">
+        <div class="booking-steps__icon-number" *ngIf="routerEx">1</div>
+        <div class="booking-steps__reading " *ngIf="routerEx">
+          <img
+            src="./assets/steps/not_ready.svg"
+            alt=""
+          />
+        </div>
+        <div class="booking-steps__done" *ngIf="!routerEx">
+          <img src="./assets/steps/done.svg" alt="" />
+        </div>
+      </div>
+      <span class="booking-steps__step">Flights</span>
+    </li>
+    <div class="booking-steps__line"></div>
+    <li class="booking-steps__item">
+      <div class="booking-steps__icon" [ngClass]="{ blueBg: !routerEx }">
+        <div class="booking-steps__icon-number" *ngIf="routerEx">1</div>
+        <div class="booking-steps__reading " *ngIf="routerEx">
+          <img
+            src="./assets/steps/not_ready.svg"
+            alt=""
+          />
+        </div>
+        <div class="booking-steps__done" *ngIf="!routerEx">
+          <img src="./assets/steps/done.svg" alt="" />
+        </div>
+      </div>
+      <span class="booking-steps__step">Passengers</span>
+    </li>
+    <div class="booking-steps__line"></div>
+    <li class="booking-steps__item">
+      <div class="booking-steps__icon" [ngClass]="{ blueBg: !routerEx }">
+        <div class="booking-steps__icon-number" *ngIf="routerEx">1</div>
+        <div class="booking-steps__reading " *ngIf="routerEx">
+          <img
+            src="./assets/steps/not_ready.svg"
+            alt=""
+          />
+        </div>
+        <div class="booking-steps__done" *ngIf="!routerEx">
+          <img src="./assets/steps/done.svg" alt="" />
+        </div>
+      </div>
+      <span class="booking-steps__step">Review & Payment</span>
+    </li>
+  </ul>
+</div>

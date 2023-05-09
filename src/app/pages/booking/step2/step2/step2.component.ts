@@ -77,16 +77,23 @@ export class Step2Component implements OnInit {
       let spanText: string = index + 1 + '. ' + this.capitalizeFirstLetter(el);
 
       allForms = new FormGroup({
-        [item + 'FirstName']: new FormControl<string>('', Validators.required),
-        [item + 'LastName']: new FormControl<string>('', Validators.required),
+        [item + 'FirstName']: new FormControl<string>('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z ]*'),
+        ]),
+        [item + 'LastName']: new FormControl<string>('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z ]*'),
+        ]),
         [item + 'Gender']: new FormControl<string>('', Validators.required),
         [item + 'BirthdayDate']: new FormControl<string>(
           '',
           Validators.required
         ),
+        [item + 'Invalid']: new FormControl<boolean>(false),
       });
       let keys = Object.keys(allForms.controls);
-      itemArray.push(spanText, allForms, keys, '');
+      itemArray.push(spanText, allForms, keys, '', false, false);
       this.arrayForms.push(itemArray);
     });
   }
@@ -113,6 +120,10 @@ export class Step2Component implements OnInit {
       this.isNoValid = false;
       console.log(controlsArray);
     } else this.isNoValid = true;
+  }
+
+  log() {
+    console.log('asd');
   }
 
   countries = [

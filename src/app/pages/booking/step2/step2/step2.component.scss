@@ -51,6 +51,15 @@
     background: rgba(17, 57, 126, 1);
     color: white !important;
   }
+
+  &__special {
+    span {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+    }
+  }
 }
 
 .step2-item {
@@ -101,6 +110,7 @@
 
 .field-width {
   width: 255px !important;
+  z-index: 0 !important;
 }
 
 .step2LabelSelected {
@@ -135,4 +145,30 @@
   span {
     color: red;
   }
+}
+
+.step2__form-attention {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  z-index: 2;
+}
+
+.step2__form-item {
+  position: relative;
+}
+
+.step2-info {
+  position: absolute;
+  top: -30px;
+  right: -210px;
+  z-index: 3;
+  background-color: white;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  padding: 16px 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  max-width: 211px;
 }

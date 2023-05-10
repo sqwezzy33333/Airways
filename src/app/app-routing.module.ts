@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShopingCartComponent } from './pages/shoping-cart/index';
+import { ShopingCartComponent } from './pages/index';
+import { NotFoundComponent } from './shared/index';
 
 const routes: Routes = [
   {
@@ -19,6 +20,9 @@ const routes: Routes = [
   {
     path: 'cart', component: ShopingCartComponent
   },
+  {
+    path:'**', component: NotFoundComponent
+  }
 ];
 
 @NgModule({

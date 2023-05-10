@@ -1,0 +1,21 @@
+@import '../../../../styles/abstracts/constants.scss';
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .not-found_image {
+    display: flex;
+    width: 100%;
+    max-width: 512px;
+    max-height: calc(100vh - 88px);
+  }
+
+  .not-found_info {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: 600;
+    color: $color-primary;
+  }
+}

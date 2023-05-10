@@ -23,9 +23,11 @@
     <mat-form-field class="home-form__place-item" appearance="fill">
       <mat-label>{{ namesOfLabels[0] }}</mat-label>
       <mat-select formControlName="from" disableRipple>
-        <mat-option *ngFor="let item of exampleArrayOfPlace" [value]="item[1]"
-          ><span class="mr-10px home-form__place-span">{{ item[0] }}</span>
-          <span class="gray-bg home-form__place-span"> {{ item[1] }}</span>
+        <mat-option *ngFor="let item of country" [value]="item" [value]="item"
+          ><span class="mr-10px home-form__place-span">{{ item.country }}</span>
+          <span class="gray-bg home-form__place-span">
+            {{ item.country | slice : 0 : 3 | uppercase }}</span
+          >
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -33,9 +35,9 @@
     <mat-form-field class="home-form__place-item" appearance="fill">
       <mat-label ng-switch-when="">{{ namesOfLabels[1] }}</mat-label>
       <mat-select formControlName="dest" disableRipple>
-        <mat-option *ngFor="let item of exampleArrayOfPlace" [value]="item[1]"
-          ><span class="mr-10px home-form__place-span">{{ item[0] }}</span>
-          <span class="gray-bg home-form__place-span"> {{ item[1] }}</span>
+        <mat-option *ngFor="let item of country" [value]="item"
+          ><span class="mr-10px home-form__place-span">{{ item.country }}</span>
+          <span class="gray-bg home-form__place-span"> {{ item.country | slice : 0 : 3 | uppercase}}</span>
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -2,19 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BookingRoutingModule } from './booking-routing.module';
-import { BookingComponent } from '../../pages/booking/index';
+import { BookingComponent, BookingPassengersComponent } from '../../pages/booking/index';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MaterialModule } from 'src/app/material/material.module';
 
 
 @NgModule({
   declarations: [
-    BookingComponent
+    BookingComponent,
+    BookingPassengersComponent
   ],
   imports: [
     CommonModule,
-    BookingRoutingModule
+    BookingRoutingModule,
+    SharedModule,
+    MaterialModule
   ],
   exports: [
-    BookingComponent
+    BookingComponent,
+    BookingPassengersComponent
   ]
 })
 export class BookingModule { }

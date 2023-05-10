@@ -1,20 +1,22 @@
-<div class="header__wrapper">
+<div class="header__wrapper" [ngClass]="{ whiteBg: !!routingExample }">
   <div class="header">
     <div class="header__flex">
       <a class="header__logo _pointer" [routerLink]="['/home']">
         <img src="./assets/images/logo.svg" alt="Logo" />
       </a>
 
+      <app-booking-steps></app-booking-steps>
+
       <nav class="header__menu header-menu">
         <ul>
-          <li class="header-menu__item mr-book">
+          <li *ngIf="routingExample" class="header-menu__item mr-book">
             <button color="red" class="header__book-btn" mat-button>
               <span class="header__book-span"> Book flights </span>
             </button>
           </li>
 
           <li class="header-menu__item">
-            <mat-form-field class="header__list" appearance="fill">
+            <mat-form-field class="header__list" appearance="fill" [ngClass]="{w175px: !routingExample}">
               <mat-select [formControl]="dateSelectForm" disableRipple>
                 <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
                 <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
@@ -24,39 +26,58 @@
             </mat-form-field>
           </li>
 
-          <li class="header-menu__item mr-eur">
+          <li
+            class="header-menu__item"
+            [ngClass]="{
+              mrCurrency: routingExample,
+              mrCurrencySteps: !routingExample
+            }"
+          >
             <form class="header__list currency-list" appearance="fill">
-
               <mat-select
                 [formControl]="currencySelectForm"
                 disableRipple
                 class="header-btn-bg header-span"
-                style="padding: 10px 15px;"
+                style="padding: 10px 15px"
               >
                 <mat-option value="EUR">EUR</mat-option>
                 <mat-option value="USA">USA</mat-option>
                 <mat-option value="RUB">RUB</mat-option>
                 <mat-option value="PLN">PLN</mat-option>
               </mat-select>
-
-
             </form>
           </li>
 
           <li class="header-menu__item">
-            <button *ngIf="!(isAuth$ | async)" class="header-btn-bg" mat-stroked-button type="button" (click)="openDialog()">
-              <img src="assets/images/account_circle_filled_24px.svg">
-              <span class="header-span" >Sign in </span>
+            <button
+              *ngIf="!(isAuth$ | async)"
+              class="header-btn-bg"
+              mat-stroked-button
+              type="button"
+              (click)="openDialog()"
+            >
+              <img src="assets/images/account_circle_filled_24px.svg" />
+              <span class="header-span">Sign in </span>
             </button>
-            <button *ngIf="isAuth$ | async" class="header-btn-bg " mat-stroked-button type="button" beforeClosed="(isAuth$ | async)">
-              <img src="assets/images/account_circle_filled_24px.svg">
-              <span class="header-span" > {{firstName$ | async}}</span>
+            <button
+              *ngIf="isAuth$ | async"
+              class="header-btn-bg"
+              mat-stroked-button
+              type="button"
+              beforeClosed="(isAuth$ | async)"
+            >
+              <img src="assets/images/account_circle_filled_24px.svg" />
+              <span class="header-span"> {{ firstName$ | async }}</span>
             </button>
           </li>
           <li class="header-menu__item" *ngIf="isAuth$ | async">
-            <mat-icon  class="header-logout" aria-hidden="false" aria-label="Example home icon"
-                       (click)="onLogout()"
-                       fontIcon="logout"></mat-icon>
+            <mat-icon
+              class="header-logout"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              (click)="onLogout()"
+              fontIcon="logout"
+            ></mat-icon>
           </li>
 
           <li class="header-menu__item _pointer mr-cart">
@@ -69,4 +90,3 @@
     </div>
   </div>
 </div>
-

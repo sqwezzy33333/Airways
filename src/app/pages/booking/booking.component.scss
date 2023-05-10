@@ -1,0 +1,11 @@
+@import "../../../styles/abstracts/constants.scss";
+
+.booking__container {
+  padding-top: 88px;
+  max-width: $container-width;
+  margin: 0 auto;
+}
+
+:host {
+  background: rgba(244, 246, 249, 1);
+}

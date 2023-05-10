@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   isAuth$! :BehaviorSubject<boolean>
   firstName$! :BehaviorSubject<string | null | undefined>
 
+  routingExample = false;
+
   ngOnInit(): void {
     this.isOpen$ = this.AuthService.dialogIsOpen$;
     this.isAuth$ = this.AuthService.isAuth$;

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
+import { Country } from 'src/app/shared/data/country';
+
 @Component({
   selector: 'app-search-flights',
   templateUrl: './search-flights.component.html',
@@ -25,6 +27,8 @@ export class SearchFlightsComponent implements OnInit {
       infant: new FormControl<number>(0),
     }),
   });
+
+  country = Country;
 
   passengers = {
     adult: 0,

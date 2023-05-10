@@ -1,15 +1,43 @@
-<div class="booking-journey__header">
-  <h3 class="header__title">
-    <span class="header__title-icon">
-      <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
-    </span>
-    <span class="header__title-text">Dublin to Warsaw Modlin</span>
-  </h3>
+
+<div class="booking-journey__there">
+  <div class="booking-journey__header">
+    <h3 class="header__title">
+      <span class="header__title-icon">
+        <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
+      </span>
+      <span class="header__title-text">Dublin to Warsaw Modlin</span>
+    </h3>
+  </div>
+  
+  <app-journey-dates
+    [selectedButton] = "selectedButton"
+    (onButtonClickEvent)="onButtonClick($event)"
+  >
+  </app-journey-dates>
+
+  <app-journey-flights></app-journey-flights>
+  <app-journey-flights></app-journey-flights>
+  <app-journey-flights></app-journey-flights>
+
 </div>
 
-<app-journey-dates
-  [selectedButton] = "selectedButton"
-  (onButtonClickEvent)="onButtonClick($event)"
->
-</app-journey-dates>
-<app-journey-flights></app-journey-flights>
+<div class="booking-journey__back">
+  <div class="booking-journey__header booking-journey__header_return">
+    <h3 class="header__title">
+      <span class="header__title-icon title-icon_return">
+        <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
+      </span>
+      <span class="header__title-text">Warsaw Modlin to Dublin</span>
+    </h3>
+  </div>
+  
+  <app-journey-dates
+    [selectedButton] = "selectedButton"
+    (onButtonClickEvent)="onButtonClick($event)"
+  >
+  </app-journey-dates>
+
+  <app-journey-flights></app-journey-flights>
+  <app-journey-flights></app-journey-flights>
+  <app-journey-flights></app-journey-flights>
+</div>

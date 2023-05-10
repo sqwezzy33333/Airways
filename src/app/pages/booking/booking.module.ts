@@ -26,7 +26,10 @@ import { JourneyFlightsComponent } from './components/booking-journey/journey-fl
   ],
   exports: [
     BookingComponent,
-    BookingPassengersComponent
+    BookingPassengersComponent,
+    BookingJourneyComponent,
+    JourneyDatesComponent,
+    JourneyFlightsComponent,
   ]
 })
 export class BookingModule { }

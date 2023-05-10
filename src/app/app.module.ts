@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ShopingCartComponent } from './pages/index';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { BookingModule } from './pages/booking/booking.module';
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MaterialModule } from './material/material.module';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    BookingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

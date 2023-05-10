@@ -1,0 +1,136 @@
+@import '../../../../../../styles/abstracts/constants.scss';
+
+.booking-journey__carousel {
+  align-items: flex-end;
+  display: flex;
+  margin: 0 0 8px;
+
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+.carousel-btn {
+  width: 24px;
+  height: 24px;
+  background: #E9EDF1;
+  border-radius: 100px;
+  border: none;
+  padding: 0;
+  margin: 1px;
+
+  .carousel-btn_icon {
+    display: inline-flex;
+    vertical-align: middle;
+    padding-right: 2px;
+  }
+
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.carousel-btn_next {
+  right: 0;
+  .carousel-btn_icon {
+    transform: rotate(180deg);
+    padding-right: 0;
+    padding-left: 2px;
+  }
+}
+
+  .carousel__container {
+    display: flex;
+    flex: 2 0 auto;
+    align-items: flex-end;
+    margin: 0;
+    padding: 0;
+    width: 200%;
+  }
+  .item {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: flex-end;
+    left: 0;
+    list-style: none;
+    height: 100%;
+    width: 225px;
+  
+
+    &:hover {
+        .date-item__day-of-month {
+          color: $color-primary;
+        }
+    }
+  }
+
+  .selected button {
+    box-shadow: 0 -0.3125rem 0.75rem #0000004d;
+    border-bottom: 4px solid #F1C933;
+    z-index: 2;
+
+      .date-item__day-of-month {
+        color: $color-primary;
+        font-size: 2rem;
+        font-weight: 700;
+        padding-bottom: 3px;
+      }
+      .date-item__day-of-week {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+
+      .date-item__price {
+        font-size: 3rem;
+        line-height: 3.6rem;
+      }
+
+  }
+
+  
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border: none;
+    border-left: 1px solid #CECECE;
+    cursor: pointer;
+    fill: #c3c7cc;
+    width: 100%;
+    height: 100%;
+    min-height: 7rem;
+    margin: 0;
+    padding: 4px 0 8px;
+
+    .date-item__day-of-month {
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 2rem;
+      color: $color-additionaly;
+      .date-item__day {
+        padding-right: 3px;
+      }
+    }
+
+    .date-item__day-of-week {
+      font-size: 1.2rem;
+      font-weight: 100;
+      line-height: 1.2rem;
+      color: $color-text;
+    }
+
+    .date-item__price {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 2rem;
+      color: $color-primary;
+    }
+  }
+
+}
+

@@ -4,17 +4,19 @@
 
   &__submit-btn {
     align-self: end;
-    margin-top: 32px;
-    padding: 20px 37px;
-    background: rgba(17, 57, 126, 1);
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.1px;
-    border: 0;
-    border-radius: 4px;
-    cursor: pointer;
+    button {
+      margin-top: 32px;
+      padding: 20px 37px;
+      background: rgba(17, 57, 126, 1);
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   }
 
   &__type-of-trip label {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
+import { Country } from 'src/app/shared/data/country';
+
 @Component({
   selector: 'app-search-flights',
   templateUrl: './search-flights.component.html',
@@ -8,25 +10,25 @@ import { ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchFlightsComponent implements OnInit {
-  ngOnInit(): void {
-    console.log(this.searchForm);
-  }
+  ngOnInit(): void {}
 
   searchForm = new FormGroup({
-    tripType: new FormControl<string>('roundTrip', []),
-    from: new FormControl<string>('', []),
-    dest: new FormControl<string>('', []),
+    tripType: new FormControl<string>('roundTrip', [Validators.required]),
+    from: new FormControl<string>('', [Validators.required]),
+    dest: new FormControl<string>('', [Validators.required]),
     date: new FormGroup({
       singleDate: new FormControl<string>('', []),
-      startDate: new FormControl<string>('', []),
-      endDate: new FormControl<string>('', []),
+      startDate: new FormControl<string>(''),
+      endDate: new FormControl<string>(''),
     }),
     passengers: new FormGroup({
-      adult: new FormControl<number>(0, []),
-      child: new FormControl<number>(0, []),
-      infant: new FormControl<number>(0, []),
+      adult: new FormControl<number>(0),
+      child: new FormControl<number>(0),
+      infant: new FormControl<number>(0),
     }),
   });
+
+  country = Country;
 
   passengers = {
     adult: 0,
@@ -34,30 +36,54 @@ export class SearchFlightsComponent implements OnInit {
     infant: 0,
   };
 
-  isInfoPassSpanOnep = false;
-
+  isInfoPassSpanOpen = false;
   showPassengersOptions = false;
-
   isPlaceBlocksReverse = false;
-
   isOneWay = false;
+  isDate = false;
+  isPassengers = false;
+  wasPassOptionsBlockOpen = false;
 
-  dateIsFalse = false;
+  minDate = new Date();
 
   namesOfLabels = ['From', 'Destination'];
-
   exampleArrayOfPlace: Array<[string, string]> = [
     ['Chicago', 'CH'],
     ['Minsk', 'MNSK'],
   ];
 
+  get adult() {
+    return this.searchForm.value.passengers?.adult;
+  }
+  get child() {
+    return this.searchForm.value.passengers?.child;
+  }
+  get infant() {
+    return this.searchForm.value.passengers?.infant;
+  }
+  get tripType() {
+    return this.searchForm.value.tripType;
+  }
+  get singleDate() {
+    return this.searchForm.value.date?.singleDate;
+  }
+  get startDate() {
+    return this.searchForm.value.date?.startDate;
+  }
+  get endDate() {
+    return this.searchForm.value.date?.endDate;
+  }
+
   formSubmit() {
     let formObject = { ...this.searchForm.value };
+
     if (this.isPlaceBlocksReverse) {
       formObject.from = this.searchForm.value.dest;
       formObject.dest = this.searchForm.value.from;
     }
-    console.log(formObject);
+
+    if (this.searchForm.valid && this.isPassengers && this.isDate)
+      console.log(formObject);
   }
 
   reversePlaceBlocks() {
@@ -74,27 +100,9 @@ export class SearchFlightsComponent implements OnInit {
     this.isOneWay = false;
   }
 
-  checkDates() {
-    let tripType = this.searchForm.get('tripType')?.value;
-    let today = new Date();
-    let startDate = this.searchForm.controls.date.get('startDate')?.value;
-    let singleDate = this.searchForm.controls.date.get('singleDate')?.value;
-
-    if (tripType === 'roundTrip') {
-      let isStardDayOlder;
-      if (startDate) isStardDayOlder = new Date(startDate);
-      if (isStardDayOlder) this.dateIsFalse = today > isStardDayOlder;
-    }
-    if (tripType === 'oneWay') {
-      let isSingleDateOlder;
-      if (singleDate) isSingleDateOlder = new Date(singleDate);
-      if (isSingleDateOlder) this.dateIsFalse = today > isSingleDateOlder;
-    }
-  }
-
   openPassengersOptions() {
     this.showPassengersOptions = true;
-    this.isInfoPassSpanOnep = true;
+    this.isInfoPassSpanOpen = true;
   }
 
   moreAdult() {
@@ -182,6 +190,36 @@ export class SearchFlightsComponent implements OnInit {
   }
 
   closeOptions() {
+    this.wasPassOptionsBlockOpen = true;
+    this.checkPassengers();
     this.showPassengersOptions = false;
+  }
+
+  onewWayDateCheck(control: FormControl<string>) {
+    const todayDate = new Date().getTime();
+    const videoDate = new Date(control.value).getTime();
+    if (videoDate < todayDate) return { dateCheck: true };
+    return null;
+  }
+
+  checkPassengers(): void {
+    let emptyPassObjectString: string = '{"adult":0,"child":0,"infant":0}';
+    if (JSON.stringify(this.passengers) !== emptyPassObjectString) {
+      this.isPassengers = true;
+    } else {
+      this.isPassengers = false;
+    }
+  }
+
+  checkDateInput() {
+    if (this.tripType === 'roundTrip') {
+      if (this.startDate && this.endDate) {
+        this.isDate = true;
+      } else this.isDate = false;
+    } else {
+      if (this.singleDate) {
+        this.isDate = true;
+      } else this.isDate = false;
+    }
   }
 }

@@ -1,23 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
-// import {MomentDateModule}
-
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { SearchFlightsComponent } from '../pages/home/components/search-flights/search-flights.component';
+import { HeaderComponent, FooterComponent, AuthComponent,
+         NotFoundComponent, BookingStepsComponent
+       } from '../shared/index';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    SearchFlightsComponent,
+    AuthComponent,
+    BookingStepsComponent,
+    NotFoundComponent
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule
+  ],
   exports: [
     HeaderComponent,
     FooterComponent,
-    SearchFlightsComponent,
+    AuthComponent
   ],
 })
 export class SharedModule {}

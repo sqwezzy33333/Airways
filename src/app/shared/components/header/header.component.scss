@@ -60,12 +60,20 @@
   margin-right: 56px;
 }
 
-.mr-eur {
+.mrCurrency {
   margin: 0px 41px;
+}
+
+.mrCurrencySteps {
+  margin: 0px 17px;
 }
 
 .mr-cart {
   margin-left: 32px;
+}
+
+.whiteBg {
+  background-color: white;
 }
 
 .header-span {
@@ -74,6 +82,20 @@
   font-weight: 400;
   line-height: 24px;
   color: white;
+}
+
+.header-btn-bg .mdc-button__label {
+  display: flex;
+  img {
+    margin-right: 4px;
+  }
+}
+
+.header-logout {
+  margin-top: 4px;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .header-btn-bg {
@@ -85,7 +107,11 @@
   border-radius: 5px;
 }
 
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+.w175px {
+  width: 175px;
+}
+
+.header .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background: linear-gradient(
     0deg,
     rgba(241, 243, 246, 0.15),
@@ -98,7 +124,6 @@
   color: white;
 }
 
-
 .header .mat-mdc-form-field-infix {
   padding: 5px 0px !important;
   min-height: 38px;
@@ -108,6 +133,6 @@
   display: none;
 }
 
-.currency-list .mat-mdc-select-arrow-wrapper {
+.header .currency-list .mat-mdc-select-arrow-wrapper {
   display: none !important;
 }

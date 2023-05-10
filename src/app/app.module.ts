@@ -3,16 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent, BookingComponent, HomeComponent, ShopingCartComponent} from './pages/index';
+import { ShopingCartComponent } from './pages/index';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { BookingModule } from './pages/booking/booking.module';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
-    HomeComponent,
     ShopingCartComponent,
   ],
   imports: [
@@ -21,10 +20,10 @@ import { BookingModule } from './pages/booking/booking.module';
     AppRoutingModule,
     SharedModule,
     CoreModule,
+    MaterialModule,
     BookingModule,
   ],
-  providers: [
-],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

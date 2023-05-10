@@ -13,3 +13,11 @@
 .app-header{
   flex: 0 0 auto;
 }
+
+app-not-found {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh + 88px);
+}

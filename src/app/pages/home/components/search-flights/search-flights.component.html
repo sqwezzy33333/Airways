@@ -250,7 +250,12 @@
     </div>
   </div>
 
-  <button (click)="formSubmit()" class="home-form__submit-btn">Search</button>
+  <a [routerLink]="['/booking']"
+     class="home-form__submit-btn">
+    <button (click)="formSubmit()">
+            Search
+    </button>
+  </a>
 </form>
 
 <div

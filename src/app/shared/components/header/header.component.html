@@ -1,8 +1,8 @@
 <div class="header__wrapper" [ngClass]="{ whiteBg: !!routingExample }">
   <div class="header">
     <div class="header__flex">
-      <a class="header__logo _pointer">
-        <img src="./assets/images/logo.svg" alt="" />
+      <a class="header__logo _pointer" [routerLink]="['/home']">
+        <img src="./assets/images/logo.svg" alt="Logo" />
       </a>
 
       <app-booking-steps></app-booking-steps>
@@ -81,8 +81,8 @@
           </li>
 
           <li class="header-menu__item _pointer mr-cart">
-            <a href="">
-              <img src="./assets/images/shopping_basket.svg" alt="" />
+            <a [routerLink]="['/cart']">
+              <img src="./assets/images/shopping_basket.svg" alt="Basket" />
             </a>
           </li>
         </ul>

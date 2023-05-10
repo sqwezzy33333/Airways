@@ -1,6 +1,10 @@
 <div class="booking__container">
   <div class="booking__wrapper">
-    
-    <app-step2></app-step2>
+    <ul>
+      <li><a routerLink="flights" routerLinkActive="active">Flights</a></li>
+      <li><a routerLink="passengers" routerLinkActive="active">Passengers</a></li>
+      <li><a routerLink="review-payment" routerLinkActive="active">Review & Payment</a></li>
+    </ul>
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,4 +1,4 @@
-.step2 {
+.booking-passengers {
   padding: 42px 0px 0px 0px;
 
   &__title span {
@@ -62,7 +62,7 @@
   }
 }
 
-.step2-item {
+.booking-passengers-item {
   background-color: white;
   margin-bottom: 20px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
@@ -83,7 +83,7 @@
   }
 }
 
-.step2-item__select-label {
+.booking-passengers-item__select-label {
   user-select: none !important;
   cursor: pointer;
   width: 107px;
@@ -113,7 +113,7 @@
   z-index: 0 !important;
 }
 
-.step2LabelSelected {
+.booking-passengersLabelSelected {
   margin-left: 2px;
   color: rgba(16, 38, 76, 1);
 }
@@ -147,18 +147,18 @@
   }
 }
 
-.step2__form-attention {
+.booking-passengers__form-attention {
   position: absolute;
   top: 12px;
   right: 0;
   z-index: 2;
 }
 
-.step2__form-item {
+.booking-passengers__form-item {
   position: relative;
 }
 
-.step2-info {
+.booking-passengers-info {
   position: absolute;
   top: -30px;
   right: -210px;

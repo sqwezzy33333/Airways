@@ -5,7 +5,7 @@
         <img src="./assets/images/logo.svg" alt="Logo" />
       </a>
 
-      <app-booking-steps></app-booking-steps>
+      <app-booking-steps [currentPath]="currentPath" *ngIf="currentPath !=='/home'"></app-booking-steps>
 
       <nav class="header__menu header-menu">
         <ul>
@@ -16,7 +16,11 @@
           </li>
 
           <li class="header-menu__item">
-            <mat-form-field class="header__list" appearance="fill" [ngClass]="{w175px: !routingExample}">
+            <mat-form-field
+              class="header__list"
+              appearance="fill"
+              [ngClass]="{ w175px: !routingExample }"
+            >
               <mat-select [formControl]="dateSelectForm" disableRipple>
                 <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
                 <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>

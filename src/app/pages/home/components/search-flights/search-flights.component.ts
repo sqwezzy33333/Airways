@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
+import {  Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-search-flights',
@@ -52,6 +54,8 @@ export class SearchFlightsComponent implements OnInit {
     ['Minsk', 'MNSK'],
   ];
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
   get adult() {
     return this.searchForm.value.passengers?.adult;
   }
@@ -82,8 +86,11 @@ export class SearchFlightsComponent implements OnInit {
       formObject.dest = this.searchForm.value.from;
     }
 
-    if (this.searchForm.valid && this.isPassengers && this.isDate)
+    if (this.searchForm.valid && this.isPassengers && this.isDate) {
+      this.router.navigate(['booking/flights'], { state: { example: 'bar' } });
       console.log(formObject);
+    }
+    this.router.navigate(['booking/flights']);
   }
 
   reversePlaceBlocks() {

@@ -37,7 +37,9 @@
       <mat-select formControlName="dest" disableRipple>
         <mat-option *ngFor="let item of country" [value]="item"
           ><span class="mr-10px home-form__place-span">{{ item.country }}</span>
-          <span class="gray-bg home-form__place-span"> {{ item.country | slice : 0 : 3 | uppercase}}</span>
+          <span class="gray-bg home-form__place-span">
+            {{ item.country | slice : 0 : 3 | uppercase }}</span
+          >
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -250,11 +252,8 @@
     </div>
   </div>
 
-  <a [routerLink]="['/booking/flights']"
-     class="home-form__submit-btn">
-    <button (click)="formSubmit()">
-            Search
-    </button>
+  <a class="home-form__submit-btn">
+    <button (click)="formSubmit()">Search</button>
   </a>
 </form>
 

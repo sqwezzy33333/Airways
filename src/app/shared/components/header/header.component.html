@@ -1,23 +1,35 @@
-<div class="header__wrapper" [ngClass]="{ whiteBg: !!routingExample }">
+<div class="header__wrapper" [ngClass]="{ whiteBg: currentPath !== '/home' }">
   <div class="header">
     <div class="header__flex">
       <a class="header__logo _pointer" [routerLink]="['/home']">
         <img src="./assets/images/logo.svg" alt="Logo" />
       </a>
 
-      <app-booking-steps></app-booking-steps>
+      <app-booking-steps
+        [currentPath]="currentPath"
+        *ngIf="currentPath !== '/home'"
+      ></app-booking-steps>
 
       <nav class="header__menu header-menu">
         <ul>
-          <li *ngIf="routingExample" class="header-menu__item mr-book">
+          <li *ngIf="currentPath === '/home'" class="header-menu__item mr-book">
             <button color="red" class="header__book-btn" mat-button>
               <span class="header__book-span"> Book flights </span>
             </button>
           </li>
 
           <li class="header-menu__item">
-            <mat-form-field class="header__list" appearance="fill" [ngClass]="{w175px: !routingExample}">
-              <mat-select [formControl]="dateSelectForm" disableRipple>
+            <mat-form-field
+              style="width: 162px"
+              class="header__list"
+              appearance="fill"
+              [ngClass]="{ w175px: currentPath !== '/home' }"
+            >
+              <mat-select
+                [formControl]="dateSelectForm"
+                disableRipple
+                [ngClass]="{ currencyList: currentPath === '/home' }"
+              >
                 <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
                 <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
                 <mat-option value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
@@ -29,21 +41,46 @@
           <li
             class="header-menu__item"
             [ngClass]="{
-              mrCurrency: routingExample,
-              mrCurrencySteps: !routingExample
+              mrCurrency: currentPath == '/home',
+              mrCurrencySteps: currentPath !== '/home'
             }"
           >
-            <form class="header__list currency-list" appearance="fill">
+            <form
+              class="header__list currency-list"
+              appearance="fill"
+              [ngClass]="{
+                grayColor: currentPath !== '/home',
+                currencyList: currentPath === '/home'
+              }"
+            >
               <mat-select
                 [formControl]="currencySelectForm"
                 disableRipple
                 class="header-btn-bg header-span"
+                [ngClass]="{ bookingBorder: currentPath !== '/home' }"
                 style="padding: 10px 15px"
               >
-                <mat-option value="EUR">EUR</mat-option>
-                <mat-option value="USA">USA</mat-option>
-                <mat-option value="RUB">RUB</mat-option>
-                <mat-option value="PLN">PLN</mat-option>
+                <mat-option
+                  [ngClass]="{ grayColor: currentPath !== '/home' }"
+                  value="EUR"
+                  style="color: white"
+                  >EUR</mat-option
+                >
+                <mat-option
+                  [ngClass]="{ grayColor: currentPath !== '/home' }"
+                  value="USA"
+                  >USA</mat-option
+                >
+                <mat-option
+                  [ngClass]="{ grayColor: currentPath !== '/home' }"
+                  value="RUB"
+                  >RUB</mat-option
+                >
+                <mat-option
+                  [ngClass]="{ grayColor: currentPath !== '/home' }"
+                  value="PLN"
+                  >PLN</mat-option
+                >
               </mat-select>
             </form>
           </li>
@@ -56,8 +93,19 @@
               type="button"
               (click)="openDialog()"
             >
-              <img src="assets/images/account_circle_filled_24px.svg" />
-              <span class="header-span">Sign in </span>
+              <img
+                *ngIf="currentPath === '/home'"
+                src="assets/images/account_circle_filled_24px.svg"
+              />
+              <img
+                *ngIf="currentPath !== '/home'"
+                src="assets/images/sign_in_booking.svg"
+              />
+              <span
+                class="header-span"
+                [ngClass]="{ grayColor: currentPath !== '/home' }"
+                >Sign in
+              </span>
             </button>
             <button
               *ngIf="isAuth$ | async"
@@ -82,7 +130,16 @@
 
           <li class="header-menu__item _pointer mr-cart">
             <a [routerLink]="['/cart']">
-              <img src="./assets/images/shopping_basket.svg" alt="Basket" />
+              <img
+                *ngIf="currentPath === '/home'"
+                src="./assets/images/shopping_basket_home.svg"
+                alt="Basket"
+              />
+              <img
+                *ngIf="currentPath !== '/home'"
+                src="./assets/images/shopping_basket_booking.svg"
+                alt="Basket"
+              />
             </a>
           </li>
         </ul>

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
-import {  Router, ActivatedRoute } from '@angular/router';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-flights',
@@ -87,10 +86,9 @@ export class SearchFlightsComponent implements OnInit {
     }
 
     if (this.searchForm.valid && this.isPassengers && this.isDate) {
-      this.router.navigate(['booking/flights'], { state: { example: 'bar' } });
+      this.router.navigate(['booking/flights']);
       console.log(formObject);
     }
-    this.router.navigate(['booking/flights']);
   }
 
   reversePlaceBlocks() {

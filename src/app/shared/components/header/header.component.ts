@@ -17,8 +17,6 @@ export class HeaderComponent implements OnInit {
   firstName$!: BehaviorSubject<string | null | undefined>;
   currentPath!: string;
 
-  routingExample = false;
-
   constructor(
     private AuthService: AuthService,
     private locationService: LocationService

@@ -6,6 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./booking-steps.component.scss'],
 })
 export class BookingStepsComponent {
-  routerEx = false;
   @Input() public currentPath!: string;
 }

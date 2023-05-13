@@ -68,12 +68,12 @@
         >
           3
         </div>
-        <div class="booking-steps__reading" *ngIf="routerEx">
+        <div class="booking-steps__reading" *ngIf="currentPath === '/booking/review-payment'">
           <img src="./assets/steps/not_ready.svg" alt="" />
         </div>
         <div
           class="booking-steps__done"
-          *ngIf="currentPath === '/booking/review-payment'"
+          *ngIf="currentPath === '/cart'"
         >
           <img src="./assets/steps/done.svg" alt="" />
         </div>

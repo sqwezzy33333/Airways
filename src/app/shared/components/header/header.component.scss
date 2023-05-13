@@ -133,6 +133,31 @@
   display: none;
 }
 
-.header .currency-list .mat-mdc-select-arrow-wrapper {
+.header .currencyList .mat-mdc-select-arrow-wrapper {
   display: none !important;
+}
+
+.grayColor {
+  color: rgba(73, 69, 79, 1);
+
+  span {
+    color: rgba(73, 69, 79, 1) !important;
+  }
+
+  .mat-mdc-select-arrow-wrapper {
+    display: none !important;
+  }
+}
+
+.currencyList span {
+  color: white !important;
+}
+
+.bookingBorder {
+  border-radius: 4px;
+  border: 0.5px solid rgba(206, 206, 206, 1);
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -8,6 +8,9 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { BookingJourneyComponent } from './components/booking-journey/booking-journey.component';
 import { JourneyDatesComponent } from './components/booking-journey/journey-dates/journey-dates.component';
 import { JourneyFlightsComponent } from './components/booking-journey/journey-flights/journey-flights.component';
+import { BookingReviewComponent } from './components/booking-review/booking-review.component';
+import { ReviewPassengersInfoComponent } from './components/booking-review/review-passengers-info/review-passengers-info.component';
+import { ReviewFareComponent } from './components/booking-review/review-fare/review-fare.component';
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import { JourneyFlightsComponent } from './components/booking-journey/journey-fl
     BookingJourneyComponent,
     JourneyDatesComponent,
     JourneyFlightsComponent,
+    BookingReviewComponent,
+    ReviewPassengersInfoComponent,
+    ReviewFareComponent,
   ],
   imports: [
     CommonModule,

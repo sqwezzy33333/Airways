@@ -10,6 +10,11 @@
       <li class="cart-column-names__item">Price</li>
     </ul>
     <div class="cart__main-block">
+      <cart-item
+        (editEvent)="editItem($event)"
+        (deleteEvent)="deleteItem($event)"
+        [cartItems]="exampleItems"
+      ></cart-item>
       <div class="cart__add-item-and-total cart-border-bottom">
         <button class="cart__primary-btn">+ Add new trip</button>
         <div class="cart__total-wrapper">
@@ -18,7 +23,11 @@
       </div>
       <div class="cart__panel-btns panel-btns-cart">
         <div class="panel-btns-cart__promo-input">
-          <input type="text" placeholder="Promo Code"><button class="cart__primary-btn">APPLY</button>
+          <input type="text" placeholder="Promo Code" /><button
+            class="cart__primary-btn"
+          >
+            APPLY
+          </button>
         </div>
         <div class="panel-btns-cart__selected-and-payment-btn">
           <span>2 selected</span>

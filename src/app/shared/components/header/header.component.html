@@ -7,7 +7,7 @@
 
       <app-booking-steps
         [currentPath]="currentPath"
-        *ngIf="currentPath !== '/home'"
+        *ngIf="currentPath !== '/home' && currentPath !== '/cart'"
       ></app-booking-steps>
 
       <nav class="header__menu header-menu">

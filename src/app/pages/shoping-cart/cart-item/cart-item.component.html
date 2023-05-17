@@ -1,5 +1,12 @@
 <ul *ngFor="let item of cartItems; let i = index" class="cart-items">
-  <li><mat-checkbox checked="true" color="primary"></mat-checkbox></li>
+  <li>
+    <mat-checkbox
+      [id]="'cartCheckbox_' + i"
+      (change)="onCheckItemPrice($event)"
+      checked="true"
+      color="primary"
+    ></mat-checkbox>
+  </li>
   <li>{{ item.numberFlight }}</li>
   <li>
     <p>{{ item.flight.oneWay }}</p>

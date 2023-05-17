@@ -8,6 +8,7 @@ export class CartItemComponent {
   @Input() cartItems!: any;
   @Output() deleteEvent = new EventEmitter<number>();
   @Output() editEvent = new EventEmitter<number>();
+  @Output() checkItemPrice = new EventEmitter<boolean>();
 
   onDelete(index: number) {
     this.deleteEvent.emit(index);
@@ -17,5 +18,7 @@ export class CartItemComponent {
     this.editEvent.emit(index);
   }
 
-
+  onCheckItemPrice(isChecked: any){
+    this.checkItemPrice.emit(isChecked)
+  }
 }

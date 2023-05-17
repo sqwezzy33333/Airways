@@ -22,6 +22,7 @@ export class ShopingCartComponent {
       },
       price: 551,
       isBtnPanelOpen: false,
+      isChecked: true,
     },
     {
       numberFlight: 'FR 1936',
@@ -38,13 +39,31 @@ export class ShopingCartComponent {
       },
       price: 20,
       isBtnPanelOpen: false,
+      isChecked: true,
     },
-    
+  ];
+
+  promoExample = [
+    {
+      promo: '228',
+      discount: 15,
+    },
   ];
 
   constructor() {
-    console.log(this.exampleItems);
+    this.getTotalPrice();
   }
+
+  total: number = 0;
+
+  totalAfterDiscount: number = 0;
+
+  promoInputValue!: string;
+
+  isPromoInputEmpty!: boolean;
+
+  isPromoInvalid!: boolean;
+
   deleteItem(index: number) {
     this.exampleItems.splice(index, 1);
   }
@@ -52,5 +71,34 @@ export class ShopingCartComponent {
   editItem(event: number) {
     console.log('edit');
     console.log(event);
+  }
+
+  checkItemsPrice(event: any) {
+    let index: number = Number(event.source.id.split('_')[1]);
+    this.exampleItems[index].isChecked = event.checked;
+  }
+
+  getTotalPrice() {
+    this.total = 0;
+    this.exampleItems.forEach((element: any) => {
+      if (element.isChecked) {
+        this.total = this.total + element.price;
+      }
+    });
+  }
+
+  checkPromoCode() {
+    if (this.promoInputValue === undefined) {
+      this.isPromoInputEmpty = true;
+    } else if (
+      this.promoInputValue !== undefined &&
+      this.promoInputValue !== this.promoExample[0].promo
+    ) {
+      this.isPromoInvalid = true;
+    } else {
+      this.totalAfterDiscount =
+        this.total - (this.total * this.promoExample[0].discount) / 100;
+      this.isPromoInvalid = false;
+    }
   }
 }

@@ -13,24 +13,45 @@
       <cart-item
         (editEvent)="editItem($event)"
         (deleteEvent)="deleteItem($event)"
+        (checkItemPrice)="checkItemsPrice($event)"
         [cartItems]="exampleItems"
       ></cart-item>
+
       <div class="cart__add-item-and-total cart-border-bottom">
         <button class="cart__primary-btn">+ Add new trip</button>
         <div class="cart__total-wrapper">
-          <span>Total</span><span>{{ 213 | currency : "EUR" : true }}</span>
+          <span class="cart__total-title">Total</span
+          ><span
+            class="cart__total-count"
+            [ngClass]="{ cartOldPrice: totalAfterDiscount }"
+            >{{ total | currency : "EUR" : true }}</span
+          >
+          <span class="cart__total-count" *ngIf="totalAfterDiscount">{{
+            totalAfterDiscount | currency : "EUR" : true
+          }}</span>
         </div>
       </div>
       <div class="cart__panel-btns panel-btns-cart">
-        <div class="panel-btns-cart__promo-input">
-          <input type="text" placeholder="Promo Code" /><button
-            class="cart__primary-btn"
-          >
+        <div
+          class="panel-btns-cart__promo-input"
+          [ngClass]="{ emptyPromoInput: isPromoInputEmpty === true }"
+        >
+          <input
+            type="text"
+            placeholder="Promo Code"
+            [(ngModel)]="promoInputValue"
+          /><button class="cart__primary-btn" (click)="checkPromoCode()">
             APPLY
           </button>
+          <div *ngIf="isPromoInputEmpty === true" class="cart__field-error">
+            Please enter Promo Code
+          </div>
+          <div *ngIf="isPromoInvalid" class="cart__field-error">
+            Invalid promo code
+          </div>
         </div>
         <div class="panel-btns-cart__selected-and-payment-btn">
-          <span>2 selected</span>
+          <span>{{ exampleItems.length }} selected</span>
           <button>Payment</button>
         </div>
       </div>

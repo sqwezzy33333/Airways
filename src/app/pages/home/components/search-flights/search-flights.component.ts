@@ -53,7 +53,7 @@ export class SearchFlightsComponent implements OnInit {
   isPlaceBlocksReverse = false;
   isOneWay = false;
   isDate = false;
-  isPassengers = false;
+  isPassengers!: boolean;
   wasPassOptionsBlockOpen = false;
 
   minDate = new Date();
@@ -89,6 +89,7 @@ export class SearchFlightsComponent implements OnInit {
   }
 
   formSubmit() {
+    this.wasPassOptionsBlockOpen = true;
     let formObject = { ...this.searchForm.value };
 
     if (this.isPlaceBlocksReverse) {

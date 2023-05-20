@@ -236,6 +236,10 @@
 
 .errorBorderBottom {
   border-bottom: 0.1em solid var(--mdc-theme-error, #f44336);
+
+  mat-label {
+    color: red;
+  }
 }
 
 .errorTextColor {

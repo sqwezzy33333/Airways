@@ -1,0 +1,23 @@
+<div class="review-fares">
+  <div class="review-fares__item" *ngFor="let item of fares">
+    <div class="review-fares__total-item">
+      <span>1 x {{ item.type }} Fare</span
+      ><span>{{ item.total | currency : "EUR" : true }}</span>
+    </div>
+
+    <div class="review-fares__price-states">
+      <div class="review-fares__flex">
+        <span>Fare</span><span>{{ item.fare }}</span>
+      </div>
+      <div class="review-fares__flex">
+        <span>Tax & Service Charges</span><span>{{ item.tax }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="review-fares__total-price review-fares__flex">
+  <span>TOTAL:</span
+  ><span class="review-fares__total-span">{{
+    totalPrice | currency : "EUR" : true
+  }}</span>
+</div>

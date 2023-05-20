@@ -1,0 +1,68 @@
+<div class="booking-rewiew">
+  <div class="booking-rewiew__title">
+    <img
+      src="../../../../../assets/images/summaryIcon.svg"
+      alt="Summary logo"
+    />
+    <h2>Summary</h2>
+  </div>
+  <div class="booking-rewiew__wrapper">
+    <div class="booking-rewiew__forward booking-rewiew__card">
+      <div class="booking-rewiew__flight">
+        <div class="booking-rewiew__flight-info">
+          <span class="booking-rewiew__flight-number">FR 1925</span>
+          <span class="booking-rewiew__from-to">Dublin — Warsaw Modlin</span>
+        </div>
+        <div class="booking-rewiew__date-info">
+          <span class="booking-rewiew__date">Wednesday, 1 March, 2023</span
+          ><span class="booking-rewiew__flight-time">8:40 — 12:00 </span>
+        </div>
+      </div>
+      <div class="booking-rewiew__passengers">
+        <app-review-passengers-info
+          *ngFor="let item of examplePassengers; let l = last"
+          [ngClass]="{ BottomBorderRadius8px: l }"
+          [passengers]="item"
+        ></app-review-passengers-info>
+      </div>
+    </div>
+    <div
+      *ngIf="!isOneWayTrip"
+      class="booking-rewiew__back booking-rewiew__card"
+    >
+      <div class="booking-rewiew__flight">
+        <div class="booking-rewiew__flight-info">
+          <span class="booking-rewiew__flight-number">FR 1925</span>
+          <span class="booking-rewiew__from-to">Warsaw Modlin — Dublin</span>
+        </div>
+        <div class="booking-rewiew__date-info">
+          <span class="booking-rewiew__date">Saturday, 18 March, 2023</span
+          ><span class="booking-rewiew__flight-time">7:40 — 12:00 </span>
+        </div>
+      </div>
+      <app-review-passengers-info
+        *ngFor="let item of examplePassengers"
+        [passengers]="item"
+      ></app-review-passengers-info>
+    </div>
+  </div>
+  <div class="booking-rewiew__fares-left-position">
+    <div class="booking-rewiew__fares booking-rewiew__card">
+      <app-review-fare
+        [totalPrice]="totalPrice"
+        [fares]="exampleFares"
+      ></app-review-fare>
+    </div>
+  </div>
+  <div class="booking-rewiew-btns">
+    <button class="booking-rewiew-btns__button booking-rewiew-btns__back">
+      Back
+    </button>
+    <button class="booking-rewiew-btns__button booking-rewiew-btns__add">
+      Add to order cart
+    </button>
+    <button class="booking-rewiew-btns__button booking-rewiew-btns__buy">
+      Buy now
+    </button>
+  </div>
+</div>

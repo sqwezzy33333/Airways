@@ -56,12 +56,16 @@
           appearance="fill"
           class="calendar"
           [formGroup]="searchForm.controls.date"
+          [ngClass]="{
+            errorBorderBottom: !isPassengers && wasPassOptionsBlockOpen
+          }"
         >
           <mat-label>Date</mat-label>
           <mat-date-range-input
             [rangePicker]="rangePicker"
             xPosition="100px"
             [min]="minDate"
+
           >
             <input
               required="true"

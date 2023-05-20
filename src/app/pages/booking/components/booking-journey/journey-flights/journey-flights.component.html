@@ -44,7 +44,7 @@
           <div class="price-wrapper">
             <span class="seats-availabel">{{flight.seats.avaible}} seats available</span>
             <span class="price-fare">Price</span>
-            <span class="price-value">{{flight.price.usd}}</span>
+            <span class="price-value">{{flight.price.usd | currency}}</span>
           </div>
         </div>
         <button class="card-price__btn">Select</button>

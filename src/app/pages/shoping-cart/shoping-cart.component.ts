@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shoping-cart',
   templateUrl: './shoping-cart.component.html',
   styleUrls: ['./shoping-cart.component.scss'],
 })
-export class ShopingCartComponent {
+export class ShopingCartComponent implements OnInit {
   exampleItems: any = [
     {
       numberFlight: 'FR 1925',
@@ -50,7 +50,8 @@ export class ShopingCartComponent {
     },
   ];
 
-  constructor() {
+  ngOnInit(): void {
+    this.checkSelectedItems();
     this.getTotalPrice();
   }
 
@@ -85,6 +86,7 @@ export class ShopingCartComponent {
         this.total = this.total + element.price;
       }
     });
+    return this.total;
   }
 
   checkPromoCode() {
@@ -99,6 +101,16 @@ export class ShopingCartComponent {
       this.totalAfterDiscount =
         this.total - (this.total * this.promoExample[0].discount) / 100;
       this.isPromoInvalid = false;
+      return this.totalAfterDiscount;
     }
+    return;
+  }
+
+  checkSelectedItems(): number {
+    let counter: number = 0;
+    this.exampleItems.forEach((el: any) => {
+      if (el.isChecked) counter = counter + 1;
+    });
+    return counter;
   }
 }

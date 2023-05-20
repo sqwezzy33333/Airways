@@ -12,8 +12,8 @@ export class BookingJourneyComponent implements  OnInit{
   @Output() public onSelectTripEvent = new EventEmitter();
  
   public flights$!: BehaviorSubject<FlightsResponse[] | null>
-  public selectedDateButtonBack: number | null = null ;
-  public selectedDateButtonThere: number | null = null ;
+  public selectedDateButtonBack: Date | null = null ;
+  public selectedDateButtonThere: Date | null = null ;
   public onDateButtonClickBackEvent = new EventEmitter();
   public onDateButtonClickThereEvent = new EventEmitter();
   public isTripSelectedThere:boolean = false;
@@ -26,10 +26,10 @@ export class BookingJourneyComponent implements  OnInit{
     this.flights$ = this.ApiService.flight$
   }
   
-  public onDateButtonClickBack(item: number) {
+  public onDateButtonClickBack(item: Date) {
     this.selectedDateButtonBack = item;
   }
-  public onDateButtonClickThere(item: number) {
+  public onDateButtonClickThere(item: Date) {
     this.selectedDateButtonThere = item;
   }
 

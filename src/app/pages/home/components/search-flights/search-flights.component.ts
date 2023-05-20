@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ApiService, IAirports} from "../../../../core";
+import {ApiService, IAirports, SliderService} from "../../../../core";
 import {BehaviorSubject} from "rxjs";
 
 @Component({
@@ -13,11 +13,7 @@ import {BehaviorSubject} from "rxjs";
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchFlightsComponent implements OnInit {
-
-
   public airports$!: BehaviorSubject<IAirports[] | null>;
-
-
 
   ngOnInit(): void {
     this.ApiService.getAirports()
@@ -64,7 +60,8 @@ export class SearchFlightsComponent implements OnInit {
     ['Minsk', 'MNSK'],
   ];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private ApiService: ApiService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+              private ApiService: ApiService, private sliderService: SliderService) {}
 
   get adult() {
     return this.searchForm.value.passengers?.adult;
@@ -106,6 +103,7 @@ export class SearchFlightsComponent implements OnInit {
         "fromKey": formObject.from?.key,
         "toKey": formObject.dest?.key
       })
+      this.onDateChange();
     }
   }
 
@@ -243,6 +241,26 @@ export class SearchFlightsComponent implements OnInit {
       if (this.singleDate) {
         this.isDate = true;
       } else this.isDate = false;
+    }
+  }
+
+  onDateChange() {
+    const startDate = this.searchForm.get('date.startDate')?.value;
+    const endDate = this.searchForm.get('date.endDate')?.value;
+
+    if (startDate && endDate) {
+      const startDateValue = new Date(startDate);
+      const endDateValue = new Date(endDate);
+
+      const dates: Date[] = [];
+
+      const currentDate = new Date(startDateValue);
+
+      while (currentDate <= endDateValue) {
+        dates.push(new Date(currentDate)); 
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      this.sliderService.setDates(dates);
     }
   }
 }

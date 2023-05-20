@@ -13,25 +13,32 @@ import { SliderService } from 'src/app/core';
 export class JourneyDatesComponent {
   @Input() public isTripSelectedThere:boolean = false;
   @Input() public isTripSelectedBack:boolean = false;
-  @Input() public selectedDateButtonThere: number | null = null ;
-  @Input() public selectedDateButtonBack: number | null = null ;
-  
+  @Input() public selectedDateButtonThere: Date | null = null ;
+  @Input() public selectedDateButtonBack: Date | null = null ;
+
   @Output() public onDateButtonClickThereEvent = new EventEmitter();
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
 
   constructor(public sliderService: SliderService) {}
+
   public currentIndex = 0;
-  public dates: number[] = [];
+  public dates: Date[] = [];
+  public monthNames: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public dayOfWeekNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   ngOnInit(): void {
-    this.dates = this.sliderService.getDates();
+    const storedDates = this.sliderService.getDates();
+    if (storedDates) {
+      this.dates = storedDates.map(dateString => new Date(dateString));
+    }
+
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
 
-  public onDateButtonClickThere(item: number) {
+  public onDateButtonClickThere(item: Date) {
     this.onDateButtonClickThereEvent.emit(item);
   }
-  public onDateButtonClickBack(item: number) {
+  public onDateButtonClickBack(item: Date) {
     this.onDateButtonClickBackEvent.emit(item);
   }
 

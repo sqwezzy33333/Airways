@@ -14,15 +14,22 @@
         *ngFor="let item of dates"
         (click)="onDateButtonClickThere(item)"
         (click)="onDateButtonClickBack(item)"
-        [ngClass]="{'selected': selectedDateButtonThere === item || selectedDateButtonBack === item}"
+        [ngClass]="{'selected': (selectedDateButtonThere !== null && selectedDateButtonThere.getTime() === item.getTime()) || 
+                                (selectedDateButtonBack !== null && selectedDateButtonBack.getTime() === item.getTime())}"
         >
       <button class="date-item">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
-            <span class="date-item__day">01</span>
-            <span class="date-item__month">Mar</span>
+            <span class="date-item__day">
+              {{item.getDate()}}
+            </span>
+            <span class="date-item__month">
+              {{ monthNames[item.getMonth()] }}
+            </span>
           </div>
-          <div class="date-item__day-of-week">Wednesday</div>
+          <div class="date-item__day-of-week">
+            {{ dayOfWeekNames[item.getDay()] }}
+          </div>
         </div>
         <div class="date-item__price">
           <span class="price__symbol">€</span>

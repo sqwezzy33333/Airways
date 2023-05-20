@@ -107,6 +107,7 @@
             formControlName="singleDate"
             matInput
             [matDatepicker]="datepicker"
+            (ngModelChange)="onDateChange()"
           />
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle

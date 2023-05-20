@@ -1,10 +1,27 @@
 <div class="booking__container">
+
+  <app-booking-header
+    [openStatus]="openStatus"
+    [passengerOptions]="passengerOptions"
+    [countries]="countries"
+    (openResentSearchEvent)="openResentSearch()"
+    (increasePassengerCountEvent)="increasePassengerCount($event)"
+    (decreasePassengerCountEvent)="decreasePassengerCount($event)"
+    (getPassengerSummaryEvent)="getPassengerSummary()">
+  </app-booking-header>
+
   <div class="booking__wrapper">
-    <ul>
-      <li><a routerLink="flights" routerLinkActive="active">Flights</a></li>
-      <li><a routerLink="passengers" routerLinkActive="active">Passengers</a></li>
-      <li><a routerLink="review-payment" routerLinkActive="active">Review & Payment</a></li>
-    </ul>
     <router-outlet></router-outlet>
+    
+    <div class="booking__buttons">
+      <button class="btn btn-transparent"
+              (click)="goBack()">
+              Back
+      </button>
+      <button class="btn"
+              [routerLink]="['passengers']">
+              Continue
+      </button>
+    </div>
   </div>
 </div>

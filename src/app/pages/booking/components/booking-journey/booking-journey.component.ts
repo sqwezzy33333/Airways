@@ -1,20 +1,23 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, Output, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {ApiService, IAirports} from "../../../../core";
-import {FlightsResponse} from "../../../../core/models/flights.model";
+import {ApiService, FlightsResponse } from "../../../../core/index";
 
 @Component({
   selector: 'app-booking-journey',
   templateUrl: './booking-journey.component.html',
   styleUrls: ['./booking-journey.component.scss']
 })
-export class BookingJourneyComponent   implements  OnInit{
+export class BookingJourneyComponent implements  OnInit{
+  @Output() public openResentSearchEvent = new EventEmitter();
+  @Output() public onSelectTripEvent = new EventEmitter();
+ 
   public flights$!: BehaviorSubject<FlightsResponse[] | null>
-
-  public selectedButton: number | null = null ;
-  public onButtonClickEvent = new EventEmitter();
-
-
+  public selectedDateButtonBack: number | null = null ;
+  public selectedDateButtonThere: number | null = null ;
+  public onDateButtonClickBackEvent = new EventEmitter();
+  public onDateButtonClickThereEvent = new EventEmitter();
+  public isTripSelectedThere:boolean = false;
+  public isTripSelectedBack:boolean = false;
 
   constructor(private ApiService: ApiService) {
   }
@@ -22,8 +25,20 @@ export class BookingJourneyComponent   implements  OnInit{
   ngOnInit(): void {
     this.flights$ = this.ApiService.flight$
   }
-
-  onButtonClick(item: number) {
-    this.selectedButton = item;
+  
+  public onDateButtonClickBack(item: number) {
+    this.selectedDateButtonBack = item;
   }
+  public onDateButtonClickThere(item: number) {
+    this.selectedDateButtonThere = item;
+  }
+
+  public onSelectTrip(directionFlights: string) {
+    if (directionFlights === 'there') {
+      this.isTripSelectedThere = true;
+    } else if (directionFlights === 'back') {
+      this.isTripSelectedBack = true;
+    }
+  }
+
 }

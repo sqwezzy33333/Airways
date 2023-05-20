@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, map, Observable, Subscription, switchMap} from 'rxjs';
-import {IAirports, IFlightOffer} from '../../../core/index';
-import { FlightsRequest, FlightsResponse} from "../../models/flights.model";
+import {BehaviorSubject, Subscription } from 'rxjs';
+import { IAirports, FlightsRequest, FlightsResponse } from '../../../core/index';
 
 @Injectable({
   providedIn: 'root'
@@ -32,22 +31,5 @@ export class ApiService {
     ).subscribe((res: FlightsResponse[] )=> {
       this.flight$.next(res);
     });
-  }
-
-  private fetchFlightOffer(locationCode: string, destinationCode: string, departureDate: string, adultsAmount: string, stop: boolean): Observable<IFlightOffer> {
-    const urlSearch = `v2/shopping/flight-offers?originLocationCode=${locationCode}&destinationLocationCode=${destinationCode}&departureDate=${departureDate}&adults=${adultsAmount}&nonStop=${stop}&max=250`;
-    return this.http.get<IFlightOffer>(urlSearch);
-  }
-
-  public getFlightOffer(locationCode: string, destinationCode: string, departureDate: string, adultsAmount: string, stop: boolean): Observable<IFlightOffer> {
-    return this.fetchFlightOffer(locationCode, destinationCode, departureDate, adultsAmount, stop)
-    .pipe(
-      map(
-        (response) => {
-          //add logic for response
-          return response;
-        }
-      )
-    )
   }
 }

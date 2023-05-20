@@ -47,6 +47,7 @@
     margin: 0;
     padding: 0;
     width: 200%;
+    transition: transform 0.5s;
   }
   .item {
     display: flex;
@@ -134,3 +135,10 @@
 
 }
 
+.booking-journey__carousel.trip-selected-there  {
+  display: none;
+}
+
+.booking-journey__carousel.trip-selected-back  {
+  display: none;
+}

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {FlightsResponse} from "../../../../../core/models/flights.model";
-import {ApiService} from "../../../../../core";
-import {flush} from "@angular/core/testing";
+import { ChangeDetectionStrategy,
+         Component, EventEmitter,
+         Input, Output, OnInit
+        } from '@angular/core';
+import { ApiService, FlightsResponse} from "../../../../../core/index";
 
 @Component({
   selector: 'app-journey-flights',
@@ -12,6 +12,9 @@ import {flush} from "@angular/core/testing";
 })
 export class JourneyFlightsComponent implements  OnInit{
   @Input() flight!:FlightsResponse
+  @Input() public isTripSelectedThere:boolean = false;
+  @Input() public isTripSelectedBack:boolean = false;
+  @Output() public onSelectTripEvent = new EventEmitter();
 
 
   constructor(private ApiService: ApiService) {
@@ -21,5 +24,9 @@ export class JourneyFlightsComponent implements  OnInit{
   ngOnInit(): void {
     console.log(this.flight)
   }
+ 
 
+  public onSelectTrip() {
+    this.onSelectTripEvent.emit();
+  }
 }

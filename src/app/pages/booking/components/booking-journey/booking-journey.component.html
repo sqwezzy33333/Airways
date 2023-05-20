@@ -1,45 +1,54 @@
-<div class="booking-journey__there">
-  <div class="booking-journey__header">
-    <h3 class="header__title">
-      <span class="header__title-icon">
-        <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
-      </span>
-      <span class="header__title-text">Dublin to Warsaw Modlin</span>
-    </h3>
+<div *ngIf="flights$ | async as flights$ ">
+  <div class="booking-journey__there" *ngFor="let flight of flights$; let index = index">
+    <ng-container  *ngIf="index === 0">
+      <div class="booking-journey__header">
+        <h3 class="header__title">
+          <span class="header__title-icon">
+            <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
+          </span>
+          <span class="header__title-text">{{flight.form.name}} to {{flight.to.name}}</span>
+        </h3>
+      </div>
+    
+      <app-journey-dates
+        [selectedDateButtonThere] = "selectedDateButtonThere"
+        (onDateButtonClickThereEvent)="onDateButtonClickThere($event)"
+        [isTripSelectedThere]="isTripSelectedThere">
+      </app-journey-dates>
+    
+      <app-journey-flights
+        [flight]="flight" 
+        [isTripSelectedThere]="isTripSelectedThere"
+        (onSelectTripEvent)="onSelectTrip('there')">
+      </app-journey-flights>
+    </ng-container>
+
+
   </div>
-  
-  <app-journey-dates
-    [selectedDateButtonThere] = "selectedDateButtonThere"
-    (onDateButtonClickThereEvent)="onDateButtonClickThere($event)"
-    [isTripSelectedThere]="isTripSelectedThere">
-  </app-journey-dates>
+  <div class="booking-journey__back" *ngFor="let flight of flights$; let index = index">
+      <ng-container *ngIf="index === 1">
+      <div class="booking-journey__header booking-journey__header_return">
+        <h3 class="header__title">
+          <span class="header__title-icon title-icon_return">
+            <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
+          </span>
+          <span class="header__title-text">{{flight.form.name}} to {{flight.to.name}}</span>
+        </h3>
+      </div>
+      
+      <app-journey-dates
+        [selectedDateButtonBack] = "selectedDateButtonBack"
+        (onDateButtonClickBackEvent)="onDateButtonClickBack($event)"
+        [isTripSelectedBack]="isTripSelectedBack">
+      </app-journey-dates>
+    
+      <app-journey-flights
+        [flight]="flight" 
+        [isTripSelectedBack]="isTripSelectedBack"
+        (onSelectTripEvent)="onSelectTrip('back')">
+    </app-journey-flights>
+    
+    </ng-container>
+    </div>
 
-  <app-journey-flights
-    [isTripSelectedThere]="isTripSelectedThere"
-    (onSelectTripEvent)="onSelectTrip('there')">
-  </app-journey-flights>
-
-
-</div>
-
-<div class="booking-journey__back">
-  <div class="booking-journey__header booking-journey__header_return">
-    <h3 class="header__title">
-      <span class="header__title-icon title-icon_return">
-        <img src="./assets/booking/plane-icon.png" alt="Plane" width="20" height="20">
-      </span>
-      <span class="header__title-text">Warsaw Modlin to Dublin</span>
-    </h3>
-  </div>
-  
-  <app-journey-dates
-    [selectedDateButtonBack] = "selectedDateButtonBack"
-    (onDateButtonClickBackEvent)="onDateButtonClickBack($event)"
-    [isTripSelectedBack]="isTripSelectedBack">
-  </app-journey-dates>
-
-  <app-journey-flights
-    [isTripSelectedBack]="isTripSelectedBack"
-    (onSelectTripEvent)="onSelectTrip('back')">
-</app-journey-flights>
 </div>

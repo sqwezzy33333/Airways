@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
+import { Router, ActivatedRoute } from '@angular/router';
+import {ApiService, IAirports} from "../../../../core";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-search-flights',
@@ -10,12 +13,21 @@ import { Country } from 'src/app/shared/data/country';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchFlightsComponent implements OnInit {
-  ngOnInit(): void {}
+
+
+  public airports$!: BehaviorSubject<IAirports[] | null>;
+
+
+
+  ngOnInit(): void {
+    this.ApiService.getAirports()
+    this.airports$ = this.ApiService.airports$
+  }
 
   searchForm = new FormGroup({
     tripType: new FormControl<string>('roundTrip', [Validators.required]),
-    from: new FormControl<string>('', [Validators.required]),
-    dest: new FormControl<string>('', [Validators.required]),
+    from: new FormControl<IAirports | null>(null, [Validators.required]),
+    dest: new FormControl<IAirports | null>(null, [Validators.required]),
     date: new FormGroup({
       singleDate: new FormControl<string>('', []),
       startDate: new FormControl<string>(''),
@@ -41,7 +53,7 @@ export class SearchFlightsComponent implements OnInit {
   isPlaceBlocksReverse = false;
   isOneWay = false;
   isDate = false;
-  isPassengers = false;
+  isPassengers!: boolean;
   wasPassOptionsBlockOpen = false;
 
   minDate = new Date();
@@ -51,6 +63,8 @@ export class SearchFlightsComponent implements OnInit {
     ['Chicago', 'CH'],
     ['Minsk', 'MNSK'],
   ];
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private ApiService: ApiService) {}
 
   get adult() {
     return this.searchForm.value.passengers?.adult;
@@ -75,6 +89,7 @@ export class SearchFlightsComponent implements OnInit {
   }
 
   formSubmit() {
+    this.wasPassOptionsBlockOpen = true;
     let formObject = { ...this.searchForm.value };
 
     if (this.isPlaceBlocksReverse) {
@@ -82,8 +97,16 @@ export class SearchFlightsComponent implements OnInit {
       formObject.dest = this.searchForm.value.from;
     }
 
-    if (this.searchForm.valid && this.isPassengers && this.isDate)
+    if (this.searchForm.valid && this.isPassengers && this.isDate) {
+      this.router.navigate(['booking/flights']);
       console.log(formObject);
+      this.ApiService.getFlight({
+        "backDate": "2023-05-16T21:00:00.000Z",
+        "forwardDate": "2023-05-16T21:00:00.000Z",
+        "fromKey": formObject.from?.key,
+        "toKey": formObject.dest?.key
+      })
+    }
   }
 
   reversePlaceBlocks() {

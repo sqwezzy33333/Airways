@@ -17,6 +17,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -39,6 +40,7 @@ import {MatCardModule} from '@angular/material/card';
     MatSlideToggleModule,
     MatExpansionModule,
     MatCardModule,
+    MatTableModule,
   ],
   exports: [
     FormsModule,
@@ -58,6 +60,7 @@ import {MatCardModule} from '@angular/material/card';
     MatSlideToggleModule,
     MatExpansionModule,
     MatCardModule,
+    MatTableModule,
   ],
 })
 export class MaterialModule {}

@@ -8,6 +8,9 @@ import { BookingComponent, BookingPassengersComponent,
         } from '../../pages/booking/index';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/material/material.module';
+import { BookingReviewComponent } from './components/booking-review/booking-review.component';
+import { ReviewPassengersInfoComponent } from './components/booking-review/review-passengers-info/review-passengers-info.component';
+import { ReviewFareComponent } from './components/booking-review/review-fare/review-fare.component';
 import { SliderService } from 'src/app/core/index';
 
 @NgModule({
@@ -17,6 +20,9 @@ import { SliderService } from 'src/app/core/index';
     BookingJourneyComponent,
     JourneyDatesComponent,
     JourneyFlightsComponent,
+    BookingReviewComponent,
+    ReviewPassengersInfoComponent,
+    ReviewFareComponent,
     BookingHeaderComponent,
   ],
   imports: [

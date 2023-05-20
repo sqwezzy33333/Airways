@@ -1,20 +1,30 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Output, OnInit} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
+import {ApiService, FlightsResponse } from "../../../../core/index";
 
 @Component({
   selector: 'app-booking-journey',
   templateUrl: './booking-journey.component.html',
   styleUrls: ['./booking-journey.component.scss']
 })
-export class BookingJourneyComponent {
+export class BookingJourneyComponent implements  OnInit{
   @Output() public openResentSearchEvent = new EventEmitter();
   @Output() public onSelectTripEvent = new EventEmitter();
-  
+ 
+  public flights$!: BehaviorSubject<FlightsResponse[] | null>
   public selectedDateButtonBack: number | null = null ;
   public selectedDateButtonThere: number | null = null ;
   public onDateButtonClickBackEvent = new EventEmitter();
   public onDateButtonClickThereEvent = new EventEmitter();
   public isTripSelectedThere:boolean = false;
   public isTripSelectedBack:boolean = false;
+
+  constructor(private ApiService: ApiService) {
+  }
+
+  ngOnInit(): void {
+    this.flights$ = this.ApiService.flight$
+  }
   
   public onDateButtonClickBack(item: number) {
     this.selectedDateButtonBack = item;

@@ -3,7 +3,6 @@ import {ValidationErrors} from "@angular/forms";
 export interface ICountry {
   country: string,
   calling_code: number
-
 }
 
 export interface ISignUp {
@@ -34,4 +33,11 @@ export interface IProfile{
 export interface IUser {
   email:  (string | (ValidationErrors | null)[])[] | null,
   password: (string | (ValidationErrors | null)[])[] | null,
+}
+export interface IAirports {
+  key: string,
+  name: string,
+  city: string,
+  gmt: string,
+  country: string
 }

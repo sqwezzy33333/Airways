@@ -9,8 +9,8 @@
   </div>
   
   <app-journey-dates
-    [selectedDateButton] = "selectedDateButton"
-    (onDateButtonClickEvent)="onDateButtonClick($event)"
+    [selectedDateButtonThere] = "selectedDateButtonThere"
+    (onDateButtonClickThereEvent)="onDateButtonClickThere($event)"
     [isTripSelectedThere]="isTripSelectedThere">
   </app-journey-dates>
 
@@ -33,8 +33,8 @@
   </div>
   
   <app-journey-dates
-    [selectedDateButton] = "selectedDateButton"
-    (onDateButtonClickEvent)="onDateButtonClick($event)"
+    [selectedDateButtonBack] = "selectedDateButtonBack"
+    (onDateButtonClickBackEvent)="onDateButtonClickBack($event)"
     [isTripSelectedBack]="isTripSelectedBack">
   </app-journey-dates>
 

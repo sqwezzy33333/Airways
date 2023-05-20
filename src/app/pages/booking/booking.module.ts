@@ -8,6 +8,7 @@ import { BookingComponent, BookingPassengersComponent,
         } from '../../pages/booking/index';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/material/material.module';
+import { SliderService } from 'src/app/core/index';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,9 @@ import { MaterialModule } from 'src/app/material/material.module';
     JourneyDatesComponent,
     JourneyFlightsComponent,
     BookingHeaderComponent,
+  ],
+  providers: [
+    SliderService
   ]
 })
 export class BookingModule {}

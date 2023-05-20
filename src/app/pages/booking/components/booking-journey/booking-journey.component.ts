@@ -9,19 +9,24 @@ export class BookingJourneyComponent {
   @Output() public openResentSearchEvent = new EventEmitter();
   @Output() public onSelectTripEvent = new EventEmitter();
   
-  public selectedDateButton: number | null = null ;
-  public onDateButtonClickEvent = new EventEmitter();
+  public selectedDateButtonBack: number | null = null ;
+  public selectedDateButtonThere: number | null = null ;
+  public onDateButtonClickBackEvent = new EventEmitter();
+  public onDateButtonClickThereEvent = new EventEmitter();
   public isTripSelectedThere:boolean = false;
   public isTripSelectedBack:boolean = false;
   
-  public onDateButtonClick(item: number) {
-    this.selectedDateButton = item;
+  public onDateButtonClickBack(item: number) {
+    this.selectedDateButtonBack = item;
+  }
+  public onDateButtonClickThere(item: number) {
+    this.selectedDateButtonThere = item;
   }
 
-  public onSelectTrip(componentName: string) {
-    if(componentName === 'there') {
+  public onSelectTrip(directionFlights: string) {
+    if (directionFlights === 'there') {
       this.isTripSelectedThere = true;
-    } else if (componentName === 'back') {
+    } else if (directionFlights === 'back') {
       this.isTripSelectedBack = true;
     }
   }

@@ -39,7 +39,9 @@
   
       </div>
   
-      <div class="card-price">
+      <div class="card-price"
+           [class.trip-selected-there]="isTripSelectedThere"
+           [class.trip-selected-back]="isTripSelectedBack">
         <div class="flight-price">
           <div class="price-wrapper">
             <span class="seats-availabel">100 seats available</span>
@@ -48,7 +50,11 @@
   
           </div>
         </div>
-        <button class="card-price__btn">Select</button>
+        <button class="card-price__btn"
+                [ngClass]="{'card-price__btn_edit': isTripSelectedThere || isTripSelectedBack}"
+                (click)="onSelectTrip()">
+                {{ (isTripSelectedThere || isTripSelectedBack) ? 'Edit' : 'Select' }}
+      </button>
       </div>
     </div>
   </div>

@@ -1,5 +1,7 @@
 
-<div class="booking-journey__carousel">
+<div class="booking-journey__carousel"
+     [class.trip-selected-there]="isTripSelectedThere"
+     [class.trip-selected-back]="isTripSelectedBack">
   <button class="carousel-btn carousel-btn_prev">
     <span class="carousel-btn_icon">
       <img src="./assets/booking/arrow.svg" alt="Arrow">
@@ -8,8 +10,8 @@
   <ul class="carousel__container">
     <li class="item"
         *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-        (click)="onButtonClick(item)"
-        [ngClass]="{'selected': selectedButton === item}"
+        (click)="onDateButtonClick(item)"
+        [ngClass]="{'selected': selectedDateButton === item}"
         >
       <button class="date-item">
         <div class="date-item__date">

@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy,
+         Component, EventEmitter,
+         Input, Output
+        } from '@angular/core';
 
 @Component({
   selector: 'app-journey-flights',
@@ -7,5 +10,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyFlightsComponent {
+  @Input() public isTripSelectedThere:boolean = false;
+  @Input() public isTripSelectedBack:boolean = false;
+  @Output() public onSelectTripEvent = new EventEmitter();
+ 
 
+  public onSelectTrip() {
+    this.onSelectTripEvent.emit();
+  }
 }

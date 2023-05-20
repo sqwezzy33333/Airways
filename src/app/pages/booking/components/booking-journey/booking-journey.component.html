@@ -1,4 +1,3 @@
-
 <div class="booking-journey__there">
   <div class="booking-journey__header">
     <h3 class="header__title">
@@ -10,14 +9,16 @@
   </div>
   
   <app-journey-dates
-    [selectedButton] = "selectedButton"
-    (onButtonClickEvent)="onButtonClick($event)"
-  >
+    [selectedDateButton] = "selectedDateButton"
+    (onDateButtonClickEvent)="onDateButtonClick($event)"
+    [isTripSelectedThere]="isTripSelectedThere">
   </app-journey-dates>
 
-  <app-journey-flights></app-journey-flights>
-  <app-journey-flights></app-journey-flights>
-  <app-journey-flights></app-journey-flights>
+  <app-journey-flights
+    [isTripSelectedThere]="isTripSelectedThere"
+    (onSelectTripEvent)="onSelectTrip('there')">
+  </app-journey-flights>
+
 
 </div>
 
@@ -32,12 +33,13 @@
   </div>
   
   <app-journey-dates
-    [selectedButton] = "selectedButton"
-    (onButtonClickEvent)="onButtonClick($event)"
-  >
+    [selectedDateButton] = "selectedDateButton"
+    (onDateButtonClickEvent)="onDateButtonClick($event)"
+    [isTripSelectedBack]="isTripSelectedBack">
   </app-journey-dates>
 
-  <app-journey-flights></app-journey-flights>
-  <app-journey-flights></app-journey-flights>
-  <app-journey-flights></app-journey-flights>
+  <app-journey-flights
+    [isTripSelectedBack]="isTripSelectedBack"
+    (onSelectTripEvent)="onSelectTrip('back')">
+</app-journey-flights>
 </div>

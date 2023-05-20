@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-booking-journey',
@@ -6,10 +6,24 @@ import { Component, EventEmitter } from '@angular/core';
   styleUrls: ['./booking-journey.component.scss']
 })
 export class BookingJourneyComponent {
-  public selectedButton: number | null = null ;
-  public onButtonClickEvent = new EventEmitter();
+  @Output() public openResentSearchEvent = new EventEmitter();
+  @Output() public onSelectTripEvent = new EventEmitter();
   
-  onButtonClick(item: number) {
-    this.selectedButton = item;
+  public selectedDateButton: number | null = null ;
+  public onDateButtonClickEvent = new EventEmitter();
+  public isTripSelectedThere:boolean = false;
+  public isTripSelectedBack:boolean = false;
+  
+  public onDateButtonClick(item: number) {
+    this.selectedDateButton = item;
   }
+
+  public onSelectTrip(componentName: string) {
+    if(componentName === 'there') {
+      this.isTripSelectedThere = true;
+    } else if (componentName === 'back') {
+      this.isTripSelectedBack = true;
+    }
+  }
+
 }

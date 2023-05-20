@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy,
+         Component, EventEmitter,
+         Input, Output
+        } from '@angular/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -7,10 +10,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyDatesComponent {
-  @Input() public selectedButton: number | null = null ;
-  @Output() public onButtonClickEvent = new EventEmitter();
+  @Input() public isTripSelectedThere:boolean = false;
+  @Input() public isTripSelectedBack:boolean = false;
+  @Input() public selectedDateButton: number | null = null ;
+  @Output() public onDateButtonClickEvent = new EventEmitter();
 
-  onButtonClick(item: number) {
-    this.onButtonClickEvent.emit(item);
+  public onDateButtonClick(item: number) {
+    this.onDateButtonClickEvent.emit(item);
   }
 }

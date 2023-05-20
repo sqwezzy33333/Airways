@@ -24,10 +24,10 @@
           ><span
             class="cart__total-count"
             [ngClass]="{ cartOldPrice: totalAfterDiscount }"
-            >{{ total | currency : "EUR" : true }}</span
+            >{{ getTotalPrice() | currency : "EUR" : true }}</span
           >
           <span class="cart__total-count" *ngIf="totalAfterDiscount">{{
-            totalAfterDiscount | currency : "EUR" : true
+            checkPromoCode() | currency : "EUR" : true
           }}</span>
         </div>
       </div>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="panel-btns-cart__selected-and-payment-btn">
-          <span>{{ exampleItems.length }} selected</span>
+          <span>{{ checkSelectedItems() }} selected</span>
           <button>Payment</button>
         </div>
       </div>

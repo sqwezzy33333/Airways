@@ -23,7 +23,7 @@ export class BookingJourneyComponent implements  OnInit{
   }
 
   ngOnInit(): void {
-    this.flights$ = this.ApiService.flight$
+    this.flights$ = this.ApiService.flight$;
   }
   
   public onDateButtonClickBack(item: Date) {

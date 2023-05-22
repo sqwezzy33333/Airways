@@ -21,18 +21,7 @@ export interface FlightsResponse {
     rub: number,
     pln: number
 },
-  otherFlights: {
-  1: string,
-    2: string,
-    3: string,
-    4: string,
-    5: string,
-    [-5]: string,
-    [-4]: string,
-    [-3]: string,
-    [-2]: string,
-    [-1]: string
-},
+  otherFlights: { [key: string]: FlightsResponse };
   flightNumber: string
 }
 export interface FlightsRequest {

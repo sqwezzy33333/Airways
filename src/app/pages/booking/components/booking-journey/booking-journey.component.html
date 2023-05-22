@@ -1,6 +1,6 @@
-<div *ngIf="flights$ | async as flights$ ">
-  <div class="booking-journey__there" *ngFor="let flight of flights$; let index = index">
-    <ng-container  *ngIf="index === 0">
+<div *ngIf="(flights$ | async) as flights ">
+  <ng-container *ngFor="let flight of flights; let index = index">
+  <div class="booking-journey__there" *ngIf="index === 0">
       <div class="booking-journey__header">
         <h3 class="header__title">
           <span class="header__title-icon">
@@ -21,12 +21,16 @@
         [isTripSelectedThere]="isTripSelectedThere"
         (onSelectTripEvent)="onSelectTrip('there')">
       </app-journey-flights>
-    </ng-container>
 
-
-  </div>
-  <div class="booking-journey__back" *ngFor="let flight of flights$; let index = index">
-      <ng-container *ngIf="index === 1">
+      <app-journey-flights
+        *ngFor="let otherFlight of flight.otherFlights | keyvalue"
+        [flight]="otherFlight.value" 
+        [isTripSelectedThere]="isTripSelectedThere"
+        (onSelectTripEvent)="onSelectTrip('there')">
+      </app-journey-flights>
+    </div>
+  
+  <div class="booking-journey__back" *ngIf="index === 1">
       <div class="booking-journey__header booking-journey__header_return">
         <h3 class="header__title">
           <span class="header__title-icon title-icon_return">
@@ -46,9 +50,17 @@
         [flight]="flight" 
         [isTripSelectedBack]="isTripSelectedBack"
         (onSelectTripEvent)="onSelectTrip('back')">
-    </app-journey-flights>
-    
-    </ng-container>
+      </app-journey-flights>
+
+      <app-journey-flights
+        *ngFor="let otherFlight of flight.otherFlights | keyvalue"
+        [flight]="otherFlight.value" 
+        [isTripSelectedBack]="isTripSelectedBack"
+        (onSelectTripEvent)="onSelectTrip('back')">
+      </app-journey-flights>
+
     </div>
+
+  </ng-container>
 
 </div>

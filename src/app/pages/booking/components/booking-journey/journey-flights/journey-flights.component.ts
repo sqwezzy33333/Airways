@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy,
          Component, EventEmitter,
          Input, Output, OnInit
         } from '@angular/core';
-import { ApiService, FlightsResponse} from "../../../../../core/index";
+import { FlightsResponse} from "../../../../../core/index";
 
 @Component({
   selector: 'app-journey-flights',
@@ -16,17 +16,21 @@ export class JourneyFlightsComponent implements  OnInit{
   @Input() public isTripSelectedBack:boolean = false;
   @Output() public onSelectTripEvent = new EventEmitter();
 
-
-  constructor(private ApiService: ApiService) {
-    console.log(this.flight)
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    console.log(this.flight)
+    console.log('flights:', this.flight);
+    console.log('otherFlights:', this.flight.otherFlights);
   }
- 
 
   public onSelectTrip() {
     this.onSelectTripEvent.emit();
+  }
+
+  public formatTime(duration: number): string {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+  
+    return `${hours}h ${minutes}m`;
   }
 }

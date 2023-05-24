@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl,FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ApiService, FlightsStateService, IAirports, SliderService, FlightsResponse} from "../../../../core";
-import {BehaviorSubject, Subscription} from "rxjs";
+import {ApiService, FlightsStateService,
+        IAirports, SliderService
+        } from "../../../../core";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-search-flights',

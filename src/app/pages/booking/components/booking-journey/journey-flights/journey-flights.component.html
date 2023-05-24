@@ -1,6 +1,6 @@
-<ng-container *ngFor="let flight of flights; let i = index">
+
   <div class="flight-card"
-       *ngIf="selectedFlightIndex === null || selectedFlightIndex === i">
+       *ngIf="isSelectedFlight(flight)">
     <div class="card-wrapper">
       <div class="card-body">
         <div class="card-info">
@@ -59,4 +59,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+

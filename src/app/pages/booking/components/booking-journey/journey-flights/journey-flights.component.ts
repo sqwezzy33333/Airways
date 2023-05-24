@@ -15,6 +15,9 @@ export class JourneyFlightsComponent implements  OnInit{
   @Input() public isSelected: boolean = false;
   @Output() public onSelectTripEvent = new EventEmitter();
 
+  @Input() public selectedDateButtonBack: Date | null = null ;
+  @Input() public selectedDateButtonThere: Date | null = null ;
+
   public flights: FlightsResponse[] = [];
 
   constructor() {}
@@ -24,7 +27,7 @@ export class JourneyFlightsComponent implements  OnInit{
     const otherFlights = Object.values(this.flight.otherFlights);
     this.flights = firstFlights.concat(otherFlights);
 
-    console.log('flight:', this.flight);
+    console.log('flights:', this.flights);
   }
 
   selectedFlightIndex: number | null = null;
@@ -47,5 +50,32 @@ export class JourneyFlightsComponent implements  OnInit{
     const minutes = duration % 60;
   
     return `${hours}h ${minutes}m`;
+  }
+
+  public isSelectedFlight(flight: FlightsResponse): boolean {
+    if (!this.selectedDateButtonBack && !this.selectedDateButtonThere) {
+      return false;
+    }
+  
+    const flightDate = new Date(flight.takeoffDate);
+    console.log('flightDate', flightDate.toDateString())
+  
+    if (this.selectedDateButtonBack) {
+      const selectedDateBack = new Date(this.selectedDateButtonBack);
+      if (flightDate.toDateString() === selectedDateBack.toDateString()) {
+        console.log('flightDate-Back', flightDate.toDateString())
+        return true;
+      }
+    }
+  
+    if (this.selectedDateButtonThere) {
+      const selectedDateThere = new Date(this.selectedDateButtonThere);
+      if (flightDate.toDateString() === selectedDateThere.toDateString()) {
+        console.log('flightDate-There', flightDate.toDateString())
+        return true;
+      }
+    }
+  
+    return false;
   }
 }

@@ -19,6 +19,7 @@ export class JourneyDatesComponent {
 
   @Output() public onDateButtonClickThereEvent = new EventEmitter();
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
+  @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
   constructor(private sliderService: SliderService) {}
 

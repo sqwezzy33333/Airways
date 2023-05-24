@@ -25,7 +25,6 @@ export class ApiService {
 
 
   public getFlight(data:FlightsRequest){
-    console.log(data)
     return this.http.post('search/flight',
       data
       // @ts-ignore

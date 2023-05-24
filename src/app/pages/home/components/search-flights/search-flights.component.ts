@@ -118,6 +118,7 @@ export class SearchFlightsComponent implements OnInit {
 
       this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
+    console.log(formObject)
   }
 
   reversePlaceBlocks() {

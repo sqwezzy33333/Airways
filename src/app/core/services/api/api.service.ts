@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subscription } from 'rxjs';
-import { IAirports, FlightsRequest, FlightsResponse } from '../../../core/index';
+import { IAirports, FlightsRequest, FlightsResponse, FlightsStateService } from '../../../core/index';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class ApiService {
   public airports$: BehaviorSubject<IAirports[] | null>;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private flightsStateService: FlightsStateService) {
     this.flight$ = new BehaviorSubject<FlightsResponse[] | null>(null);
     this.airports$ = new BehaviorSubject<IAirports[] | null>(null);
   }
@@ -30,6 +31,7 @@ export class ApiService {
       // @ts-ignore
     ).subscribe((res: FlightsResponse[] )=> {
       this.flight$.next(res);
+      this.flightsStateService.flights = res;
     });
   }
 }

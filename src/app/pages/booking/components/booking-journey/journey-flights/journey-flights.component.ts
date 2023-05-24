@@ -12,19 +12,34 @@ import { FlightsResponse} from "../../../../../core/index";
 })
 export class JourneyFlightsComponent implements  OnInit{
   @Input() flight!:FlightsResponse
-  @Input() public isTripSelectedThere:boolean = false;
-  @Input() public isTripSelectedBack:boolean = false;
+  @Input() public isSelected: boolean = false;
   @Output() public onSelectTripEvent = new EventEmitter();
+
+  public flights: FlightsResponse[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
-    console.log('flights:', this.flight);
-    console.log('otherFlights:', this.flight.otherFlights);
+    const firstFlights = [this.flight];
+    const otherFlights = Object.values(this.flight.otherFlights);
+    this.flights = firstFlights.concat(otherFlights);
+
+    console.log('flight:', this.flight);
   }
 
-  public onSelectTrip() {
-    this.onSelectTripEvent.emit();
+  selectedFlightIndex: number | null = null;
+
+  public onSelectTrip(flight: FlightsResponse) {
+    this.onSelectTripEvent.emit(flight);
+
+    const selectedIndex = this.selectedFlightIndex;
+    const clickedIndex = this.flights.indexOf(flight);
+
+    if (selectedIndex === clickedIndex) {
+      this.selectedFlightIndex = null;
+    } else {
+      this.selectedFlightIndex = clickedIndex;
+    }
   }
 
   public formatTime(duration: number): string {

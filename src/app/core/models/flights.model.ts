@@ -22,7 +22,8 @@ export interface FlightsResponse {
     pln: number
 },
   otherFlights: { [key: string]: FlightsResponse };
-  flightNumber: string
+  flightNumber: string;
+  isSelected?: boolean;
 }
 export interface FlightsRequest {
   fromKey: string | null | undefined,

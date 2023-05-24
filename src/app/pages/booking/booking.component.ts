@@ -1,22 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { PassengerOption } from '../../core/index';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ApiService, FlightsResponse, FlightsStateService, PassengerOption } from '../../core/index';
 import { Country } from '../../shared/index';
 import { Location } from '@angular/common'
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
 })
-export class BookingComponent {
+export class BookingComponent implements OnInit{
   @Output() public openResentSearchEvent = new EventEmitter();
   @Output() public increasePassengerCountEvent = new EventEmitter();
   @Output() public decreasePassengerCountEvent = new EventEmitter();
   @Output() public getPassengerSummaryEvent = new EventEmitter();
 
-  constructor(private location: Location) {}
-
+  
+  public flights$!: BehaviorSubject<FlightsResponse[] | null>
   public countries = Country;
   public openStatus: boolean = false;
   public passengerOptions: PassengerOption[] = [
@@ -24,7 +24,15 @@ export class BookingComponent {
     { label: 'Children', yearsLimit: '2-14',passengerCount: 0 },
     { label: 'Infants', yearsLimit: '0-2', passengerCount: 0 }
   ];
+  
+  constructor(private location: Location,
+              private flightsStateService: FlightsStateService) {}
 
+  ngOnInit(): void {
+    this.flightsStateService.flights$.subscribe((flights: FlightsResponse[] | null) => {
+      this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
+    });
+  }
 
   public openResentSearch() {
     this.openStatus = !this.openStatus;

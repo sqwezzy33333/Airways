@@ -6,11 +6,17 @@ import { Injectable } from '@angular/core';
 export class SliderService {
   private currentIndex = 0;
   public dates: Date[] = [];
+  public totalPassengers: number = 0;
 
   constructor() {
     const storedDates = localStorage.getItem('sliderDates');
     if (storedDates) {
       this.dates = JSON.parse(storedDates);
+    }
+
+    const storedPassengers = localStorage.getItem('totalPassengers');
+    if (storedPassengers) {
+      this.totalPassengers = JSON.parse(storedPassengers);
     }
   }
 
@@ -34,5 +40,13 @@ export class SliderService {
 
   public getCurrentIndex() {
     return this.currentIndex;
+  }
+
+  public setPassengers(amount: number) {
+    this.totalPassengers = amount;
+    localStorage.setItem('totalPassengers', JSON.stringify(this.totalPassengers));
+  }
+  public getPassengers() {
+    return this.totalPassengers;
   }
 }

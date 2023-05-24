@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ApiService, IAirports, SliderService} from "../../../../core";
-import {BehaviorSubject} from "rxjs";
+import {ApiService, FlightsStateService, IAirports, SliderService, FlightsResponse} from "../../../../core";
+import {BehaviorSubject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-search-flights',
@@ -14,11 +14,6 @@ import {BehaviorSubject} from "rxjs";
 })
 export class SearchFlightsComponent implements OnInit {
   public airports$!: BehaviorSubject<IAirports[] | null>;
-
-  ngOnInit(): void {
-    this.ApiService.getAirports()
-    this.airports$ = this.ApiService.airports$
-  }
 
   searchForm = new FormGroup({
     tripType: new FormControl<string>('roundTrip', [Validators.required]),
@@ -35,15 +30,15 @@ export class SearchFlightsComponent implements OnInit {
       infant: new FormControl<number>(0),
     }),
   });
-
+  
   country = Country;
-
+  
   passengers = {
     adult: 0,
     child: 0,
     infant: 0,
   };
-
+  
   isInfoPassSpanOpen = false;
   showPassengersOptions = false;
   isPlaceBlocksReverse = false;
@@ -51,39 +46,49 @@ export class SearchFlightsComponent implements OnInit {
   isDate = false;
   isPassengers!: boolean;
   wasPassOptionsBlockOpen = false;
-
+  
   minDate = new Date();
-
+  
   namesOfLabels = ['From', 'Destination'];
   exampleArrayOfPlace: Array<[string, string]> = [
     ['Chicago', 'CH'],
     ['Minsk', 'MNSK'],
   ];
 
+  
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private ApiService: ApiService, private sliderService: SliderService) {}
+    private ApiService: ApiService, private sliderService: SliderService,
+    private flightsStateService: FlightsStateService) {}
+    
+    ngOnInit(): void {
+      this.ApiService.getAirports()
+      this.airports$ = this.ApiService.airports$
+    }
 
-  get adult() {
-    return this.searchForm.value.passengers?.adult;
-  }
-  get child() {
-    return this.searchForm.value.passengers?.child;
-  }
-  get infant() {
-    return this.searchForm.value.passengers?.infant;
-  }
-  get tripType() {
-    return this.searchForm.value.tripType;
-  }
-  get singleDate() {
-    return this.searchForm.value.date?.singleDate;
-  }
-  get startDate() {
-    return this.searchForm.value.date?.startDate;
-  }
-  get endDate() {
-    return this.searchForm.value.date?.endDate;
-  }
+    get adult() {
+      return this.searchForm.value.passengers?.adult;
+    }
+    get child() {
+      return this.searchForm.value.passengers?.child;
+    }
+    get infant() {
+      return this.searchForm.value.passengers?.infant;
+    }
+    get tripType() {
+      return this.searchForm.value.tripType;
+    }
+    get singleDate() {
+      return this.searchForm.value.date?.singleDate;
+    }
+    get startDate() {
+      return this.searchForm.value.date?.startDate;
+    }
+    get endDate() {
+      return this.searchForm.value.date?.endDate;
+    }
+    get totalPassengers(): number {
+      return this.passengers.adult + this.passengers.child + this.passengers.infant;
+    }
 
   formSubmit() {
     this.wasPassOptionsBlockOpen = true;
@@ -93,17 +98,19 @@ export class SearchFlightsComponent implements OnInit {
       formObject.from = this.searchForm.value.dest;
       formObject.dest = this.searchForm.value.from;
     }
-
+   
     if (this.searchForm.valid && this.isPassengers && this.isDate) {
       this.router.navigate(['booking/flights']);
-      console.log(formObject);
+
       this.ApiService.getFlight({
-        "backDate": "2023-05-16T21:00:00.000Z",
-        "forwardDate": "2023-05-16T21:00:00.000Z",
+        "backDate": this.startDate,
+        "forwardDate": this.endDate,
         "fromKey": formObject.from?.key,
         "toKey": formObject.dest?.key
-      })
+      });
+
       this.onDateChange();
+      this.setPassengers();
     }
   }
 
@@ -262,5 +269,9 @@ export class SearchFlightsComponent implements OnInit {
       }
       this.sliderService.setDates(dates);
     }
+  }
+
+  setPassengers() {
+    this.sliderService.setPassengers(this.totalPassengers);
   }
 }

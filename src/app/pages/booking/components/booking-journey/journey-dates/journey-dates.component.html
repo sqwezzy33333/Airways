@@ -1,7 +1,6 @@
 
 <div class="booking-journey__carousel"
-     [class.trip-selected-there]="isTripSelectedThere"
-     [class.trip-selected-back]="isTripSelectedBack">
+     [class.trip-selected]="isSelected">
   <button class="carousel-btn carousel-btn_prev" 
   (click)="prevSlide()">
     <span class="carousel-btn_icon">
@@ -32,8 +31,7 @@
           </div>
         </div>
         <div class="date-item__price">
-          <span class="price__symbol">€</span>
-          <span class="price__numbers">146.70</span>
+          <span class="price__numbers">{{flight.price.usd | currency}}</span>
         </div>
       </button>
     </li>

@@ -1,5 +1,5 @@
 <div *ngIf="(flights$ | async) as flights ">
-  <ng-container *ngFor="let flight of flights; let index = index">
+  <ng-container *ngFor="let flight of flights; let index = index;">
   <div class="booking-journey__there" *ngIf="index === 0">
       <div class="booking-journey__header">
         <h3 class="header__title">
@@ -11,23 +11,25 @@
       </div>
     
       <app-journey-dates
+        [flight]="flight" 
         [selectedDateButtonThere] = "selectedDateButtonThere"
         (onDateButtonClickThereEvent)="onDateButtonClickThere($event)"
-        [isTripSelectedThere]="isTripSelectedThere">
+        [isSelected]="isSelectedThere">
       </app-journey-dates>
     
       <app-journey-flights
         [flight]="flight" 
-        [isTripSelectedThere]="isTripSelectedThere"
-        (onSelectTripEvent)="onSelectTrip('there')">
+        [isSelected]="isSelectedThere"
+        (onSelectTripEvent)="onSelectTrip('there', $event)">
       </app-journey-flights>
 
-      <app-journey-flights
-        *ngFor="let otherFlight of flight.otherFlights | keyvalue"
-        [flight]="otherFlight.value" 
-        [isTripSelectedThere]="isTripSelectedThere"
-        (onSelectTripEvent)="onSelectTrip('there')">
-      </app-journey-flights>
+      <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">
+        <app-journey-flights
+          [flight]="otherFlight.value" 
+          [isSelected]="isSelectedThere"
+          (onSelectTripEvent)="onSelectTrip('back', $event)">
+        </app-journey-flights>
+      </ng-container>
     </div>
   
   <div class="booking-journey__back" *ngIf="index === 1">
@@ -41,24 +43,25 @@
       </div>
       
       <app-journey-dates
+        [flight]="flight" 
         [selectedDateButtonBack] = "selectedDateButtonBack"
         (onDateButtonClickBackEvent)="onDateButtonClickBack($event)"
-        [isTripSelectedBack]="isTripSelectedBack">
+        [isSelected]="isSelectedBack">
       </app-journey-dates>
     
       <app-journey-flights
         [flight]="flight" 
-        [isTripSelectedBack]="isTripSelectedBack"
-        (onSelectTripEvent)="onSelectTrip('back')">
+        [isSelected]="isSelectedBack"
+        (onSelectTripEvent)="onSelectTrip('back', $event)">
       </app-journey-flights>
 
-      <app-journey-flights
-        *ngFor="let otherFlight of flight.otherFlights | keyvalue"
-        [flight]="otherFlight.value" 
-        [isTripSelectedBack]="isTripSelectedBack"
-        (onSelectTripEvent)="onSelectTrip('back')">
-      </app-journey-flights>
-
+      <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">
+        <app-journey-flights
+          [flight]="otherFlight.value" 
+          [isSelected]="isSelectedBack"
+          (onSelectTripEvent)="onSelectTrip('back', $event)">
+        </app-journey-flights>
+      </ng-container>
     </div>
 
   </ng-container>

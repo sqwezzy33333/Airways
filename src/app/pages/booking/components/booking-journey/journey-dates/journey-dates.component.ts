@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy,
          Component, EventEmitter,
          Input, Output
         } from '@angular/core';
-import { SliderService } from 'src/app/core';
+import { FlightsResponse, SliderService } from 'src/app/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -11,15 +11,16 @@ import { SliderService } from 'src/app/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JourneyDatesComponent {
-  @Input() public isTripSelectedThere:boolean = false;
-  @Input() public isTripSelectedBack:boolean = false;
+  @Input() flight!:FlightsResponse;
+  @Input() public isSelected:boolean = false;
+
   @Input() public selectedDateButtonThere: Date | null = null ;
   @Input() public selectedDateButtonBack: Date | null = null ;
 
   @Output() public onDateButtonClickThereEvent = new EventEmitter();
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
 
-  constructor(public sliderService: SliderService) {}
+  constructor(private sliderService: SliderService) {}
 
   public currentIndex = 0;
   public dates: Date[] = [];

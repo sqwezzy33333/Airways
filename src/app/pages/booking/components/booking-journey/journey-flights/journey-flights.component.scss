@@ -225,22 +225,7 @@
         }
       }
 
-      .trip-selected-there {
-        border: none;
-        .price-wrapper {
-          .seats-availabel {
-            display: none;
-          }
-          .price-fare {
-            display: none;
-          }
-          .price-value {
-            color: #000000;
-          }
-        }
-      }
-
-      .trip-selected-back {
+      .trip-selected {
         border: none;
         .price-wrapper {
           .seats-availabel {
@@ -256,4 +241,8 @@
       }
     }
   }
+}
+
+.hidden {
+  display: none;
 }

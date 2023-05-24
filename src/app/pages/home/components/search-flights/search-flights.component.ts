@@ -3,8 +3,10 @@ import { FormControl,FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ApiService, FlightsStateService,
-        IAirports, SliderService
+import {ApiService, IAirports,
+        ISearchFlightsForm,
+        SearchFlightsStateService,
+        SliderService
         } from "../../../../core";
 import { BehaviorSubject } from "rxjs";
 
@@ -60,7 +62,7 @@ export class SearchFlightsComponent implements OnInit {
   
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
     private ApiService: ApiService, private sliderService: SliderService,
-    private flightsStateService: FlightsStateService) {}
+    private searchFlightsStateService: SearchFlightsStateService) {}
     
     ngOnInit(): void {
       this.ApiService.getAirports()
@@ -97,8 +99,8 @@ export class SearchFlightsComponent implements OnInit {
     let formObject = { ...this.searchForm.value };
 
     if (this.isPlaceBlocksReverse) {
-      formObject.from = this.searchForm.value.dest;
-      formObject.dest = this.searchForm.value.from;
+      formObject.from = this.searchForm.value.dest!;
+      formObject.dest = this.searchForm.value.from!;
     }
    
     if (this.searchForm.valid && this.isPassengers && this.isDate) {
@@ -113,6 +115,8 @@ export class SearchFlightsComponent implements OnInit {
 
       this.onDateChange();
       this.setPassengers();
+
+      this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
   }
 

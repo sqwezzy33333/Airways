@@ -105,8 +105,8 @@ export class SearchFlightsComponent implements OnInit {
       this.router.navigate(['booking/flights']);
 
       this.ApiService.getFlight({
-        "backDate": this.startDate,
-        "forwardDate": this.endDate,
+        "backDate": this.endDate,
+        "forwardDate": this.startDate,
         "fromKey": formObject.from?.key,
         "toKey": formObject.dest?.key
       });

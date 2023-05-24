@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl,FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import {ApiService, IAirports} from "../../../../core";
-import {BehaviorSubject} from "rxjs";
+import {ApiService, IAirports,
+        ISearchFlightsForm,
+        SearchFlightsStateService,
+        SliderService
+        } from "../../../../core";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-search-flights',
@@ -13,16 +17,7 @@ import {BehaviorSubject} from "rxjs";
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchFlightsComponent implements OnInit {
-
-
   public airports$!: BehaviorSubject<IAirports[] | null>;
-
-
-
-  ngOnInit(): void {
-    this.ApiService.getAirports()
-    this.airports$ = this.ApiService.airports$
-  }
 
   searchForm = new FormGroup({
     tripType: new FormControl<string>('roundTrip', [Validators.required]),
@@ -39,15 +34,15 @@ export class SearchFlightsComponent implements OnInit {
       infant: new FormControl<number>(0),
     }),
   });
-
+  
   country = Country;
-
+  
   passengers = {
     adult: 0,
     child: 0,
     infant: 0,
   };
-
+  
   isInfoPassSpanOpen = false;
   showPassengersOptions = false;
   isPlaceBlocksReverse = false;
@@ -55,56 +50,73 @@ export class SearchFlightsComponent implements OnInit {
   isDate = false;
   isPassengers!: boolean;
   wasPassOptionsBlockOpen = false;
-
+  
   minDate = new Date();
-
+  
   namesOfLabels = ['From', 'Destination'];
   exampleArrayOfPlace: Array<[string, string]> = [
     ['Chicago', 'CH'],
     ['Minsk', 'MNSK'],
   ];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private ApiService: ApiService) {}
+  
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+    private ApiService: ApiService, private sliderService: SliderService,
+    private searchFlightsStateService: SearchFlightsStateService) {}
+    
+    ngOnInit(): void {
+      this.ApiService.getAirports()
+      this.airports$ = this.ApiService.airports$
+    }
 
-  get adult() {
-    return this.searchForm.value.passengers?.adult;
-  }
-  get child() {
-    return this.searchForm.value.passengers?.child;
-  }
-  get infant() {
-    return this.searchForm.value.passengers?.infant;
-  }
-  get tripType() {
-    return this.searchForm.value.tripType;
-  }
-  get singleDate() {
-    return this.searchForm.value.date?.singleDate;
-  }
-  get startDate() {
-    return this.searchForm.value.date?.startDate;
-  }
-  get endDate() {
-    return this.searchForm.value.date?.endDate;
-  }
+    get adult() {
+      return this.searchForm.value.passengers?.adult;
+    }
+    get child() {
+      return this.searchForm.value.passengers?.child;
+    }
+    get infant() {
+      return this.searchForm.value.passengers?.infant;
+    }
+    get tripType() {
+      return this.searchForm.value.tripType;
+    }
+    get singleDate() {
+      return this.searchForm.value.date?.singleDate;
+    }
+    get startDate() {
+      return this.searchForm.value.date?.startDate;
+    }
+    get endDate() {
+      return this.searchForm.value.date?.endDate;
+    }
+    get totalPassengers(): number {
+      return this.passengers.adult + this.passengers.child + this.passengers.infant;
+    }
 
   formSubmit() {
     this.wasPassOptionsBlockOpen = true;
     let formObject = { ...this.searchForm.value };
 
     if (this.isPlaceBlocksReverse) {
-      formObject.from = this.searchForm.value.dest;
-      formObject.dest = this.searchForm.value.from;
+      formObject.from = this.searchForm.value.dest!;
+      formObject.dest = this.searchForm.value.from!;
     }
-
+   
     if (this.searchForm.valid && this.isPassengers && this.isDate) {
       this.router.navigate(['booking/flights']);
+
       this.ApiService.getFlight({
-        "backDate": "2023-05-16T21:00:00.000Z",
-        "forwardDate": "2023-05-16T21:00:00.000Z",
+        "backDate": this.endDate,
+        "forwardDate": this.startDate,
         "fromKey": formObject.from?.key,
         "toKey": formObject.dest?.key
-      })
+      });
+
+      this.onDateChange();
+      this.setPassengers();
+
+      this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
     console.log(formObject)
   }
@@ -244,5 +256,29 @@ export class SearchFlightsComponent implements OnInit {
         this.isDate = true;
       } else this.isDate = false;
     }
+  }
+
+  onDateChange() {
+    const startDate = this.searchForm.get('date.startDate')?.value;
+    const endDate = this.searchForm.get('date.endDate')?.value;
+
+    if (startDate && endDate) {
+      const startDateValue = new Date(startDate);
+      const endDateValue = new Date(endDate);
+
+      const dates: Date[] = [];
+
+      const currentDate = new Date(startDateValue);
+
+      while (currentDate <= endDateValue) {
+        dates.push(new Date(currentDate)); 
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      this.sliderService.setDates(dates);
+    }
+  }
+
+  setPassengers() {
+    this.sliderService.setPassengers(this.totalPassengers);
   }
 }

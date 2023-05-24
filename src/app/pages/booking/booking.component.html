@@ -1,14 +1,21 @@
 <div class="booking__container">
 
-  <app-booking-header
-    [openStatus]="openStatus"
-    [passengerOptions]="passengerOptions"
-    [countries]="countries"
-    (openResentSearchEvent)="openResentSearch()"
-    (increasePassengerCountEvent)="increasePassengerCount($event)"
-    (decreasePassengerCountEvent)="decreasePassengerCount($event)"
-    (getPassengerSummaryEvent)="getPassengerSummary()">
-  </app-booking-header>
+  <div *ngIf="(flights$ | async) as flights">
+    <ng-container *ngFor="let flight of flights; let firstFlight = first">
+      <app-booking-header
+        *ngIf="firstFlight"
+        [flight]="flight"
+        [openStatus]="openStatus"
+        [passengerOptions]="passengerOptions"
+        [countries]="countries"
+        (openResentSearchEvent)="openResentSearch()"
+        (increasePassengerCountEvent)="increasePassengerCount($event)"
+        (decreasePassengerCountEvent)="decreasePassengerCount($event)"
+        (getPassengerSummaryEvent)="getPassengerSummary()">
+      </app-booking-header>
+    </ng-container>
+  </div>
+
 
   <div class="booking__wrapper">
     <router-outlet></router-outlet>

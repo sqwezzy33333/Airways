@@ -6,7 +6,10 @@ import {
   FlightsRequest,
   FlightsResponse,
   ISignUp,
-  IResponseAuth, IToken, IUser
+  IResponseAuth,
+  IToken,
+  IUser,
+  FlightsStateService
 } from '../../../core/index';
 import {ValidationErrors} from "@angular/forms";
 
@@ -23,7 +26,8 @@ export class ApiService {
   public firstName$: BehaviorSubject<Partial<(string | (ValidationErrors | null)[])[] | null | undefined>>;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private flightsStateService: FlightsStateService) {
     this.flight$ = new BehaviorSubject<FlightsResponse[] | null>(null);
     this.airports$ = new BehaviorSubject<IAirports[] | null>(null);
     this.token$ = new BehaviorSubject<IToken | null>(null);
@@ -49,6 +53,8 @@ export class ApiService {
       // @ts-ignore
     ).subscribe((res: FlightsResponse[] )=> {
       this.flight$.next(res);
+      console.log('Api Response:', res)
+      this.flightsStateService.flights = res;
     });
   }
 

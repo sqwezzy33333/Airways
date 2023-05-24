@@ -106,6 +106,7 @@ export class SearchFlightsComponent implements OnInit {
         "toKey": formObject.dest?.key
       })
     }
+    console.log(formObject)
   }
 
   reversePlaceBlocks() {

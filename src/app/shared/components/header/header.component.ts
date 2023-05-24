@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, ValidationErrors} from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, pipe, filter } from 'rxjs';
-import {ApiService, AuthService, IResponseAuth, ISignUp} from '../../../core';
+import { ApiService, AuthService, IResponseAuth, ISignUp } from '../../../core';
 import { LocationService } from 'src/app/core/services/location/location.service';
 import { Router, NavigationEnd } from '@angular/router';
 @Component({
@@ -14,7 +14,9 @@ import { Router, NavigationEnd } from '@angular/router';
 export class HeaderComponent implements OnInit {
   isOpen$!: BehaviorSubject<boolean>;
   isAuth$!: BehaviorSubject<boolean>;
-  firstName$!: BehaviorSubject<Partial<(string | (ValidationErrors | null)[])[] | null | undefined>>;
+  firstName$!: BehaviorSubject<
+    Partial<(string | (ValidationErrors | null)[])[] | null | undefined>
+  >;
   currentPath!: string;
 
   constructor(
@@ -27,7 +29,10 @@ export class HeaderComponent implements OnInit {
     this.isOpen$ = this.AuthService.dialogIsOpen$;
     this.isAuth$ = this.AuthService.isAuth$;
     this.firstName$ = this.ApiService.firstName$;
-    this.locationService.currentLocation.subscribe((path)=> this.currentPath = path)
+    this.locationService.currentLocation.subscribe(
+      (path) => (this.currentPath = path)
+    );
+    console.log(this.currentPath);
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
@@ -41,8 +46,8 @@ export class HeaderComponent implements OnInit {
     this.AuthService.onLogout();
   }
 
-  checkLocation(){
-    console.log(this.currentPath)
+  checkLocation() {
+    console.log(this.currentPath);
     return this.currentPath;
   }
 }

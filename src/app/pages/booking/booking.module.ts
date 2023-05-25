@@ -12,6 +12,7 @@ import { BookingReviewComponent } from './components/booking-review/booking-revi
 import { ReviewPassengersInfoComponent } from './components/booking-review/review-passengers-info/review-passengers-info.component';
 import { ReviewFareComponent } from './components/booking-review/review-fare/review-fare.component';
 import { SliderService } from 'src/app/core/index';
+import { HomeModule } from '../home/home.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SliderService } from 'src/app/core/index';
     CommonModule,
     BookingRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    HomeModule
   ],
   exports: [
     BookingComponent,

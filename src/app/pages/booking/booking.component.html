@@ -1,4 +1,5 @@
 <div class="booking__container">
+
   <div *ngIf="flights$ | async as flights">
     <ng-container *ngFor="let flight of flights; let firstFlight = first">
       <app-booking-header
@@ -15,7 +16,9 @@
       </app-booking-header>
     </ng-container>
   </div>
-
+  <div *ngIf="openStatus" class="booking__form-wrapper"><app-search-flights
+    [isBookingPage]="true"
+    ></app-search-flights></div>
   <div class="booking__wrapper">
     <router-outlet></router-outlet>
 
@@ -31,3 +34,4 @@
     </div>
   </div>
 </div>
+

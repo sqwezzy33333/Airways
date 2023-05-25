@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AuthService } from '../../core/index';
 import {
   ApiService,
   FlightsResponse,
@@ -23,6 +24,7 @@ export class BookingComponent implements OnInit {
 
   public flights$!: BehaviorSubject<FlightsResponse[] | null>;
   public countries = Country;
+  public isAuth!: boolean;
   public currentPath!: string;
   public openStatus: boolean = false;
   public passengerOptions: PassengerOption[] = [
@@ -34,7 +36,8 @@ export class BookingComponent implements OnInit {
   constructor(
     private location: Location,
     private locationService: LocationService,
-    private flightsStateService: FlightsStateService
+    private flightsStateService: FlightsStateService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,10 @@ export class BookingComponent implements OnInit {
 
     this.locationService.currentLocation.subscribe((el) => {
       this.currentPath = el;
+    });
+
+    this.authService.isAuth$.subscribe((el) => {
+      this.isAuth = el;
     });
   }
 
@@ -79,14 +86,23 @@ export class BookingComponent implements OnInit {
 
   public checkContinuePage(): string {
     let nextPage: string = '';
-
-    if (this.currentPath === '/booking/flights')
-      nextPage = '/booking/passengers';
-    if (this.currentPath === '/booking/passengers')
-      nextPage = '/booking/passengers';
-    if (this.currentPath === '/booking/passengers')
-      nextPage = '/booking/review-payment';
+    if (this.isAuth) {
+      if (this.currentPath === '/booking/flights')
+        nextPage = '/booking/passengers';
+      if (this.currentPath === '/booking/passengers')
+        nextPage = '/booking/passengers';
+      if (this.currentPath === '/booking/passengers')
+        nextPage = '/booking/review-payment';
+    } else {
+      nextPage = '/booking/flights';
+    }
 
     return nextPage;
+  }
+
+  checkAuth() {
+    if (this.isAuth === false) {
+      this.authService.onOpen();
+    }
   }
 }

@@ -30,7 +30,7 @@
       "
     >
       <button class="btn btn-transparent" (click)="goBack()">Back</button>
-      <button class="btn" [routerLink]="[checkContinuePage()]">Continue</button>
+      <button class="btn" (click)="checkAuth()" [routerLink]="[checkContinuePage()]">Continue</button>
     </div>
   </div>
 </div>

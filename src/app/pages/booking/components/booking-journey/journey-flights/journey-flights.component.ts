@@ -23,11 +23,12 @@ export class JourneyFlightsComponent implements  OnInit{
   constructor() {}
 
   ngOnInit(): void {
-    const firstFlights = [this.flight];
-    const otherFlights = Object.values(this.flight.otherFlights);
-    this.flights = firstFlights.concat(otherFlights);
+    // const firstFlights = [this.flight];
+    // const otherFlights = Object.values(this.flight.otherFlights);
+    // this.flights = firstFlights.concat(otherFlights);
 
-    console.log('flights:', this.flights);
+    // console.log('flight:', this.flight);
+    // console.log('journey-flights:', this.flights);
   }
 
   selectedFlightIndex: number | null = null;
@@ -58,12 +59,12 @@ export class JourneyFlightsComponent implements  OnInit{
     }
   
     const flightDate = new Date(flight.takeoffDate);
-    console.log('flightDate', flightDate.toDateString())
+    // console.log('flightDate', flightDate.toDateString())
   
     if (this.selectedDateButtonBack) {
       const selectedDateBack = new Date(this.selectedDateButtonBack);
       if (flightDate.toDateString() === selectedDateBack.toDateString()) {
-        console.log('flightDate-Back', flightDate.toDateString())
+        // console.log('flightDate-Back', flightDate.toDateString())
         return true;
       }
     }
@@ -71,7 +72,7 @@ export class JourneyFlightsComponent implements  OnInit{
     if (this.selectedDateButtonThere) {
       const selectedDateThere = new Date(this.selectedDateButtonThere);
       if (flightDate.toDateString() === selectedDateThere.toDateString()) {
-        console.log('flightDate-There', flightDate.toDateString())
+        // console.log('flightDate-There', flightDate.toDateString())
         return true;
       }
     }

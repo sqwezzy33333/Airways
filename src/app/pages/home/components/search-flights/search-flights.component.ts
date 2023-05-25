@@ -118,7 +118,6 @@ export class SearchFlightsComponent implements OnInit {
 
       this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
-    console.log(formObject)
   }
 
   reversePlaceBlocks() {
@@ -262,20 +261,34 @@ export class SearchFlightsComponent implements OnInit {
     const startDate = this.searchForm.get('date.startDate')?.value;
     const endDate = this.searchForm.get('date.endDate')?.value;
 
-    if (startDate && endDate) {
-      const startDateValue = new Date(startDate);
-      const endDateValue = new Date(endDate);
+  if (startDate && endDate) {
+    const startDateValue = new Date(startDate);
+    const endDateValue = new Date(endDate);
 
-      const dates: Date[] = [];
+    const dates: Date[] = [];
+    const currentDate = new Date(startDateValue);
 
-      const currentDate = new Date(startDateValue);
-
-      while (currentDate <= endDateValue) {
-        dates.push(new Date(currentDate)); 
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-      this.sliderService.setDates(dates);
+    const startDateOffset = new Date(startDateValue);
+    startDateOffset.setDate(startDateOffset.getDate() - 5);
+    while (startDateOffset < startDateValue) {
+      dates.push(new Date(startDateOffset));
+      startDateOffset.setDate(startDateOffset.getDate() + 1);
     }
+
+    while (currentDate <= endDateValue) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    const endDateOffset = new Date(endDateValue);
+    endDateOffset.setDate(endDateOffset.getDate() + 1);
+    for (let i = 0; i < 5; i++) {
+      dates.push(new Date(endDateOffset));
+      endDateOffset.setDate(endDateOffset.getDate() + 1);
+    }
+
+    this.sliderService.setDates(dates);
+  }
   }
 
   setPassengers() {

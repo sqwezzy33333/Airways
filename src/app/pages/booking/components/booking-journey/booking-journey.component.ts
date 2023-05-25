@@ -2,7 +2,9 @@ import { Component, EventEmitter,
          Output, OnInit 
         } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { FlightsResponse, FlightsStateService
+import { FlightsResponse, FlightsStateService,
+          DateWithPrice,
+          SliderService
         } from "../../../../core/index";
 
 @Component({
@@ -19,18 +21,44 @@ export class BookingJourneyComponent implements  OnInit{
   public selectedDateButtonBack: Date | null = null ;
   public selectedDateButtonThere: Date | null = null ;
   public onDateButtonClickBackEvent = new EventEmitter();
-  public onDateButtonClickThereEvent = new EventEmitter();
+  public oBacknDateButtonClickThereEvent = new EventEmitter();
   public isSelectedThere:boolean = false;
   public isSelectedBack:boolean = false;
 
-  constructor(private flightsStateService: FlightsStateService) {}
+  public datesThere: DateWithPrice[] = [];
+  public datesBack: DateWithPrice[] = [];
+
+  constructor(private flightsStateService: FlightsStateService,
+              private sliderService: SliderService) {}
 
   ngOnInit(): void {
     this.flightsStateService.flights$.subscribe((flights: FlightsResponse[] | null) => {
       this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
     });
+
+    const currentDate = new Date();
+    this.selectedDateButtonThere = currentDate;
+    this.selectedDateButtonBack = currentDate;
+
+    const storedDates = this.sliderService.getDates();
+
+    if (storedDates) {
+      this.datesThere = storedDates.map(dateString => {
+        const date = new Date(dateString);
+        const price = this.flightsStateService.getPriceForDate(date);
+
+        return { date, price };
+      });
+
+      this.datesBack = storedDates.map(dateString => {
+        const date = new Date(dateString);
+        const price = this.flightsStateService.getPriceForDateBack(date);
+
+        return { date, price };
+      });
+    }
   }
-  
+
   public onDateButtonClickBack(item: Date) {
     this.selectedDateButtonBack = item;
   }

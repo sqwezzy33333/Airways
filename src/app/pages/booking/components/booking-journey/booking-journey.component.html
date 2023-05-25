@@ -12,6 +12,7 @@
     
       <app-journey-dates
         [flight]="flight" 
+        [dates]="datesThere"
         [selectedDateButtonThere] = "selectedDateButtonThere"
         (onDateButtonClickThereEvent)="onDateButtonClickThere($event)"
         [isSelected]="isSelectedThere">
@@ -46,6 +47,7 @@
       
       <app-journey-dates
         [flight]="flight" 
+        [dates]="datesBack"
         [selectedDateButtonBack] = "selectedDateButtonBack"
         (onDateButtonClickBackEvent)="onDateButtonClickBack($event)"
         [isSelected]="isSelectedBack">
@@ -55,8 +57,7 @@
         [flight]="flight" 
         [isSelected]="isSelectedBack"
         (onSelectTripEvent)="onSelectTrip('back', $event)"
-        [selectedDateButtonBack]="selectedDateButtonBack"
-        >
+        [selectedDateButtonBack]="selectedDateButtonBack">
       </app-journey-flights>
 
       <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy,
          Component, EventEmitter,
          Input, Output
         } from '@angular/core';
-import { FlightsResponse, SliderService } from 'src/app/core';
+import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice } from 'src/app/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -21,20 +21,26 @@ export class JourneyDatesComponent {
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
-  constructor(private sliderService: SliderService) {}
+  constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
 
   public currentIndex = 0;
-  public dates: Date[] = [];
+  @Input() public dates: DateWithPrice[] = [];
   public monthNames: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public dayOfWeekNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   ngOnInit(): void {
-    const storedDates = this.sliderService.getDates();
-    if (storedDates) {
-      this.dates = storedDates.map(dateString => new Date(dateString));
-    }
+    // const storedDates = this.sliderService.getDates();
+    // if (storedDates) {
+    //   this.dates = storedDates.map(dateString => {
+    //     const date = new Date(dateString);
+    //     const price = this.flightsStateService.getPriceForDate(date); // Получите цену для текущей даты
+
+    //     return { date, price };
+    //   });
+    // }
 
     this.currentIndex = this.sliderService.getCurrentIndex();
+
   }
 
   public onDateButtonClickThere(item: Date) {

@@ -11,27 +11,27 @@
   [style.transform]="'translateX(' + (-currentIndex * 10) + '%)'">
     <li class="item"
         *ngFor="let item of dates"
-        (click)="onDateButtonClickThere(item)"
-        (click)="onDateButtonClickBack(item)"
-        [ngClass]="{'selected': (selectedDateButtonThere !== null && selectedDateButtonThere.getTime() === item.getTime()) || 
-                                (selectedDateButtonBack !== null && selectedDateButtonBack.getTime() === item.getTime())}"
+        (click)="onDateButtonClickThere(item.date)"
+        (click)="onDateButtonClickBack(item.date)"
+        [ngClass]="{'selected': (selectedDateButtonThere !== null && selectedDateButtonThere.getTime() === item.date.getTime()) || 
+                                (selectedDateButtonBack !== null && selectedDateButtonBack.getTime() === item.date.getTime())}"
         >
       <button class="date-item">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">
-              {{item.getDate()}}
+              {{item.date.getDate()}}
             </span>
             <span class="date-item__month">
-              {{ monthNames[item.getMonth()] }}
+              {{ monthNames[item.date.getMonth()] }}
             </span>
           </div>
           <div class="date-item__day-of-week">
-            {{ dayOfWeekNames[item.getDay()] }}
+            {{ dayOfWeekNames[item.date.getDay()] }}
           </div>
         </div>
         <div class="date-item__price">
-          <span class="price__numbers">{{flight.price.usd | currency}}</span>
+          <span class="price__numbers">{{item.price | currency}}</span>
         </div>
       </button>
     </li>

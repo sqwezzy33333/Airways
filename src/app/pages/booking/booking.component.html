@@ -1,6 +1,6 @@
 <div class="booking__container">
 
-  <div *ngIf="(flights$ | async) as flights">
+  <div *ngIf="flights$ | async as flights">
     <ng-container *ngFor="let flight of flights; let firstFlight = first">
       <app-booking-header
         *ngIf="firstFlight"
@@ -11,24 +11,27 @@
         (openResentSearchEvent)="openResentSearch()"
         (increasePassengerCountEvent)="increasePassengerCount($event)"
         (decreasePassengerCountEvent)="decreasePassengerCount($event)"
-        (getPassengerSummaryEvent)="getPassengerSummary()">
+        (getPassengerSummaryEvent)="getPassengerSummary()"
+      >
       </app-booking-header>
     </ng-container>
   </div>
-
-
+  <div *ngIf="openStatus" class="booking__form-wrapper"><app-search-flights
+    [isBookingPage]="true"
+    ></app-search-flights></div>
   <div class="booking__wrapper">
     <router-outlet></router-outlet>
-    
-    <div class="booking__buttons">
-      <button class="btn btn-transparent"
-              (click)="goBack()">
-              Back
-      </button>
-      <button class="btn"
-              [routerLink]="['passengers']">
-              Continue
-      </button>
+
+    <div
+      class="booking__buttons"
+      *ngIf="
+        currentPath !== '/booking/passengers' &&
+        currentPath !== '/booking/review-payment'
+      "
+    >
+      <button class="btn btn-transparent" (click)="goBack()">Back</button>
+      <button class="btn" (click)="checkAuth()" [routerLink]="[checkContinuePage()]">Continue</button>
     </div>
   </div>
 </div>
+

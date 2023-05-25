@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PassengersFormStateService } from 'src/app/core/services/booking-passengers-state/booking-passengers-state.service';
 
 @Component({
   selector: 'app-booking-review',
@@ -6,6 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./booking-review.component.scss'],
 })
 export class BookingReviewComponent {
+  constructor(private passService: PassengersFormStateService) {
+    console.log(this.passService.getPassengersForm());
+  }
+
   isOneWayTrip = false;
   examplePassengers = [
     {
@@ -33,19 +38,19 @@ export class BookingReviewComponent {
       type: 'Adult',
       fare: 166,
       tax: 91.3,
-      total: 228
+      total: 228,
     },
     {
       type: 'Child',
       fare: 106,
       tax: 90,
-      total: 228
+      total: 228,
     },
     {
       type: 'Infant',
       fare: 88,
       tax: 10.3,
-      total: 228
+      total: 228,
     },
   ];
 

@@ -8,14 +8,14 @@ import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice } fr
   selector: 'app-journey-dates',
   templateUrl: './journey-dates.component.html',
   styleUrls: ['./journey-dates.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JourneyDatesComponent {
-  @Input() flight!:FlightsResponse;
-  @Input() public isSelected:boolean = false;
+  @Input() flight!: FlightsResponse;
+  @Input() public isSelected: boolean = false;
 
-  @Input() public selectedDateButtonThere: Date | null = null ;
-  @Input() public selectedDateButtonBack: Date | null = null ;
+  @Input() public selectedDateButtonThere: Date | null = null;
+  @Input() public selectedDateButtonBack: Date | null = null;
 
   @Output() public onDateButtonClickThereEvent = new EventEmitter();
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
@@ -24,12 +24,34 @@ export class JourneyDatesComponent {
   @Input() public dates: DateWithPrice[] = [];
 
   public currentIndex = 0;
-  public monthNames: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public dayOfWeekNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  public monthNames: string[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  public dayOfWeekNames: string[] = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
 
   constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
 
   ngOnInit(): void {
+
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
 
@@ -50,4 +72,21 @@ export class JourneyDatesComponent {
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
 
+  public isOpenDate(item: any) {
+    return (
+      (this.selectedDateButtonThere !== null &&
+        this.selectedDateButtonThere.getTime() === item.getTime()) ||
+      (this.selectedDateButtonBack !== null &&
+        this.selectedDateButtonBack.getTime() === item.getTime())
+    );
+  }
+
+  public isCheckedDate(item: any): boolean {
+    return (
+      (this.selectedDateButtonThere !== null &&
+        this.selectedDateButtonThere.getTime() === item.getTime()) ||
+      (this.selectedDateButtonBack !== null &&
+        this.selectedDateButtonBack.getTime() === item.getTime())
+    );
+  }
 }

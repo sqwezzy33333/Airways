@@ -49,6 +49,11 @@
     width: 200%;
     transition: transform 0.5s;
   }
+
+  .carousel__container.initial-translate {
+    transform: translateX(-30%) !important;
+  }
+  
   .item {
     display: flex;
     flex-shrink: 0;

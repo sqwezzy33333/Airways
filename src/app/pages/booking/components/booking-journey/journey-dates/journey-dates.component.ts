@@ -21,26 +21,16 @@ export class JourneyDatesComponent {
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
-  constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
+  @Input() public dates: DateWithPrice[] = [];
 
   public currentIndex = 0;
-  @Input() public dates: DateWithPrice[] = [];
   public monthNames: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public dayOfWeekNames: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+  constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
+
   ngOnInit(): void {
-    // const storedDates = this.sliderService.getDates();
-    // if (storedDates) {
-    //   this.dates = storedDates.map(dateString => {
-    //     const date = new Date(dateString);
-    //     const price = this.flightsStateService.getPriceForDate(date); // Получите цену для текущей даты
-
-    //     return { date, price };
-    //   });
-    // }
-
     this.currentIndex = this.sliderService.getCurrentIndex();
-
   }
 
   public onDateButtonClickThere(item: Date) {

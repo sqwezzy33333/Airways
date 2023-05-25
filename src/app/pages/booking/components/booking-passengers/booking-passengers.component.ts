@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SearchFlightsStateService } from 'src/app/core';
 import { countries } from 'src/app/shared/constants/phone-codes';
+import { Router } from '@angular/router';
+import { PassengersFormStateService } from 'src/app/core/services/booking-passengers-state/booking-passengers-state.service';
 
 @Component({
   selector: 'app-booking-passengers',
@@ -12,31 +15,8 @@ export class BookingPassengersComponent implements OnInit {
   public today = new Date();
   public passArrayOfString: string[] = [];
   public isNoValid = false;
-  public agg = false;
 
-  step1Obj = {
-    tripType: 'roundTrip',
-    from: {
-      country: 'Andorra',
-      calling_code: 376,
-    },
-    dest: {
-      country: 'Algeria',
-      calling_code: 213,
-    },
-    date: {
-      singleDate: '',
-      startDate: '2023-05-15T21:00:00.000Z',
-      endDate: '2023-05-22T21:00:00.000Z',
-    },
-    passengers: {
-      adult: 1,
-      child: 1,
-      infant: 0,
-    },
-  };
-
-  public passengers = Object.entries(this.step1Obj.passengers);
+  public passengers!: [string, number][];
   public arrayForms: any[] = [];
 
   public contactForm = new FormGroup({
@@ -47,7 +27,16 @@ export class BookingPassengersComponent implements OnInit {
       Validators.pattern(/^-?(0|[1-9]\d*)?$/),
     ]),
   });
-  constructor() {}
+
+  constructor(
+    private searchFlightsStateService: SearchFlightsStateService,
+    private router: Router,
+    private passService: PassengersFormStateService
+  ) {
+    const currentPassengers =
+      this.searchFlightsStateService.getSearchFlightsForm()?.passengers;
+    if (currentPassengers) this.passengers = Object.entries(currentPassengers);
+  }
 
   ngOnInit(): void {
     this.transformPass();
@@ -100,26 +89,21 @@ export class BookingPassengersComponent implements OnInit {
 
   submitForm() {
     let allFormsIsValid = false;
-    console.log('controlsArray');
-    this.arrayForms.forEach((el: any) => {
+    this.arrayForms.forEach((el) => {
       const form = el[1];
       let formValid = form.valid;
       if (formValid) allFormsIsValid = true;
     });
 
-    let controlsArray = this.arrayForms.map((el) => el[1].value);
-    controlsArray.push(this.contactForm.value);
-
     if (allFormsIsValid && this.contactForm.valid) {
       let controlsArray = this.arrayForms.map((el) => el[1].value);
-      controlsArray.push(this.contactForm.value);
+      let passengersFormValues = {
+        contactInfo: this.contactForm.value,
+        passengers: controlsArray,
+      };
       this.isNoValid = false;
-      console.log(controlsArray);
+      this.router.navigate(['booking/review-payment']);
+      this.passService.setPassengersForm(passengersFormValues);
     } else this.isNoValid = true;
   }
-
-  log() {
-    console.log('asd');
-  }
-
 }

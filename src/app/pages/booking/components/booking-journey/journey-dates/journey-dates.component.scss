@@ -49,8 +49,10 @@
     width: 200%;
     transition: transform 0.5s;
   }
+
   .item {
     display: flex;
+    position: relative;
     flex-shrink: 0;
     justify-content: center;
     align-items: flex-end;
@@ -58,7 +60,7 @@
     list-style: none;
     height: 100%;
     width: 225px;
-  
+
 
     &:hover {
         .date-item__day-of-month {
@@ -69,7 +71,6 @@
 
   .selected button {
     box-shadow: 0 -0.3125rem 0.75rem #0000004d;
-    border-bottom: 4px solid #F1C933;
     z-index: 2;
 
       .date-item__day-of-month {
@@ -90,7 +91,7 @@
 
   }
 
-  
+
   .date-item {
     display: flex;
     flex-direction: column;
@@ -137,4 +138,26 @@
 
 .booking-journey__carousel.trip-selected {
   display: none;
+}
+
+.borderBottomRed{
+  border-bottom: 4px solid red;
+}
+
+.borderBottomGreen{
+  border-bottom: 4px solid green;
+}
+
+.borderBottomOrange{
+  border-bottom: 4px solid orange;
+}
+
+
+.borderBlock{
+  position: absolute;
+  height: 0;
+  bottom: -11px;
+  z-index: 20;
+  right: 0;
+  width: 100%;
 }

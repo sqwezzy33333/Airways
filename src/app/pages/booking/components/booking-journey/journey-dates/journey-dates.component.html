@@ -1,26 +1,32 @@
-
-<div class="booking-journey__carousel"
-     [class.trip-selected]="isSelected">
-  <button class="carousel-btn carousel-btn_prev" 
-  (click)="prevSlide()">
+<div class="booking-journey__carousel" [class.trip-selected]="isSelected">
+  <button class="carousel-btn carousel-btn_prev" (click)="prevSlide()">
     <span class="carousel-btn_icon">
-      <img src="./assets/booking/arrow.svg" alt="Arrow">
+      <img src="./assets/booking/arrow.svg" alt="Arrow" />
     </span>
   </button>
-  <ul class="carousel__container"
-  [style.transform]="'translateX(' + (-currentIndex * 10) + '%)'">
-    <li class="item"
-        *ngFor="let item of dates"
-        (click)="onDateButtonClickThere(item)"
-        (click)="onDateButtonClickBack(item)"
-        [ngClass]="{'selected': (selectedDateButtonThere !== null && selectedDateButtonThere.getTime() === item.getTime()) || 
-                                (selectedDateButtonBack !== null && selectedDateButtonBack.getTime() === item.getTime())}"
-        >
+  <ul
+    class="carousel__container"
+    [style.transform]="'translateX(' + -currentIndex * 10 + '%)'"
+  >
+    <li
+      class="item"
+      *ngFor="let item of dates"
+      (click)="onDateButtonClickThere(item)"
+      (click)="onDateButtonClickBack(item)"
+      [ngClass]="{
+        selected: isCheckedDate(item)
+      }"
+    >
+      <p
+        *ngIf="isCheckedDate(item)"
+        class="borderBlock"
+        [ngClass]="item | checkDateColor : flights"
+      ></p>
       <button class="date-item">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">
-              {{item.getDate()}}
+              {{ item.getDate() }}
             </span>
             <span class="date-item__month">
               {{ monthNames[item.getMonth()] }}
@@ -31,16 +37,14 @@
           </div>
         </div>
         <div class="date-item__price">
-          <span class="price__numbers">{{flight.price.usd | currency}}</span>
+          <span class="price__numbers">{{ flight.price.usd | currency }}</span>
         </div>
       </button>
     </li>
   </ul>
-  <button class="carousel-btn carousel-btn_next"
-  (click)="nextSlide()">
+  <button class="carousel-btn carousel-btn_next" (click)="nextSlide()">
     <span class="carousel-btn_icon">
-      <img src="./assets/booking/arrow.svg" alt="Arrow">
+      <img src="./assets/booking/arrow.svg" alt="Arrow" />
     </span>
   </button>
-
 </div>

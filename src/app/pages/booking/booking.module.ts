@@ -13,6 +13,7 @@ import { ReviewPassengersInfoComponent } from './components/booking-review/revie
 import { ReviewFareComponent } from './components/booking-review/review-fare/review-fare.component';
 import { SliderService } from 'src/app/core/index';
 import { HomeModule } from '../home/home.module';
+import { CheckFlightColor } from 'src/app/core/pipes/color-border.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HomeModule } from '../home/home.module';
     ReviewPassengersInfoComponent,
     ReviewFareComponent,
     BookingHeaderComponent,
+    CheckFlightColor
   ],
   imports: [
     CommonModule,

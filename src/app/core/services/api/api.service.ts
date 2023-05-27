@@ -55,6 +55,7 @@ export class ApiService {
       this.flight$.next(res);
       console.log('Api Response:', res)
       this.flightsStateService.flights = res;
+      console.log('set flights')
     });
   }
 

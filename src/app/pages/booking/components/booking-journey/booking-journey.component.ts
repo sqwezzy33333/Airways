@@ -28,35 +28,37 @@ export class BookingJourneyComponent implements  OnInit{
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
 
+
   constructor(private flightsStateService: FlightsStateService,
               private sliderService: SliderService) {}
 
   ngOnInit(): void {
     this.flightsStateService.flights$.subscribe((flights: FlightsResponse[] | null) => {
       this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
+      this.updateDatePrices();
     });
 
     const currentDate = new Date();
     this.selectedDateButtonThere = currentDate;
     this.selectedDateButtonBack = currentDate;
 
+    this.updateDatePrices();
+  }
+
+  private updateDatePrices(): void {
     const storedDates = this.sliderService.getDates();
-
-    if (storedDates) {
-      this.datesThere = storedDates.map(dateString => {
-        const date = new Date(dateString);
-        const price = this.flightsStateService.getPriceForDate(date);
-
-        return { date, price };
-      });
-
-      this.datesBack = storedDates.map(dateString => {
-        const date = new Date(dateString);
-        const price = this.flightsStateService.getPriceForDateBack(date);
-
-        return { date, price };
-      });
-    }
+  
+    this.datesThere = storedDates.map(dateString => {
+      const date = new Date(dateString);
+      const price = this.flightsStateService.getPriceForDate(date);
+      return { date, price };
+    });
+  
+    this.datesBack = storedDates.map(dateString => {
+      const date = new Date(dateString);
+      const price = this.flightsStateService.getPriceForDateBack(date);
+      return { date, price };
+    });
   }
 
   public onDateButtonClickBack(item: Date) {
@@ -78,5 +80,4 @@ export class BookingJourneyComponent implements  OnInit{
       this.selectedFlight.isSelected = true;
     }
   }
-
 }

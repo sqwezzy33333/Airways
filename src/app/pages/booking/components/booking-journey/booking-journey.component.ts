@@ -1,47 +1,50 @@
-import { Component, EventEmitter,
-         Output, OnInit
-        } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
-import { FlightsResponse, FlightsStateService,
-          DateWithPrice,
-          SliderService,
-          FlightAvailabilityService
-        } from "../../../../core/index";
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import {
+  FlightsResponse,
+  FlightsStateService,
+  DateWithPrice,
+  SliderService,
+  FlightAvailabilityService,
+} from '../../../../core/index';
 
 @Component({
   selector: 'app-booking-journey',
   templateUrl: './booking-journey.component.html',
-  styleUrls: ['./booking-journey.component.scss']
+  styleUrls: ['./booking-journey.component.scss'],
 })
-export class BookingJourneyComponent implements  OnInit {
+export class BookingJourneyComponent implements OnInit {
   @Output() public openResentSearchEvent = new EventEmitter();
   @Output() public onSelectTripEvent = new EventEmitter();
- 
+
   public selectedFlight: FlightsResponse | null = null;
-  public flights$!: BehaviorSubject<FlightsResponse[] | null>
-  public selectedDateButtonBack: Date | null = null ;
-  public selectedDateButtonThere: Date | null = null ;
+  public flights$!: BehaviorSubject<FlightsResponse[] | null>;
+  public selectedDateButtonBack: Date | null = null;
+  public selectedDateButtonThere: Date | null = null;
   public onDateButtonClickBackEvent = new EventEmitter();
   public oBacknDateButtonClickThereEvent = new EventEmitter();
-  public isSelectedThere:boolean = false;
-  public isSelectedBack:boolean = false;
+  public isSelectedThere: boolean = false;
+  public isSelectedBack: boolean = false;
 
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
 
-  public areFlightsAvailableThere:boolean = false;
-  public areFlightsAvailableBack:boolean = false;
+  public areFlightsAvailableThere: boolean = false;
+  public areFlightsAvailableBack: boolean = false;
 
-  constructor(private flightsStateService: FlightsStateService,
-              private sliderService: SliderService,
-              private flightAvailabilityService: FlightAvailabilityService) {}
+  constructor(
+    private flightsStateService: FlightsStateService,
+    private sliderService: SliderService,
+    private flightAvailabilityService: FlightAvailabilityService
+  ) {}
 
   ngOnInit(): void {
-    this.flightsStateService.flights$.subscribe((flights: FlightsResponse[] | null) => {
-      this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
-      this.updateDatePrices();
-    });
-
+    this.flightsStateService.flights$.subscribe(
+      (flights: FlightsResponse[] | null) => {
+        this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
+        this.updateDatePrices();
+      }
+    );
 
     const currentDate = new Date();
     this.selectedDateButtonThere = currentDate;
@@ -49,24 +52,28 @@ export class BookingJourneyComponent implements  OnInit {
 
     this.updateDatePrices();
 
-    this.flightAvailabilityService.flightsAvailableThere$.subscribe((areFlightsAvailable: boolean) => {
-      this.areFlightsAvailableThere = areFlightsAvailable;
-    });
-    this.flightAvailabilityService.flightsAvailableBack$.subscribe((areFlightsAvailable: boolean) => {
-      this.areFlightsAvailableBack = areFlightsAvailable;
-    });
+    this.flightAvailabilityService.flightsAvailableThere$.subscribe(
+      (areFlightsAvailable: boolean) => {
+        this.areFlightsAvailableThere = areFlightsAvailable;
+      }
+    );
+    this.flightAvailabilityService.flightsAvailableBack$.subscribe(
+      (areFlightsAvailable: boolean) => {
+        this.areFlightsAvailableBack = areFlightsAvailable;
+      }
+    );
   }
 
   private updateDatePrices(): void {
     const storedDates = this.sliderService.getDates();
-  
-    this.datesThere = storedDates.map(dateString => {
+
+    this.datesThere = storedDates.map((dateString) => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDate(date);
       return { date, price } as DateWithPrice;
     });
-  
-    this.datesBack = storedDates.map(dateString => {
+
+    this.datesBack = storedDates.map((dateString) => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDateBack(date);
       return { date, price } as DateWithPrice;
@@ -87,9 +94,13 @@ export class BookingJourneyComponent implements  OnInit {
     if (directionFlights === 'there') {
       this.isSelectedThere = true;
       this.selectedFlight.isSelected = true;
+
+      this.flightsStateService.setThereFlight(flight);
     } else if (directionFlights === 'back') {
       this.isSelectedBack = true;
       this.selectedFlight.isSelected = true;
+
+      this.flightsStateService.setBackFlight(flight);
     }
   }
 }

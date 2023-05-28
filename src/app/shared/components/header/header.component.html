@@ -43,11 +43,12 @@
                 [ngClass]="{
                   currencyList: currentPath === '/home' || currentPath === '/'
                 }"
+                (click)="checkDate()"
               >
-                <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
-                <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
-                <mat-option value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
-                <mat-option value="YYYY/MM/DD">YYYY/MM/DD</mat-option>
+                <mat-option (click)="checkDate()" value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+                <mat-option (click)="checkDate()" value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+                <mat-option (click)="checkDate()" value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
+                <mat-option (click)="checkDate()" value="YYYY/MM/DD">YYYY/MM/DD</mat-option>
               </mat-select>
             </mat-form-field>
           </li>

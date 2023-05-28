@@ -14,7 +14,7 @@
         (editEvent)="editItem($event)"
         (deleteEvent)="deleteItem($event)"
         (checkItemPrice)="checkItemsPrice($event)"
-        [cartItems]="exampleItems"
+        [cartItems]="flightsCart"
       ></cart-item>
 
       <div class="cart__add-item-and-total cart-border-bottom">
@@ -54,7 +54,10 @@
           <span>{{ checkSelectedItems() }} selected</span>
           <button>Payment</button>
         </div>
+
       </div>
+
+      <p class="promo">'promo'</p>
     </div>
   </div>
 </div>

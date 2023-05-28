@@ -17,7 +17,7 @@ export class CurrencyServiceService {
 
   setCurrency(currency: any): void {
     this.selectedCurrency = currency.toLowerCase();
-    console.log('selectedCurrency', this.selectedCurrency)
+
     localStorage.setItem('selectedCurrency', currency);
   }
 }

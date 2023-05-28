@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReviewStateService } from 'src/app/core/services/review-state/review-state.service';
 
 @Component({
   selector: 'app-shoping-cart',
@@ -6,53 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shoping-cart.component.scss'],
 })
 export class ShopingCartComponent implements OnInit {
-  exampleItems: any = [
-    {
-      numberFlight: 'FR 1925',
-      flight: { oneWay: 'Dublin — Warsaw', roundTrip: 'Modlin  — Dublin' },
-      type: 'Round Trip',
-      dataAndTime: {
-        oneWay: '1 Mar, 2023, 8:40 — 12:00',
-        roundTrip: '18 Mar, 2023, 7:40 — 11:00  ',
-      },
-      passengers: {
-        adult: 1,
-        child: 1,
-        infant: 1,
-      },
-      price: 551,
-      isBtnPanelOpen: false,
-      isChecked: true,
-    },
-    {
-      numberFlight: 'FR 1936',
-      flight: { oneWay: 'Gdansk — Warsaw', roundTrip: '' },
-      type: 'One way',
-      dataAndTime: {
-        oneWay: '1 Mar, 2023, 8:40 — 12:00',
-        roundTrip: '28 May, 2023, 15:40 — 16:40',
-      },
-      passengers: {
-        adult: 1,
-        child: 0,
-        infant: 0,
-      },
-      price: 20,
-      isBtnPanelOpen: false,
-      isChecked: true,
-    },
-  ];
+  flightsCart: any = [];
 
   promoExample = [
     {
-      promo: '228',
+      promo: 'promo',
       discount: 15,
     },
   ];
 
+  constructor(private reviewState: ReviewStateService) {}
+
   ngOnInit(): void {
     this.checkSelectedItems();
     this.getTotalPrice();
+    this.reviewState.currentFlight.subscribe((el) => {
+      this.flightsCart.push(el);
+    });
+
   }
 
   total: number = 0;
@@ -66,22 +38,21 @@ export class ShopingCartComponent implements OnInit {
   isPromoInvalid!: boolean;
 
   deleteItem(index: number) {
-    this.exampleItems.splice(index, 1);
+    this.flightsCart.splice(index, 1);
   }
 
   editItem(event: number) {
-    console.log('edit');
-    console.log(event);
+
   }
 
   checkItemsPrice(event: any) {
     let index: number = Number(event.source.id.split('_')[1]);
-    this.exampleItems[index].isChecked = event.checked;
+    this.flightsCart[index].isChecked = event.checked;
   }
 
   getTotalPrice() {
     this.total = 0;
-    this.exampleItems.forEach((element: any) => {
+    this.flightsCart.forEach((element: any) => {
       if (element.isChecked) {
         this.total = this.total + element.price;
       }
@@ -108,9 +79,13 @@ export class ShopingCartComponent implements OnInit {
 
   checkSelectedItems(): number {
     let counter: number = 0;
-    this.exampleItems.forEach((el: any) => {
+    this.flightsCart.forEach((el: any) => {
       if (el.isChecked) counter = counter + 1;
     });
     return counter;
+  }
+
+  checkAll() {
+
   }
 }

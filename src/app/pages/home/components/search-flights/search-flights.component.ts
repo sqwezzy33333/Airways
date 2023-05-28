@@ -128,7 +128,6 @@ export class SearchFlightsComponent implements OnInit {
 
       this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
-    console.log(formObject);
   }
 
   reversePlaceBlocks() {
@@ -277,13 +276,27 @@ export class SearchFlightsComponent implements OnInit {
       const endDateValue = new Date(endDate);
 
       const dates: Date[] = [];
-
       const currentDate = new Date(startDateValue);
+
+      const startDateOffset = new Date(startDateValue);
+      startDateOffset.setDate(startDateOffset.getDate() - 5);
+      while (startDateOffset < startDateValue) {
+        dates.push(new Date(startDateOffset));
+        startDateOffset.setDate(startDateOffset.getDate() + 1);
+      }
 
       while (currentDate <= endDateValue) {
         dates.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
       }
+
+      const endDateOffset = new Date(endDateValue);
+      endDateOffset.setDate(endDateOffset.getDate() + 1);
+      for (let i = 0; i < 5; i++) {
+        dates.push(new Date(endDateOffset));
+        endDateOffset.setDate(endDateOffset.getDate() + 1);
+      }
+
       this.sliderService.setDates(dates);
     }
   }

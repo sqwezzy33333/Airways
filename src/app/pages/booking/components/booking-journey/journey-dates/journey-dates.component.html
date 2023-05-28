@@ -11,33 +11,34 @@
     <li
       class="item"
       *ngFor="let item of dates"
-      (click)="onDateButtonClickThere(item)"
-      (click)="onDateButtonClickBack(item)"
+      (click)="onDateButtonClickThere(item.date)"
+      (click)="onDateButtonClickBack(item.date)"
       [ngClass]="{
-        selected: isCheckedDate(item)
+        selected: isCheckedDate(item.date)
       }"
     >
       <p
-        *ngIf="isCheckedDate(item)"
+        *ngIf="isCheckedDate(item.date)"
         class="borderBlock"
-        [ngClass]="item | checkDateColor : flights"
+        [ngClass]="item.date | checkDateColor : flight"
       ></p>
-      <button class="date-item">
+      <button class="date-item"
+      [ngClass]="{'disabled': item.price === undefined}">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">
-              {{ item.getDate() }}
+              {{item.date.getDate()}}
             </span>
             <span class="date-item__month">
-              {{ monthNames[item.getMonth()] }}
+              {{ monthNames[item.date.getMonth()] }}
             </span>
           </div>
           <div class="date-item__day-of-week">
-            {{ dayOfWeekNames[item.getDay()] }}
+            {{ dayOfWeekNames[item.date.getDay()] }}
           </div>
         </div>
         <div class="date-item__price">
-          <span class="price__numbers">{{ flight.price.usd | currency }}</span>
+          <span class="price__numbers">{{item.price | currency}}</span>
         </div>
       </button>
     </li>
@@ -48,3 +49,4 @@
     </span>
   </button>
 </div>
+

@@ -1,11 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import { FlightsResponse, SliderService } from 'src/app/core';
+import { ChangeDetectionStrategy,
+         Component, EventEmitter,
+         Input, Output
+        } from '@angular/core';
+import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice } from 'src/app/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -24,11 +21,9 @@ export class JourneyDatesComponent {
   @Output() public onDateButtonClickBackEvent = new EventEmitter();
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
-  constructor(private sliderService: SliderService) {}
+  @Input() public dates: DateWithPrice[] = [];
 
   public currentIndex = 0;
-  flights: any;
-  public dates: Date[] = [];
   public monthNames: string[] = [
     'Jan',
     'Feb',
@@ -53,49 +48,30 @@ export class JourneyDatesComponent {
     'Saturday',
   ];
 
+  constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
+
   ngOnInit(): void {
-    const storedDates = this.sliderService.getDates();
-    if (storedDates) {
-      this.dates = storedDates.map((dateString) => new Date(dateString));
-    }
-
-    const firstFlights = [this.flight];
-    if (this.flight.otherFlights) {
-      const otherFlights = Object.values(this.flight.otherFlights);
-      this.flights = firstFlights.concat(otherFlights);
-
-      console.log('flights:', this.flights);
-    }
-
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
 
   public onDateButtonClickThere(item: Date) {
     this.onDateButtonClickThereEvent.emit(item);
   }
+
   public onDateButtonClickBack(item: Date) {
     this.onDateButtonClickBackEvent.emit(item);
   }
-
+  
   public nextSlide(): void {
     this.sliderService.nextSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-
+  
   public prevSlide(): void {
     this.sliderService.prevSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-
-  public isOpenDate(item: any) {
-    return (
-      (this.selectedDateButtonThere !== null &&
-        this.selectedDateButtonThere.getTime() === item.getTime()) ||
-      (this.selectedDateButtonBack !== null &&
-        this.selectedDateButtonBack.getTime() === item.getTime())
-    );
-  }
-
+  
   public isCheckedDate(item: any): boolean {
     return (
       (this.selectedDateButtonThere !== null &&

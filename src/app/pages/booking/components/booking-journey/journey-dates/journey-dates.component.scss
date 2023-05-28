@@ -134,6 +134,19 @@
     }
   }
 
+  .date-item.disabled {
+    .date-item__day-of-month {
+      color: #D0D9DF;
+    }
+    .date-item__day-of-week {
+      color: #D0D9DF;
+    }
+    .date-item__price {
+      background-image: url(.././../../../../../assets/booking/no-flight.svg);
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 .booking-journey__carousel.trip-selected {

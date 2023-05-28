@@ -22,19 +22,14 @@ export class JourneyFlightsComponent implements OnInit {
   @Input() public selectedDateButtonBack: Date | null = null;
   @Input() public selectedDateButtonThere: Date | null = null;
 
+
+  @Output() onNoFlights: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public areFlightsAvailable: boolean = true;
   public flights: FlightsResponse[] = [];
 
   constructor() {}
 
-  ngOnInit(): void {
-    const firstFlights = [this.flight];
-    if (this.flight.otherFlights) {
-      const otherFlights = Object.values(this.flight.otherFlights);
-      this.flights = firstFlights.concat(otherFlights);
-
-      console.log('flights:', this.flights);
-    }
-  }
+  ngOnInit(): void {}
 
   selectedFlightIndex: number | null = null;
 
@@ -60,16 +55,18 @@ export class JourneyFlightsComponent implements OnInit {
 
   public isSelectedFlight(flight: FlightsResponse): boolean {
     if (!this.selectedDateButtonBack && !this.selectedDateButtonThere) {
+      this.areFlightsAvailable = true;
+      this.onNoFlights.emit(this.areFlightsAvailable);
       return false;
     }
 
     const flightDate = new Date(flight.takeoffDate);
-    console.log('flightDate', flightDate.toDateString());
-
+  
     if (this.selectedDateButtonBack) {
       const selectedDateBack = new Date(this.selectedDateButtonBack);
       if (flightDate.toDateString() === selectedDateBack.toDateString()) {
-        console.log('flightDate-Back', flightDate.toDateString());
+        this.areFlightsAvailable = true;
+        this.onNoFlights.emit(this.areFlightsAvailable);
         return true;
       }
     }
@@ -77,11 +74,15 @@ export class JourneyFlightsComponent implements OnInit {
     if (this.selectedDateButtonThere) {
       const selectedDateThere = new Date(this.selectedDateButtonThere);
       if (flightDate.toDateString() === selectedDateThere.toDateString()) {
-        console.log('flightDate-There', flightDate.toDateString());
+        this.areFlightsAvailable = true;
+        this.onNoFlights.emit(this.areFlightsAvailable);
+
         return true;
-      }
+      } 
     }
 
+    this.areFlightsAvailable = false;
+    this.onNoFlights.emit(this.areFlightsAvailable);
     return false;
   }
 }

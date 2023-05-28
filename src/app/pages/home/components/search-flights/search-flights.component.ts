@@ -113,12 +113,25 @@ export class SearchFlightsComponent implements OnInit {
       formObject.dest = this.searchForm.value.from!;
     }
 
-    if (this.searchForm.valid && this.isPassengers && this.isDate) {
-      this.router.navigate(['booking/flights']);
+    if (this.searchForm.valid && this.isPassengers && this.isDate && !this.isOneWay) {
 
       this.ApiService.getFlight({
         backDate: this.endDate,
         forwardDate: this.startDate,
+        fromKey: formObject.from?.key,
+        toKey: formObject.dest?.key,
+      });
+
+      this.onDateChange();
+      this.setPassengers();
+
+      this.searchFlightsStateService.setSearchFlightsForm(formObject);
+    }
+    if (this.searchForm.valid && this.isPassengers && this.isDate && this.isOneWay) {
+      this.router.navigate(['booking/flights']);
+
+      this.ApiService.getFlight({
+        forwardDate: this.singleDate,
         fromKey: formObject.from?.key,
         toKey: formObject.dest?.key,
       });

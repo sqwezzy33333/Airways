@@ -29,7 +29,7 @@ export interface FlightsRequest {
   fromKey: string | null | undefined,
   toKey: string | null | undefined,
   forwardDate: string | null | undefined,
-  backDate: string | null | undefined
+  backDate?: string | null | undefined
 }
 export interface IAirportMock {
   "code": "AAA",

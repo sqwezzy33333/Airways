@@ -4,11 +4,30 @@ import { SearchFlightsStateService } from 'src/app/core';
 import { countries } from 'src/app/shared/constants/phone-codes';
 import { Router } from '@angular/router';
 import { PassengersFormStateService } from 'src/app/core/services/booking-passengers-state/booking-passengers-state.service';
+import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 
 @Component({
   selector: 'app-booking-passengers',
   templateUrl: './booking-passengers.component.html',
   styleUrls: ['./booking-passengers.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS},
+  ],
 })
 export class BookingPassengersComponent implements OnInit {
   public countries = countries;

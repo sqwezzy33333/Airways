@@ -3,21 +3,40 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FlightsStateService } from '../../../../core';
+import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 import {
   ApiService,
   IAirports,
-  ISearchFlightsForm,
   SearchFlightsStateService,
   SliderService,
 } from '../../../../core';
 import { BehaviorSubject } from 'rxjs';
+
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 
 @Component({
   selector: 'app-search-flights',
   templateUrl: './search-flights.component.html',
   styleUrls: ['./search-flights.component.scss'],
   encapsulation: ViewEncapsulation.None,
+
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS},
+  ],
 })
 export class SearchFlightsComponent implements OnInit {
   public airports$!: BehaviorSubject<IAirports[] | null>;

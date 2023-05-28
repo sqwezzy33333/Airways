@@ -13,7 +13,6 @@ export class ReviewStateService {
   }
 
   setReviewState(state: any) {
-    console.log(state)
     this.currentFlight.next(state);
     localStorage.setItem('reviewState', JSON.stringify(state));
   }

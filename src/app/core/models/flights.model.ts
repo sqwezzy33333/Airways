@@ -16,10 +16,10 @@ export interface FlightsResponse {
     total: number
 },
   price: {
-  eur: number,
-    usd: number,
-    rub: number,
-    pln: number
+  eur: number | undefined,
+    usd: number | undefined,
+    rub: number | undefined,
+    pln: number | undefined,
 },
   otherFlights: { [key: string]: FlightsResponse };
   flightNumber: string;
@@ -29,7 +29,7 @@ export interface FlightsRequest {
   fromKey: string | null | undefined,
   toKey: string | null | undefined,
   forwardDate: string | null | undefined,
-  backDate: string | null | undefined
+  backDate?: string | null | undefined
 }
 export interface IAirportMock {
   "code": "AAA",

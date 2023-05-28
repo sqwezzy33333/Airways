@@ -70,13 +70,13 @@ export class BookingJourneyComponent implements OnInit {
     this.datesThere = storedDates.map((dateString) => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDate(date);
-      return { date, price };
+      return { date, price } as DateWithPrice;
     });
 
     this.datesBack = storedDates.map((dateString) => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDateBack(date);
-      return { date, price };
+      return { date, price } as DateWithPrice;
     });
   }
 
@@ -94,12 +94,12 @@ export class BookingJourneyComponent implements OnInit {
     if (directionFlights === 'there') {
       this.isSelectedThere = true;
       this.selectedFlight.isSelected = true;
-      console.log(flight);
+
       this.flightsStateService.setThereFlight(flight);
     } else if (directionFlights === 'back') {
       this.isSelectedBack = true;
       this.selectedFlight.isSelected = true;
-      console.log(flight);
+
       this.flightsStateService.setBackFlight(flight);
     }
   }

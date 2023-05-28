@@ -53,9 +53,7 @@ export class ApiService {
       // @ts-ignore
     ).subscribe((res: FlightsResponse[] )=> {
       this.flight$.next(res);
-      console.log('Api Response:', res)
       this.flightsStateService.flights = res;
-      console.log('set flights')
     });
   }
 

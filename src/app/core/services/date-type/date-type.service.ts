@@ -24,7 +24,7 @@ export class DateTypeService {
     let typeString: string = type.split('/').join('-');
     DateTypeService.MY_DATA_FORMATS.parse.dateInput = typeString;
     DateTypeService.MY_DATA_FORMATS.display.dateInput = typeString;
-    console.log(DateTypeService.MY_DATA_FORMATS);
+
     this.currentDateType.next(type);
   }
 }

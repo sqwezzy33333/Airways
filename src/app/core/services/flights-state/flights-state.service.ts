@@ -115,7 +115,7 @@ export class FlightsStateService {
 
   setBackFlight(el: FlightsResponse) {
     this.backFlight.next(el);
-    console.log(this.backFlight);
+
     localStorage.setItem('backFlight', JSON.stringify(el));
   }
 }

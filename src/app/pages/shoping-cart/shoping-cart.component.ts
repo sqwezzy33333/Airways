@@ -25,7 +25,6 @@ export class ShopingCartComponent implements OnInit {
       this.flightsCart.push(el);
     });
 
-    console.log(this.flightsCart)
   }
 
   total: number = 0;
@@ -43,7 +42,7 @@ export class ShopingCartComponent implements OnInit {
   }
 
   editItem(event: number) {
-    console.log(event);
+
   }
 
   checkItemsPrice(event: any) {
@@ -88,7 +87,5 @@ export class ShopingCartComponent implements OnInit {
 
   checkAll() {
 
-
-    console.log(this.flightsCart)
   }
 }

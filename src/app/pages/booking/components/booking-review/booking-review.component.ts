@@ -24,13 +24,13 @@ export class BookingReviewComponent implements OnInit {
     this.createPassengersInfo();
 
     this.flightState.thereFlight.subscribe((el) => {
-      console.log(el)
+
       this.thereFlight = el;
     });
 
     this.flightState.backFlight.subscribe((el) => {
       if (Object.entries(el).length !== 0) {
-        console.log(el)
+
         this.backFlight = el;
         this.isRoundTrip = true;
       }
@@ -73,7 +73,7 @@ export class BookingReviewComponent implements OnInit {
           firstPrice: this.thereFlight.price.eur,
           backPrice: this.backFlight.price.eur,
           totalFlightPrice:
-            this.thereFlight.price.eur + this.backFlight.price.eur,
+            this.thereFlight.price.eur! + this.backFlight.price.eur!,
         };
         this.fares.push(onePerson);
         this.totalPrice = this.totalPrice + onePerson.totalFlightPrice;
@@ -84,7 +84,7 @@ export class BookingReviewComponent implements OnInit {
           type: el.type,
           firstPrice: this.thereFlight.price.eur,
           backPrice: 0,
-          totalFlightPrice: this.thereFlight.price.eur + 0,
+          totalFlightPrice: this.thereFlight.price.eur! + 0,
         };
         this.fares.push(onePerson);
         this.totalPrice = this.totalPrice + onePerson.totalFlightPrice;

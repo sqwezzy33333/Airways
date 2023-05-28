@@ -106,7 +106,7 @@
       line-height: 24px;
       text-align: left;
 
-      &:hover{
+      &:hover {
         background-color: rgb(216, 215, 215);
       }
     }
@@ -117,4 +117,13 @@
     width: 100%;
     background: rgba(225, 229, 235, 1);
   }
+}
+
+.dateAndTime {
+
+  white-space: nowrap
+}
+
+.dateWrapper{
+  display: flex;
 }

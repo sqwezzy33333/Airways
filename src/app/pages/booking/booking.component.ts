@@ -91,8 +91,6 @@ export class BookingComponent implements OnInit {
         nextPage = '/booking/passengers';
       if (this.currentPath === '/booking/passengers')
         nextPage = '/booking/passengers';
-      if (this.currentPath === '/booking/passengers')
-        nextPage = '/booking/review-payment';
     } else {
       nextPage = '/booking/flights';
     }

@@ -13,9 +13,19 @@
     <p *ngIf="item.flight.roundTrip">{{ item.flight.roundTrip }}</p>
   </li>
   <li>{{ item.type }}</li>
-  <li>
-    <p>{{ item.dataAndTime.oneWay }}</p>
-    <p *ngIf="item.flight.roundTrip">{{ item.dataAndTime.roundTrip }}</p>
+  <li class="dateWrapper" style="display: flex; flex-direction: column;">
+    <p>
+      <span class="dateAndTime"
+        >{{ item.dataAndTime.fromDate | date : " d MMM, y" }}, </span
+      >
+      <span class="dateAndTime">{{ item.dataAndTime.fromTime }}</span>
+    </p>
+    <p *ngIf="item.type === 'Round Trip'">
+      <span class="dateAndTime"
+        >{{ item.dataAndTime.backDate | date : " d MMM, y" }}, </span
+      >
+      <span class="dateAndTime">{{ item.dataAndTime.backTime }}</span>
+    </p>
   </li>
   <li>
     <p *ngIf="item.passengers.adult">{{ item.passengers.adult }} x Adult</p>

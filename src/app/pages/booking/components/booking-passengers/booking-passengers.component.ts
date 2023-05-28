@@ -26,7 +26,7 @@ import {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS },
   ],
 })
 export class BookingPassengersComponent implements OnInit {
@@ -77,7 +77,7 @@ export class BookingPassengersComponent implements OnInit {
     let allForms: any = {};
     this.passArrayOfString.forEach((el, index) => {
       let itemArray = [];
-      let item: string = el + (index + 1);
+      let item: string = el + '-' + (index + 1);
       let spanText: string = index + 1 + '. ' + this.capitalizeFirstLetter(el);
 
       allForms = new FormGroup({

@@ -10,12 +10,22 @@
     <div class="booking-rewiew__forward booking-rewiew__card">
       <div class="booking-rewiew__flight">
         <div class="booking-rewiew__flight-info">
-          <span class="booking-rewiew__flight-number">FR 1925</span>
-          <span class="booking-rewiew__from-to">Dublin — Warsaw Modlin</span>
+          <span class="booking-rewiew__flight-number">{{
+            thereFlight.flightNumber
+          }}</span>
+          <span class="booking-rewiew__from-to"
+            ><span>{{ thereFlight.form.city }}</span> —
+            <span>{{ thereFlight.to.city }}</span></span
+          >
         </div>
         <div class="booking-rewiew__date-info">
-          <span class="booking-rewiew__date">Wednesday, 1 March, 2023</span
-          ><span class="booking-rewiew__flight-time">8:40 — 12:00 </span>
+          <span class="booking-rewiew__date">{{
+            thereFlight.landingDate | date
+          }}</span
+          ><span class="booking-rewiew__flight-time"
+            >{{ getFlightTime(thereFlight.takeoffDate) }} —
+            {{ getFlightTime(thereFlight.landingDate) }}
+          </span>
         </div>
       </div>
       <div class="booking-rewiew__passengers">
@@ -26,18 +36,25 @@
         ></app-review-passengers-info>
       </div>
     </div>
-    <div
-      *ngIf="!isOneWayTrip"
-      class="booking-rewiew__back booking-rewiew__card"
-    >
+    <div *ngIf="isRoundTrip" class="booking-rewiew__back booking-rewiew__card">
       <div class="booking-rewiew__flight">
         <div class="booking-rewiew__flight-info">
-          <span class="booking-rewiew__flight-number">FR 1925</span>
-          <span class="booking-rewiew__from-to">Warsaw Modlin — Dublin</span>
+          <span class="booking-rewiew__flight-number">{{
+            backFlight.flightNumber
+          }}</span>
+          <span class="booking-rewiew__from-to"
+            ><span>{{ backFlight.form.city }}</span> —
+            <span>{{ backFlight.to.city }}</span></span
+          >
         </div>
         <div class="booking-rewiew__date-info">
-          <span class="booking-rewiew__date">Saturday, 18 March, 2023</span
-          ><span class="booking-rewiew__flight-time">7:40 — 12:00 </span>
+          <span class="booking-rewiew__date">{{
+            backFlight.landingDate | date
+          }}</span
+          ><span class="booking-rewiew__flight-time"
+            >{{ getFlightTime(backFlight.takeoffDate) }} —
+            {{ getFlightTime(backFlight.landingDate) }}
+          </span>
         </div>
       </div>
       <app-review-passengers-info
@@ -49,8 +66,9 @@
   <div class="booking-rewiew__fares-left-position">
     <div class="booking-rewiew__fares booking-rewiew__card">
       <app-review-fare
+        [isRoundWay]="isRoundTrip"
         [totalPrice]="totalPrice"
-        [fares]="exampleFares"
+        [fares]="fares"
       ></app-review-fare>
     </div>
   </div>

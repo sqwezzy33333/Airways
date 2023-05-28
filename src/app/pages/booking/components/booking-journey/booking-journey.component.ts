@@ -1,5 +1,5 @@
 import { Component, EventEmitter,
-         Output, OnInit 
+         Output, OnInit
         } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { FlightsResponse, FlightsStateService,
@@ -12,7 +12,7 @@ import { FlightsResponse, FlightsStateService,
   templateUrl: './booking-journey.component.html',
   styleUrls: ['./booking-journey.component.scss']
 })
-export class BookingJourneyComponent implements  OnInit{
+export class BookingJourneyComponent implements  OnInit {
   @Output() public openResentSearchEvent = new EventEmitter();
   @Output() public onSelectTripEvent = new EventEmitter();
  
@@ -28,6 +28,7 @@ export class BookingJourneyComponent implements  OnInit{
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
 
+  public areFlightsAvailable:boolean = false;
 
   constructor(private flightsStateService: FlightsStateService,
               private sliderService: SliderService) {}
@@ -37,6 +38,7 @@ export class BookingJourneyComponent implements  OnInit{
       this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
       this.updateDatePrices();
     });
+
 
     const currentDate = new Date();
     this.selectedDateButtonThere = currentDate;
@@ -63,10 +65,12 @@ export class BookingJourneyComponent implements  OnInit{
 
   public onDateButtonClickBack(item: Date) {
     this.selectedDateButtonBack = item;
+    console.log('areFlightsAvailable Back:', this.areFlightsAvailable)
   }
 
   public onDateButtonClickThere(item: Date) {
     this.selectedDateButtonThere = item;
+    console.log('areFlightsAvailable There:', this.areFlightsAvailable)
   }
 
   public onSelectTrip(directionFlights: string, flight: FlightsResponse) {

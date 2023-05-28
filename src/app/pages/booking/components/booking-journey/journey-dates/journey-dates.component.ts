@@ -51,36 +51,27 @@ export class JourneyDatesComponent {
   constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
 
   ngOnInit(): void {
-
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
 
   public onDateButtonClickThere(item: Date) {
     this.onDateButtonClickThereEvent.emit(item);
   }
+
   public onDateButtonClickBack(item: Date) {
     this.onDateButtonClickBackEvent.emit(item);
   }
-
+  
   public nextSlide(): void {
     this.sliderService.nextSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-
+  
   public prevSlide(): void {
     this.sliderService.prevSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-
-  public isOpenDate(item: any) {
-    return (
-      (this.selectedDateButtonThere !== null &&
-        this.selectedDateButtonThere.getTime() === item.getTime()) ||
-      (this.selectedDateButtonBack !== null &&
-        this.selectedDateButtonBack.getTime() === item.getTime())
-    );
-  }
-
+  
   public isCheckedDate(item: any): boolean {
     return (
       (this.selectedDateButtonThere !== null &&

@@ -23,7 +23,7 @@
         [ngClass]="item.date | checkDateColor : flight"
       ></p>
       <button class="date-item"
-      [ngClass]="{'disabled': item.price === undefined}" [attr.disabled]="item.price === undefined ? true : null">
+      [ngClass]="{'disabled': item.price === undefined}">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">
@@ -49,3 +49,4 @@
     </span>
   </button>
 </div>
+

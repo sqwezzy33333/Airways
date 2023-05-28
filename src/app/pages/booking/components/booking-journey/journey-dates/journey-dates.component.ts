@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy,
          Component, EventEmitter,
          Input, Output
         } from '@angular/core';
-import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice } from 'src/app/core';
+import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice, FlightAvailabilityService } from 'src/app/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -48,7 +48,8 @@ export class JourneyDatesComponent {
     'Saturday',
   ];
 
-  constructor(private sliderService: SliderService, private flightsStateService: FlightsStateService) {}
+  constructor(private sliderService: SliderService,
+              private flightAvailabilityService: FlightAvailabilityService) {}
 
   ngOnInit(): void {
     this.currentIndex = this.sliderService.getCurrentIndex();
@@ -79,5 +80,32 @@ export class JourneyDatesComponent {
       (this.selectedDateButtonBack !== null &&
         this.selectedDateButtonBack.getTime() === item.getTime())
     );
+  }
+
+  public onClickThere(item: DateWithPrice) {
+    if (this.selectedDateButtonThere) {
+      this.checkTicketThere(item.price)
+    }
+  }
+
+  public onClickBack(item: DateWithPrice) {
+    if (this.selectedDateButtonBack) {
+      this.checkTicketBack(item.price)
+    }
+  }
+
+  public checkTicketThere(price: number | undefined): void {
+    if (price !== undefined) {
+      this.flightAvailabilityService.updateThereFlightsAvailable(true)
+    } else {
+      this.flightAvailabilityService.updateThereFlightsAvailable(false)
+    }
+  }
+  public checkTicketBack(price: number | undefined): void {
+    if (price !== undefined) {
+      this.flightAvailabilityService.updateBackFlightsAvailable(true)
+    } else {
+      this.flightAvailabilityService.updateBackFlightsAvailable(false)
+    }
   }
 }

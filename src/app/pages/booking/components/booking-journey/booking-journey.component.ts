@@ -4,7 +4,8 @@ import { Component, EventEmitter,
 import { BehaviorSubject } from "rxjs";
 import { FlightsResponse, FlightsStateService,
           DateWithPrice,
-          SliderService
+          SliderService,
+          FlightAvailabilityService
         } from "../../../../core/index";
 
 @Component({
@@ -28,10 +29,12 @@ export class BookingJourneyComponent implements  OnInit {
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
 
-  public areFlightsAvailable:boolean = false;
+  public areFlightsAvailableThere:boolean = false;
+  public areFlightsAvailableBack:boolean = false;
 
   constructor(private flightsStateService: FlightsStateService,
-              private sliderService: SliderService) {}
+              private sliderService: SliderService,
+              private flightAvailabilityService: FlightAvailabilityService) {}
 
   ngOnInit(): void {
     this.flightsStateService.flights$.subscribe((flights: FlightsResponse[] | null) => {
@@ -45,6 +48,13 @@ export class BookingJourneyComponent implements  OnInit {
     this.selectedDateButtonBack = currentDate;
 
     this.updateDatePrices();
+
+    this.flightAvailabilityService.flightsAvailableThere$.subscribe((areFlightsAvailable: boolean) => {
+      this.areFlightsAvailableThere = areFlightsAvailable;
+    });
+    this.flightAvailabilityService.flightsAvailableBack$.subscribe((areFlightsAvailable: boolean) => {
+      this.areFlightsAvailableBack = areFlightsAvailable;
+    });
   }
 
   private updateDatePrices(): void {
@@ -65,12 +75,10 @@ export class BookingJourneyComponent implements  OnInit {
 
   public onDateButtonClickBack(item: Date) {
     this.selectedDateButtonBack = item;
-    console.log('areFlightsAvailable Back:', this.areFlightsAvailable)
   }
 
   public onDateButtonClickThere(item: Date) {
     this.selectedDateButtonThere = item;
-    console.log('areFlightsAvailable There:', this.areFlightsAvailable)
   }
 
   public onSelectTrip(directionFlights: string, flight: FlightsResponse) {

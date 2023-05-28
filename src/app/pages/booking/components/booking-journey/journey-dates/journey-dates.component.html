@@ -13,6 +13,8 @@
       *ngFor="let item of dates"
       (click)="onDateButtonClickThere(item.date)"
       (click)="onDateButtonClickBack(item.date)"
+      (click)="onClickThere(item)"
+      (click)="onClickBack(item)"
       [ngClass]="{
         selected: isCheckedDate(item.date)
       }"

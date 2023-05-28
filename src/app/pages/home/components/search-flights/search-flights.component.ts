@@ -114,7 +114,8 @@ export class SearchFlightsComponent implements OnInit {
     }
 
     if (this.searchForm.valid && this.isPassengers && this.isDate && !this.isOneWay) {
-
+      this.router.navigate(['booking/flights']);
+      
       this.ApiService.getFlight({
         backDate: this.endDate,
         forwardDate: this.startDate,

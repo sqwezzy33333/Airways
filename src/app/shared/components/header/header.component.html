@@ -75,6 +75,7 @@
                   bookingBorder: currentPath !== '/home' && currentPath !== '/'
                 }"
                 style="padding: 10px 15px"
+                (selectionChange)="onCurrencyChange(currencySelectForm.value!)"
               >
                 <mat-option
                   [ngClass]="{
@@ -88,8 +89,8 @@
                   [ngClass]="{
                     grayColor: currentPath !== '/home' && currentPath !== '/'
                   }"
-                  value="USA"
-                  >USA</mat-option
+                  value="USD"
+                  >USD</mat-option
                 >
                 <mat-option
                   [ngClass]="{

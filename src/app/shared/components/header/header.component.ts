@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, pipe, filter } from 'rxjs';
-import { ApiService, AuthService, IResponseAuth, ISignUp } from '../../../core';
+import { ApiService, AuthService, IResponseAuth, ISignUp, CurrencyServiceService, FlightsResponse } from '../../../core';
 import { LocationService } from 'src/app/core/services/location/location.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,11 +19,13 @@ export class HeaderComponent implements OnInit {
     Partial<(string | (ValidationErrors | null)[])[] | null | undefined>
   >;
   currentPath!: string;
+  selectedCurrency!: string;
 
   constructor(
     private AuthService: AuthService,
     private locationService: LocationService,
-    private ApiService: ApiService
+    private ApiService: ApiService,
+    private currencyService: CurrencyServiceService
   ) {}
 
   ngOnInit(): void {
@@ -32,11 +35,11 @@ export class HeaderComponent implements OnInit {
     this.locationService.currentLocation.subscribe(
       (path) => (this.currentPath = path)
     );
-    console.log(this.currentPath);
+    this.selectedCurrency = this.currencySelectForm.value!;
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
-  currencySelectForm = new FormControl('EUR');
+  currencySelectForm = new FormControl('USD');
 
   openDialog() {
     this.AuthService.onOpen();
@@ -49,5 +52,9 @@ export class HeaderComponent implements OnInit {
   checkLocation() {
     console.log(this.currentPath);
     return this.currentPath;
+  }
+
+  onCurrencyChange(currency: string): void {
+    this.currencyService.setCurrency(currency.toLowerCase());
   }
 }

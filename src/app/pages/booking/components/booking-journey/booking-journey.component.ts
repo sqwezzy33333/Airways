@@ -63,13 +63,13 @@ export class BookingJourneyComponent implements  OnInit {
     this.datesThere = storedDates.map(dateString => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDate(date);
-      return { date, price };
+      return { date, price } as DateWithPrice;
     });
   
     this.datesBack = storedDates.map(dateString => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDateBack(date);
-      return { date, price };
+      return { date, price } as DateWithPrice;
     });
   }
 

@@ -6,3 +6,4 @@ export * from './slider/slider.service';
 export * from './flights-state/flights-state.service';
 export * from './search-flights-state/search-flights-state.service';
 export * from './flight-availability/flight-availability.service';
+export * from './currency-service/currency-service.service';

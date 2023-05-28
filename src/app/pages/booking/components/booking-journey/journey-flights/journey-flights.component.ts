@@ -6,7 +6,7 @@ import {
   Output,
   OnInit,
 } from '@angular/core';
-import { FlightAvailabilityService, FlightsResponse } from '../../../../../core/index';
+import { CurrencyServiceService, FlightAvailabilityService, FlightsResponse } from '../../../../../core/index';
 
 @Component({
   selector: 'app-journey-flights',
@@ -24,7 +24,8 @@ export class JourneyFlightsComponent implements OnInit {
 
   public flights: FlightsResponse[] = [];
 
-  constructor(private flightAvailabilityService: FlightAvailabilityService) {}
+  constructor(private flightAvailabilityService: FlightAvailabilityService,
+              private currencyService: CurrencyServiceService) {}
 
   ngOnInit(): void {}
 
@@ -74,5 +75,9 @@ export class JourneyFlightsComponent implements OnInit {
     }
 
     return false;
+  }
+
+  getCurrentCurrency(): keyof FlightsResponse['price'] {
+    return this.currencyService.getCurrency();
   }
 }

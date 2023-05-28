@@ -47,7 +47,12 @@
             <div class="price-wrapper">
               <span class="seats-availabel">{{flight.seats.avaible}} seats available</span>
               <span class="price-fare">Price</span>
-              <span class="price-value">{{flight.price.usd | currency}}</span>
+              <span class="price-value">
+                <ng-container *ngIf="getCurrentCurrency() === 'eur'">€{{flight.price[getCurrentCurrency()] | number: '1.2-2'}}</ng-container>
+                <ng-container *ngIf="getCurrentCurrency() === 'usd'">${{flight.price[getCurrentCurrency()] | number: '1.2-2'}}</ng-container>
+                <ng-container *ngIf="getCurrentCurrency() === 'rub'">₽{{flight.price[getCurrentCurrency()] | number: '1.2-2'}}</ng-container>
+                <ng-container *ngIf="getCurrentCurrency() === 'pln'">zł{{flight.price[getCurrentCurrency()] | number: '1.2-2'}}</ng-container>
+              </span>
             </div>
           </div>
           <button class="card-price__btn"

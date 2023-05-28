@@ -16,10 +16,10 @@ export interface FlightsResponse {
     total: number
 },
   price: {
-  eur: number,
-    usd: number,
-    rub: number,
-    pln: number
+  eur: number | undefined,
+    usd: number | undefined,
+    rub: number | undefined,
+    pln: number | undefined,
 },
   otherFlights: { [key: string]: FlightsResponse };
   flightNumber: string;

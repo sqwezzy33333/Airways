@@ -20,7 +20,7 @@
       </div>
       <div class="booking-rewiew__passengers">
         <app-review-passengers-info
-          *ngFor="let item of examplePassengers; let l = last"
+          *ngFor="let item of passengers; let l = last"
           [ngClass]="{ BottomBorderRadius8px: l }"
           [passengers]="item"
         ></app-review-passengers-info>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <app-review-passengers-info
-        *ngFor="let item of examplePassengers"
+        *ngFor="let item of passengers"
         [passengers]="item"
       ></app-review-passengers-info>
     </div>

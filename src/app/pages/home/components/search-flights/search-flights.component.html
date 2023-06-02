@@ -132,7 +132,7 @@
               placeholder="End date"
             />
           </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY – MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle
             matIconSuffix
             [for]="rangePicker"
@@ -160,6 +160,7 @@
             matInput
             [matDatepicker]="datepicker"
             (ngModelChange)="onDateChange()"
+            [value]="singleDate | dateAdapter"
           />
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle
@@ -322,3 +323,5 @@
   *ngIf="showPassengersOptions"
   (click)="closeOptions()"
 ></div>
+
+<div (click)="checkOp()">btn</div>

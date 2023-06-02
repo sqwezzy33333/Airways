@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { Country } from 'src/app/shared/data/country';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 import {
   ApiService,
@@ -58,8 +58,6 @@ export class SearchFlightsComponent implements OnInit {
     }),
   });
 
-  country = Country;
-
   passengers = {
     adult: 0,
     child: 0,
@@ -84,7 +82,6 @@ export class SearchFlightsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private ApiService: ApiService,
     private sliderService: SliderService,
     private searchFlightsStateService: SearchFlightsStateService
@@ -94,6 +91,10 @@ export class SearchFlightsComponent implements OnInit {
     this.ApiService.getAirports();
     this.airports$ = this.ApiService.airports$;
     this.changeCalendarOnBookingPage();
+  }
+
+  checkOp(){
+    console.log(this.searchForm)
   }
 
   get adult() {
@@ -134,7 +135,7 @@ export class SearchFlightsComponent implements OnInit {
 
     if (this.searchForm.valid && this.isPassengers && this.isDate && !this.isOneWay) {
       this.router.navigate(['booking/flights']);
-      
+
       this.ApiService.getFlight({
         backDate: this.endDate,
         forwardDate: this.startDate,

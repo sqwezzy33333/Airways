@@ -6,15 +6,12 @@ import { ApiService, AuthService, CurrencyServiceService } from '../../../core';
 import { LocationService } from 'src/app/core/services/location/location.service';
 import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 
-
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-
 export class HeaderComponent implements OnInit {
   isOpen$!: BehaviorSubject<boolean>;
   isAuth$!: BehaviorSubject<boolean>;
@@ -24,6 +21,8 @@ export class HeaderComponent implements OnInit {
   currentPath!: string;
   selectedCurrency!: string;
   typeOfDate!: string;
+  currentCurrency: string = this.currencyService.getCurrency().toLocaleUpperCase();
+  currency = ['EUR', 'USD', 'RUB', 'PLN'];
 
   constructor(
     private AuthService: AuthService,
@@ -31,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private ApiService: ApiService,
     private dateType$: DateTypeService,
     private currencyService: CurrencyServiceService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.isOpen$ = this.AuthService.dialogIsOpen$;
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
-  currencySelectForm = new FormControl('USD');
+  currencySelectForm = new FormControl(this.currentCurrency);
 
   openDialog() {
     this.AuthService.onOpen();

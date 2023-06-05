@@ -1,8 +1,19 @@
-import { ChangeDetectionStrategy,
-         Component, EventEmitter,
-         Input, Output
-        } from '@angular/core';
-import { FlightsResponse, SliderService, FlightsStateService, DateWithPrice, FlightAvailabilityService } from 'src/app/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  FlightsResponse,
+  SliderService,
+  FlightsStateService,
+  DateWithPrice,
+  FlightAvailabilityService,
+} from 'src/app/core';
+import { CurrencyServiceService } from 'src/app/core';
+import { Currency } from 'src/app/core';
 
 @Component({
   selector: 'app-journey-dates',
@@ -47,9 +58,13 @@ export class JourneyDatesComponent {
     'Friday',
     'Saturday',
   ];
+  public currencyType!: string;
 
-  constructor(private sliderService: SliderService,
-              private flightAvailabilityService: FlightAvailabilityService) {}
+  constructor(
+    private sliderService: SliderService,
+    private flightAvailabilityService: FlightAvailabilityService,
+    private curencyService: CurrencyServiceService
+  ) {}
 
   ngOnInit(): void {
     this.currentIndex = this.sliderService.getCurrentIndex();
@@ -62,17 +77,17 @@ export class JourneyDatesComponent {
   public onDateButtonClickBack(item: Date) {
     this.onDateButtonClickBackEvent.emit(item);
   }
-  
+
   public nextSlide(): void {
     this.sliderService.nextSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-  
+
   public prevSlide(): void {
     this.sliderService.prevSlide();
     this.currentIndex = this.sliderService.getCurrentIndex();
   }
-  
+
   public isCheckedDate(item: any): boolean {
     return (
       (this.selectedDateButtonThere !== null &&
@@ -84,28 +99,38 @@ export class JourneyDatesComponent {
 
   public onClickThere(item: DateWithPrice) {
     if (this.selectedDateButtonThere) {
-      this.checkTicketThere(item.price)
+      this.checkTicketThere(item.price);
     }
   }
 
   public onClickBack(item: DateWithPrice) {
     if (this.selectedDateButtonBack) {
-      this.checkTicketBack(item.price)
+      this.checkTicketBack(item.price);
     }
   }
 
   public checkTicketThere(price: number | undefined): void {
     if (price !== undefined) {
-      this.flightAvailabilityService.updateThereFlightsAvailable(true)
+      this.flightAvailabilityService.updateThereFlightsAvailable(true);
     } else {
-      this.flightAvailabilityService.updateThereFlightsAvailable(false)
+      this.flightAvailabilityService.updateThereFlightsAvailable(false);
     }
   }
+
   public checkTicketBack(price: number | undefined): void {
     if (price !== undefined) {
-      this.flightAvailabilityService.updateBackFlightsAvailable(true)
+      this.flightAvailabilityService.updateBackFlightsAvailable(true);
     } else {
-      this.flightAvailabilityService.updateBackFlightsAvailable(false)
+      this.flightAvailabilityService.updateBackFlightsAvailable(false);
     }
+  }
+
+  public changeCurrency(item: any): number | string {
+    if (item) {
+      let currencyType: string = this.curencyService.getCurrency();
+      this.currencyType = currencyType.toUpperCase();
+      return item[currencyType];
+    }
+    return '';
   }
 }

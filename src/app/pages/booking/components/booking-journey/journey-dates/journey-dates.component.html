@@ -24,12 +24,14 @@
         class="borderBlock"
         [ngClass]="item.date | checkDateColor : flight"
       ></p>
-      <button class="date-item"
-      [ngClass]="{'disabled': item.price === undefined}">
+      <button
+        class="date-item"
+        [ngClass]="{ disabled: item.price === undefined }"
+      >
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">
-              {{item.date.getDate()}}
+              {{ item.date.getDate() }}
             </span>
             <span class="date-item__month">
               {{ monthNames[item.date.getMonth()] }}
@@ -40,7 +42,10 @@
           </div>
         </div>
         <div class="date-item__price">
-          <span class="price__numbers">{{item.price | currency}}</span>
+          <span class="price__numbers">{{
+            changeCurrency(item.price)
+              | currency : currencyType : "symbol-narrow"
+          }}</span>
         </div>
       </button>
     </li>
@@ -51,4 +56,3 @@
     </span>
   </button>
 </div>
-

@@ -77,34 +77,13 @@
                 style="padding: 10px 15px"
                 (selectionChange)="onCurrencyChange(currencySelectForm.value!)"
               >
-                <mat-option
+                <mat-option *ngFor="let item of currency"
                   [ngClass]="{
                     grayColor: currentPath !== '/home' && currentPath !== '/'
                   }"
-                  value="EUR"
+                  [value]="item"
                   style="color: white"
-                  >EUR</mat-option
-                >
-                <mat-option
-                  [ngClass]="{
-                    grayColor: currentPath !== '/home' && currentPath !== '/'
-                  }"
-                  value="USD"
-                  >USD</mat-option
-                >
-                <mat-option
-                  [ngClass]="{
-                    grayColor: currentPath !== '/home' && currentPath !== '/'
-                  }"
-                  value="RUB"
-                  >RUB</mat-option
-                >
-                <mat-option
-                  [ngClass]="{
-                    grayColor: currentPath !== '/home' && currentPath !== '/'
-                  }"
-                  value="PLN"
-                  >PLN</mat-option
+                  >{{item}}</mat-option
                 >
               </mat-select>
             </form>

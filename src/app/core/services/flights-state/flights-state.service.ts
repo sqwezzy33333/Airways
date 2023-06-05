@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FlightsResponse } from '../../../core/index';
+import { Currency } from '../../../core/index';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class FlightsStateService {
     localStorage.setItem('flights', JSON.stringify(flights));
   }
 
-  getPriceForDate(date: Date): number | undefined {
+  getPriceForDate(date: Date): Currency | undefined {
     const flights = this.flightsState.getValue();
     const firstFlight = flights[0];
 
@@ -53,7 +54,7 @@ export class FlightsStateService {
     return undefined;
   }
 
-  getPriceForDateBack(date: Date): number | undefined {
+  getPriceForDateBack(date: Date): Currency | undefined {
     const flights = this.flightsState.getValue();
     const lastFlight = flights[flights.length - 1];
 
@@ -79,7 +80,7 @@ export class FlightsStateService {
   getPriceForDateRecursive(
     date: Date,
     flight: FlightsResponse
-  ): number | undefined {
+  ): Currency | undefined {
     const takeoffDate = new Date(flight.takeoffDate);
     const landingDate = new Date(flight.landingDate);
 
@@ -91,17 +92,14 @@ export class FlightsStateService {
       date <= landingDate &&
       flight.price &&
       flight.price.usd
-    ) {
-      return flight.price.usd;
-    }
+    )
+      return flight.price;
 
     if (flight.otherFlights) {
       for (const key in flight.otherFlights) {
         const otherFlight = flight.otherFlights[key];
         const price = this.getPriceForDateRecursive(date, otherFlight);
-        if (price) {
-          return price;
-        }
+        if (price) return price;
       }
     }
 

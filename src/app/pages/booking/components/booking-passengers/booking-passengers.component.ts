@@ -34,7 +34,7 @@ export class BookingPassengersComponent implements OnInit {
   public today = new Date();
   public passArrayOfString: string[] = [];
   public isNoValid = false;
-
+  public rerenderProps: Array<number> = [1];
   public passengers!: [string, number][];
   public arrayForms: any[] = [];
 
@@ -50,7 +50,8 @@ export class BookingPassengersComponent implements OnInit {
   constructor(
     private searchFlightsStateService: SearchFlightsStateService,
     private router: Router,
-    private passService: PassengersFormStateService
+    private passService: PassengersFormStateService,
+    private dateFormatService: DateTypeService
   ) {
     const currentPassengers =
       this.searchFlightsStateService.getSearchFlightsForm()?.passengers;
@@ -60,6 +61,9 @@ export class BookingPassengersComponent implements OnInit {
   ngOnInit(): void {
     this.transformPass();
     this.createForm();
+    this.dateFormatService.currentDateType.subscribe((e) => {
+      this.rerender();
+    });
   }
 
   transformPass() {
@@ -124,5 +128,9 @@ export class BookingPassengersComponent implements OnInit {
       this.router.navigate(['booking/review-payment']);
       this.passService.setPassengersForm(passengersFormValues);
     } else this.isNoValid = true;
+  }
+
+  rerender() {
+    this.rerenderProps[0]++;
   }
 }

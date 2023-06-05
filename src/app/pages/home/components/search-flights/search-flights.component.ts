@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
-import { Country } from 'src/app/shared/data/country';
 import { Router } from '@angular/router';
 import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 import {
@@ -35,7 +34,7 @@ import {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: DateTypeService.MY_DATA_FORMATS },
   ],
 })
 export class SearchFlightsComponent implements OnInit {
@@ -64,6 +63,7 @@ export class SearchFlightsComponent implements OnInit {
     infant: 0,
   };
 
+  public rerenderProps: Array<number> = [1];
   isInfoPassSpanOpen = false;
   showPassengersOptions = false;
   isPlaceBlocksReverse = false;
@@ -75,26 +75,22 @@ export class SearchFlightsComponent implements OnInit {
   minDate = new Date();
 
   namesOfLabels = ['From', 'Destination'];
-  exampleArrayOfPlace: Array<[string, string]> = [
-    ['Chicago', 'CH'],
-    ['Minsk', 'MNSK'],
-  ];
 
   constructor(
     private router: Router,
     private ApiService: ApiService,
     private sliderService: SliderService,
-    private searchFlightsStateService: SearchFlightsStateService
+    private searchFlightsStateService: SearchFlightsStateService,
+    private dateFormatService: DateTypeService
   ) {}
 
   ngOnInit(): void {
     this.ApiService.getAirports();
     this.airports$ = this.ApiService.airports$;
     this.changeCalendarOnBookingPage();
-  }
-
-  checkOp(){
-    console.log(this.searchForm)
+    this.dateFormatService.currentDateType.subscribe((el) => {
+      this.rerender();
+    });
   }
 
   get adult() {
@@ -133,7 +129,12 @@ export class SearchFlightsComponent implements OnInit {
       formObject.dest = this.searchForm.value.from!;
     }
 
-    if (this.searchForm.valid && this.isPassengers && this.isDate && !this.isOneWay) {
+    if (
+      this.searchForm.valid &&
+      this.isPassengers &&
+      this.isDate &&
+      !this.isOneWay
+    ) {
       this.router.navigate(['booking/flights']);
 
       this.ApiService.getFlight({
@@ -148,7 +149,12 @@ export class SearchFlightsComponent implements OnInit {
 
       this.searchFlightsStateService.setSearchFlightsForm(formObject);
     }
-    if (this.searchForm.valid && this.isPassengers && this.isDate && this.isOneWay) {
+    if (
+      this.searchForm.valid &&
+      this.isPassengers &&
+      this.isDate &&
+      this.isOneWay
+    ) {
       this.router.navigate(['booking/flights']);
 
       this.ApiService.getFlight({
@@ -172,6 +178,10 @@ export class SearchFlightsComponent implements OnInit {
 
   oneWayIsTrue() {
     this.isOneWay = true;
+  }
+
+  rerender() {
+    this.rerenderProps[0]++;
   }
 
   oneWayIsFalse() {

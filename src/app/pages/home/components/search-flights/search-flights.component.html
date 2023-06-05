@@ -87,6 +87,7 @@
 
   <div
     class="home-form__params"
+    *ngFor="let i of rerenderProps"
     [ngClass]="{
       widthFull: isBookingPage,
       justifyCenter: isBookingPage
@@ -323,5 +324,3 @@
   *ngIf="showPassengersOptions"
   (click)="closeOptions()"
 ></div>
-
-<div (click)="checkOp()">btn</div>

@@ -58,6 +58,8 @@ export class JourneyDatesComponent {
     'Friday',
     'Saturday',
   ];
+  public firstTicketIndex!: number;
+  public wasNoFirstTicketCheked = false;
 
   constructor(
     private sliderService: SliderService,
@@ -66,13 +68,16 @@ export class JourneyDatesComponent {
 
   ngOnInit(): void {
     this.currentIndex = this.sliderService.getCurrentIndex();
+    this.getFirstTicket();
   }
 
   public onDateButtonClickThere(item: Date) {
+    this.wasNoFirstTicketCheked = true;
     this.onDateButtonClickThereEvent.emit(item);
   }
 
   public onDateButtonClickBack(item: Date) {
+    this.wasNoFirstTicketCheked = true;
     this.onDateButtonClickBackEvent.emit(item);
   }
 
@@ -83,7 +88,8 @@ export class JourneyDatesComponent {
 
   public prevSlide(): void {
     this.sliderService.prevSlide();
-    this.currentIndex = this.sliderService.getCurrentIndex();
+    this.currentIndex =
+      this.sliderService.getCurrentIndex();
   }
 
   public isCheckedDate(item: any): boolean {
@@ -127,5 +133,27 @@ export class JourneyDatesComponent {
     if (item) {
       return item[this.currencyType];
     }
+  }
+
+  getFirstTicket() {
+    let indexesOfTickets: number[] = this.dates
+      .map((el, index) => {
+        if (el.price) {
+          return index;
+        }
+        return 0;
+      })
+      .filter((el) => {
+        return el;
+      });
+
+    this.firstTicketIndex = indexesOfTickets[0];
+  }
+
+  isFirsTicketDate(index: number) {
+    if (index === this.firstTicketIndex && !this.wasNoFirstTicketCheked) {
+      return true;
+    }
+    return false;
   }
 }

@@ -10,17 +10,17 @@
   >
     <li
       class="item"
-      *ngFor="let item of dates"
+      *ngFor="let item of dates; let index = index"
       (click)="onDateButtonClickThere(item.date)"
       (click)="onDateButtonClickBack(item.date)"
       (click)="onClickThere(item)"
       (click)="onClickBack(item)"
       [ngClass]="{
-        selected: isCheckedDate(item.date)
+        selected: isCheckedDate(item.date) || isFirsTicketDate(index)
       }"
     >
       <p
-        *ngIf="isCheckedDate(item.date)"
+        *ngIf="isCheckedDate(item.date) || isFirsTicketDate(index)"
         class="borderBlock"
         [ngClass]="item.date | checkDateColor : flight"
       ></p>
@@ -43,7 +43,8 @@
         </div>
         <div class="date-item__price">
           <span class="price__numbers">{{
-            changeCurrency(item.price) | currency : currencyType.toUpperCase() : "symbol-narrow"
+            changeCurrency(item.price)
+              | currency : currencyType.toUpperCase() : "symbol-narrow"
           }}</span>
         </div>
       </button>

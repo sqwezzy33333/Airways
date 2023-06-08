@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SliderService {
   private currentIndex = 0;
@@ -12,6 +12,7 @@ export class SliderService {
     const storedDates = localStorage.getItem('sliderDates');
     if (storedDates) {
       this.dates = JSON.parse(storedDates);
+      this.currentIndex = 5;
     }
 
     const storedPassengers = localStorage.getItem('totalPassengers');
@@ -20,9 +21,9 @@ export class SliderService {
     }
   }
 
-
   public prevSlide() {
-    this.currentIndex = (this.currentIndex - 1 + this.dates.length) % this.dates.length;
+    this.currentIndex =
+      (this.currentIndex - 1 + this.dates.length) % this.dates.length;
   }
 
   public nextSlide() {
@@ -44,7 +45,10 @@ export class SliderService {
 
   public setPassengers(amount: number) {
     this.totalPassengers = amount;
-    localStorage.setItem('totalPassengers', JSON.stringify(this.totalPassengers));
+    localStorage.setItem(
+      'totalPassengers',
+      JSON.stringify(this.totalPassengers)
+    );
   }
   public getPassengers() {
     return this.totalPassengers;

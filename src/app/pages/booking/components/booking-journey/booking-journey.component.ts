@@ -71,6 +71,14 @@ export class BookingJourneyComponent implements OnInit {
     );
   }
 
+  getFirstDateBack() {
+    let arr = this.datesBack.filter((el) => {
+      return el.price;
+    });
+    let firstDate = new Date(arr[0].date)
+    return firstDate
+  }
+
   private updateDatePrices(): void {
     const storedDates = this.sliderService.getDates();
 

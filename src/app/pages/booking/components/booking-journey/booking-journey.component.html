@@ -118,6 +118,7 @@
       </div>
 
       <app-journey-flights
+        [firstDateBack]="getFirstDateBack()"
         [currencyType]="currencyType"
         [flight]="flight"
         [isSelected]="isSelectedBack"
@@ -128,6 +129,7 @@
 
       <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">
         <app-journey-flights
+          [firstDateBack]="getFirstDateBack()"
           [currencyType]="currencyType"
           [flight]="otherFlight.value"
           [isSelected]="isSelectedBack"

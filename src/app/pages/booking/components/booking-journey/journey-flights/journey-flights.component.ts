@@ -25,6 +25,8 @@ export class JourneyFlightsComponent implements OnInit {
   @Input() public selectedDateButtonBack: Date | null = null;
   @Input() public selectedDateButtonThere: Date | null = null;
   @Input() public currencyType: string = '';
+  @Input() public firstDateBack!: Date;
+  private isDateBackCheked!: boolean;
 
   public flights: FlightsResponse[] = [];
 
@@ -55,26 +57,31 @@ export class JourneyFlightsComponent implements OnInit {
   }
 
   public isSelectedFlight(flight: FlightsResponse): boolean {
-    if (!this.selectedDateButtonBack && !this.selectedDateButtonThere) {
+    if (!this.selectedDateButtonBack && !this.selectedDateButtonThere)
       return false;
-    }
 
     const flightDate = new Date(flight.takeoffDate);
 
     if (this.selectedDateButtonBack) {
       const selectedDateBack = new Date(this.selectedDateButtonBack);
       if (flightDate.toDateString() === selectedDateBack.toDateString()) {
+        this.isDateBackCheked = true;
+        return true;
+      }
+
+      if (
+        flightDate.toDateString() === this.firstDateBack.toDateString() &&
+        !this.isDateBackCheked
+      ) {
         return true;
       }
     }
 
     if (this.selectedDateButtonThere) {
       const selectedDateThere = new Date(this.selectedDateButtonThere);
-      if (flightDate.toDateString() === selectedDateThere.toDateString()) {
+      if (flightDate.toDateString() === selectedDateThere.toDateString())
         return true;
-      }
     }
-
     return false;
   }
 

@@ -7,7 +7,6 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  CurrencyService,
   FlightAvailabilityService,
   FlightsResponse,
 } from '../../../../../core/index';
@@ -25,13 +24,11 @@ export class JourneyFlightsComponent implements OnInit {
 
   @Input() public selectedDateButtonBack: Date | null = null;
   @Input() public selectedDateButtonThere: Date | null = null;
+  @Input() public currencyType: string = '';
 
   public flights: FlightsResponse[] = [];
 
-  constructor(
-    private flightAvailabilityService: FlightAvailabilityService,
-    private currencyService: CurrencyService
-  ) {}
+  constructor(private flightAvailabilityService: FlightAvailabilityService) {}
 
   ngOnInit(): void {}
 
@@ -81,9 +78,7 @@ export class JourneyFlightsComponent implements OnInit {
     return false;
   }
 
-  getCurrentCurrency() {
-    this.currencyService.currencySubject.subscribe((currency) => {
-      return currency;
-    });
+  public changeCurrency(item: any) {
+    return item[this.currencyType];
   }
 }

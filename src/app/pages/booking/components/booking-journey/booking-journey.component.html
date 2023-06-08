@@ -49,6 +49,7 @@
       </div>
 
       <app-journey-flights
+        [currencyType]="currencyType"
         [flight]="flight"
         [isSelected]="isSelectedThere"
         (onSelectTripEvent)="onSelectTrip('there', $event)"
@@ -58,6 +59,7 @@
 
       <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">
         <app-journey-flights
+          [currencyType]="currencyType"
           [flight]="otherFlight.value"
           [isSelected]="isSelectedThere"
           (onSelectTripEvent)="onSelectTrip('there', $event)"
@@ -116,6 +118,7 @@
       </div>
 
       <app-journey-flights
+        [currencyType]="currencyType"
         [flight]="flight"
         [isSelected]="isSelectedBack"
         (onSelectTripEvent)="onSelectTrip('back', $event)"
@@ -125,6 +128,7 @@
 
       <ng-container *ngFor="let otherFlight of flight.otherFlights | keyvalue">
         <app-journey-flights
+          [currencyType]="currencyType"
           [flight]="otherFlight.value"
           [isSelected]="isSelectedBack"
           (onSelectTripEvent)="onSelectTrip('back', $event)"

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService, AuthService, CurrencyServiceService } from '../../../core';
+import { ApiService, AuthService, CurrencyService} from '../../../core';
 import { LocationService } from 'src/app/core/services/location/location.service';
 import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 
@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit {
   currentPath!: string;
   selectedCurrency!: string;
   typeOfDate!: string;
-  currentCurrency: string = this.currencyService.getCurrency().toLocaleUpperCase();
+  currentCurrency: string | undefined =
+    this.currencyService.getCurrencyFromLocalStorage();
   currency = ['EUR', 'USD', 'RUB', 'PLN'];
 
   constructor(
@@ -29,8 +30,11 @@ export class HeaderComponent implements OnInit {
     private locationService: LocationService,
     private ApiService: ApiService,
     private dateType$: DateTypeService,
-    private currencyService: CurrencyServiceService
+    private currencyService: CurrencyService
   ) {
+    this.currencyService.currencySubject.subscribe((el) => {
+      this.currentCurrency = el.toUpperCase();
+    });
   }
 
   ngOnInit(): void {
@@ -49,7 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   dateSelectForm = new FormControl('MM/DD/YYYY');
-  currencySelectForm = new FormControl(this.currentCurrency);
+  currencySelectForm = new FormControl(this.currentCurrency?.toUpperCase());
 
   openDialog() {
     this.AuthService.onOpen();

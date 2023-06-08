@@ -1,23 +1,31 @@
 import { Injectable } from '@angular/core';
 import { FlightsResponse } from '../../models';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CurrencyServiceService {
-  private selectedCurrency: keyof FlightsResponse['price'] = 'usd';
+export class CurrencyService {
+  public currencySubject = new BehaviorSubject<string>('USD');
+
+  currencyFromLocalStroage: string | null =
+    localStorage.getItem('selectedCurrency');
 
   constructor() {
-    this.selectedCurrency = localStorage.getItem('selectedCurrency')! as keyof FlightsResponse['price'];
-  }
-
-  getCurrency(): keyof FlightsResponse['price'] {
-    return this.selectedCurrency;
+    if (this.currencyFromLocalStroage) {
+      this.currencySubject.next(this.currencyFromLocalStroage);
+    }
   }
 
   setCurrency(currency: any): void {
-    this.selectedCurrency = currency.toLowerCase();
+    this.currencySubject.next(currency);
 
     localStorage.setItem('selectedCurrency', currency);
+
+
+  }
+
+  getCurrencyFromLocalStorage(){
+    return localStorage.getItem('selectedCurrency')?.toLowerCase()
   }
 }

@@ -6,7 +6,11 @@ import {
   Output,
   OnInit,
 } from '@angular/core';
-import { CurrencyServiceService, FlightAvailabilityService, FlightsResponse } from '../../../../../core/index';
+import {
+  CurrencyService,
+  FlightAvailabilityService,
+  FlightsResponse,
+} from '../../../../../core/index';
 
 @Component({
   selector: 'app-journey-flights',
@@ -24,8 +28,10 @@ export class JourneyFlightsComponent implements OnInit {
 
   public flights: FlightsResponse[] = [];
 
-  constructor(private flightAvailabilityService: FlightAvailabilityService,
-              private currencyService: CurrencyServiceService) {}
+  constructor(
+    private flightAvailabilityService: FlightAvailabilityService,
+    private currencyService: CurrencyService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -57,27 +63,27 @@ export class JourneyFlightsComponent implements OnInit {
     }
 
     const flightDate = new Date(flight.takeoffDate);
-  
+
     if (this.selectedDateButtonBack) {
       const selectedDateBack = new Date(this.selectedDateButtonBack);
       if (flightDate.toDateString() === selectedDateBack.toDateString()) {
-  
         return true;
-      } 
+      }
     }
 
     if (this.selectedDateButtonThere) {
       const selectedDateThere = new Date(this.selectedDateButtonThere);
       if (flightDate.toDateString() === selectedDateThere.toDateString()) {
- 
         return true;
-      } 
+      }
     }
 
     return false;
   }
 
-  getCurrentCurrency(): keyof FlightsResponse['price'] {
-    return this.currencyService.getCurrency();
+  getCurrentCurrency() {
+    this.currencyService.currencySubject.subscribe((currency) => {
+      return currency;
+    });
   }
 }

@@ -5,7 +5,6 @@ import { HeaderComponent, FooterComponent, AuthComponent,
          NotFoundComponent, BookingStepsComponent
        } from '../shared/index';
 import { RouterModule } from '@angular/router';
-import { CurrencyServiceService } from '../core';
 
 @NgModule({
   declarations: [
@@ -24,9 +23,6 @@ import { CurrencyServiceService } from '../core';
     HeaderComponent,
     FooterComponent,
     AuthComponent
-  ],
-  providers: [
-    CurrencyServiceService
   ]
 })
 export class SharedModule {}

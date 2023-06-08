@@ -12,7 +12,6 @@ import {
   DateWithPrice,
   FlightAvailabilityService,
 } from 'src/app/core';
-import { CurrencyServiceService } from 'src/app/core';
 import { Currency } from 'src/app/core';
 
 @Component({
@@ -33,6 +32,7 @@ export class JourneyDatesComponent {
   @Output() public dateSelectedEvent = new EventEmitter<Date>();
 
   @Input() public dates: DateWithPrice[] = [];
+  @Input() public currencyType: string = '';
 
   public currentIndex = 0;
   public monthNames: string[] = [
@@ -58,12 +58,10 @@ export class JourneyDatesComponent {
     'Friday',
     'Saturday',
   ];
-  public currencyType!: string;
 
   constructor(
     private sliderService: SliderService,
-    private flightAvailabilityService: FlightAvailabilityService,
-    private curencyService: CurrencyServiceService
+    private flightAvailabilityService: FlightAvailabilityService
   ) {}
 
   ngOnInit(): void {
@@ -125,12 +123,9 @@ export class JourneyDatesComponent {
     }
   }
 
-  public changeCurrency(item: any): number | string {
+  public changeCurrency(item: any) {
     if (item) {
-      let currencyType: string = this.curencyService.getCurrency();
-      this.currencyType = currencyType.toUpperCase();
-      return item[currencyType];
+      return item[this.currencyType];
     }
-    return '';
   }
 }

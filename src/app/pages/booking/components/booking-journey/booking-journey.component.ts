@@ -6,6 +6,7 @@ import {
   DateWithPrice,
   SliderService,
   FlightAvailabilityService,
+  CurrencyService,
 } from '../../../../core/index';
 
 @Component({
@@ -25,6 +26,7 @@ export class BookingJourneyComponent implements OnInit {
   public oBacknDateButtonClickThereEvent = new EventEmitter();
   public isSelectedThere: boolean = false;
   public isSelectedBack: boolean = false;
+  public currencyType!: string;
 
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
@@ -35,7 +37,8 @@ export class BookingJourneyComponent implements OnInit {
   constructor(
     private flightsStateService: FlightsStateService,
     private sliderService: SliderService,
-    private flightAvailabilityService: FlightAvailabilityService
+    private flightAvailabilityService: FlightAvailabilityService,
+    private currencyService: CurrencyService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,10 @@ export class BookingJourneyComponent implements OnInit {
         this.updateDatePrices();
       }
     );
+
+    this.currencyService.currencySubject.subscribe((currency: string) => {
+      this.currencyType = currency;
+    });
 
     const currentDate = new Date();
     this.selectedDateButtonThere = currentDate;

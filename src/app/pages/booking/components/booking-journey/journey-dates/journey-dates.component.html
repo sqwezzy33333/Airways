@@ -43,8 +43,7 @@
         </div>
         <div class="date-item__price">
           <span class="price__numbers">{{
-            changeCurrency(item.price)
-              | currency : currencyType : "symbol-narrow"
+            changeCurrency(item.price) | currency : currencyType.toUpperCase() : "symbol-narrow"
           }}</span>
         </div>
       </button>

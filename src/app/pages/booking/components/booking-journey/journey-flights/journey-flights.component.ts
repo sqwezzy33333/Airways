@@ -32,7 +32,8 @@ export class JourneyFlightsComponent implements OnInit {
 
   constructor(private flightAvailabilityService: FlightAvailabilityService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   selectedFlightIndex: number | null = null;
 

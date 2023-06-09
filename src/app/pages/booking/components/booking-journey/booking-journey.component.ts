@@ -58,7 +58,6 @@ export class BookingJourneyComponent implements OnInit {
 
     this.updateDatePrices();
 
-    this.setOneWayDate();
     this.flightAvailabilityService.flightsAvailableThere$.subscribe(
       (areFlightsAvailable: boolean) => {
         this.areFlightsAvailableThere = areFlightsAvailable;
@@ -71,6 +70,8 @@ export class BookingJourneyComponent implements OnInit {
     );
     this.selectedDateButtonThere = this.setSelectedDateButtonThere();
     this.selectedDateButtonBack = this.setSelectedDateButtonBack();
+
+    this.setOneWayDate();
   }
 
   setSelectedDateButtonThere(): Date | null {
@@ -80,9 +81,10 @@ export class BookingJourneyComponent implements OnInit {
     if (dateStr) {
       let fullDate = new Date(dateStr);
 
-      return this.datesThere.filter((el) => {
+      let userDate = this.datesThere.filter((el) => {
         return fullDate.getDate() === el.date.getDate();
-      })[0].date;
+      });
+      if (userDate[0].date) return userDate[0].date;
     }
     return null;
   }
@@ -91,9 +93,10 @@ export class BookingJourneyComponent implements OnInit {
     let dateStr = this.searchFormService.getSearchFlightsForm()?.date.endDate;
     if (dateStr) {
       let fullDate = new Date(dateStr);
-      return this.datesBack.filter((el) => {
+      let userDate = this.datesBack.filter((el) => {
         return fullDate.getDate() === el.date.getDate();
-      })[0].date;
+      });
+      if (userDate[0].date) return userDate[0].date;
     }
     return null;
   }

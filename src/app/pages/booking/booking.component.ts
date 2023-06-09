@@ -148,7 +148,10 @@ export class BookingComponent implements OnInit {
 
     if (this.tripType === 'oneWay' && !localStorage.getItem('thereFlight')) {
       this.isAttentionClose = true;
-    } else {
+    } else if (
+      this.tripType === 'oneWay' &&
+      localStorage.getItem('thereFlight')
+    ) {
       this.router.navigate(['booking/passengers']);
     }
   }

@@ -1,4 +1,4 @@
-@import '../../../../../styles/abstracts/constants.scss';
+@import "../../../../../styles/abstracts/constants.scss";
 
 .booking-journey__header {
   h3 {
@@ -31,7 +31,7 @@
   }
 }
 
-.test{
+.test {
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -43,14 +43,14 @@
   padding: 25px;
 }
 
-.no-flights{
+.no-flights {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 16px;
   margin: 72px 0;
-  .no-flights_text{
+  .no-flights_text {
     font-size: 2.4rem;
     font-weight: 700;
     color: #b0b3b8;
@@ -59,11 +59,42 @@
     svg {
       height: 82px;
       width: 82px;
-      fill:#b0b3b8;
+      fill: #b0b3b8;
     }
   }
 }
 
 .hidden {
   display: none;
+}
+
+.flight__attention {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+
+.attention-wrapper{
+  border-radius: 10px;
+  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.2);
+  z-index: 11;
+  width: 400px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+
+  span{
+    font-size: 30px;
+    color: $color-primary;
+  }
 }

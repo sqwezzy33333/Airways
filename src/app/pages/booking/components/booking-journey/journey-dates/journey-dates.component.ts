@@ -8,10 +8,11 @@ import {
 import {
   FlightsResponse,
   SliderService,
-  FlightsStateService,
+  SearchFlightsStateService,
   DateWithPrice,
   FlightAvailabilityService,
 } from 'src/app/core';
+import { ISearchFlightsForm } from 'src/app/core';
 import { Currency } from 'src/app/core';
 
 @Component({
@@ -60,15 +61,45 @@ export class JourneyDatesComponent {
   ];
   public firstTicketIndex!: number;
   public wasNoFirstTicketCheked = false;
+  private searchForm!: ISearchFlightsForm;
 
   constructor(
     private sliderService: SliderService,
-    private flightAvailabilityService: FlightAvailabilityService
+    private flightAvailabilityService: FlightAvailabilityService,
+    private searchFormService: SearchFlightsStateService
   ) {}
 
   ngOnInit(): void {
+    const form: ISearchFlightsForm | null =
+      this.searchFormService.getSearchFlightsForm();
+    if (form) this.searchForm = form;
     this.getFirstTicket();
-    this.currentIndex = this.firstTicketIndex - 2;
+    this.checkIndexOfSlider();
+  }
+
+  get flightType() {
+    return this.searchForm.tripType;
+  }
+  get singleDate() {
+    return this.searchForm.date.singleDate;
+  }
+  get startDate() {
+    return this.searchForm.date.startDate;
+  }
+  get endDate() {
+    return this.searchForm.date.endDate;
+  }
+
+  private checkIndexOfSlider() {
+    if (this.flightType === 'oneWay') {
+      if (this.singleDate) this.setSliderIndex(this.singleDate);
+      return;
+    }
+    if (this.flight.form.key === this.searchForm.from?.key) {
+      if (this.startDate) this.setSliderIndex(this.startDate);
+    } else {
+      if (this.endDate) this.setSliderIndex(this.endDate);
+    }
   }
 
   public onDateButtonClickThere(item: Date) {
@@ -91,15 +122,14 @@ export class JourneyDatesComponent {
     if (this.currentIndex === 0) return;
     this.currentIndex--;
     this.sliderService.setIndex(this.firstTicketIndex);
-    console.log(this.currentIndex)
   }
 
   public isCheckedDate(item: any): boolean {
     return (
       (this.selectedDateButtonThere !== null &&
-        this.selectedDateButtonThere.getTime() === item.getTime()) ||
+        this.selectedDateButtonThere.getDate() === item.getDate()) ||
       (this.selectedDateButtonBack !== null &&
-        this.selectedDateButtonBack.getTime() === item.getTime())
+        this.selectedDateButtonBack.getDate() === item.getDate())
     );
   }
 
@@ -116,7 +146,7 @@ export class JourneyDatesComponent {
   }
 
   public checkTicketThere(price: number | undefined): void {
-    if (price !== undefined) {
+    if (price) {
       this.flightAvailabilityService.updateThereFlightsAvailable(true);
     } else {
       this.flightAvailabilityService.updateThereFlightsAvailable(false);
@@ -152,10 +182,16 @@ export class JourneyDatesComponent {
     this.firstTicketIndex = indexesOfTickets[0];
   }
 
-  isFirsTicketDate(index: number) {
-    if (index === this.firstTicketIndex && !this.wasNoFirstTicketCheked) {
-      return true;
+  setSliderIndex(dateStr: string | undefined) {
+    if (dateStr) {
+      let date: Date = new Date(dateStr);
+      let index: number = 0;
+      this.dates.forEach((el, i) => {
+        if (el.date.getDate() === date.getDate()) {
+          index = i;
+        }
+      });
+      this.currentIndex = index - 2;
     }
-    return false;
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService, AuthService, CurrencyService} from '../../../core';
+import { ApiService, AuthService, CurrencyService } from '../../../core';
 import { LocationService } from 'src/app/core/services/location/location.service';
 import { DateTypeService } from 'src/app/core/services/date-type/date-type.service';
 
@@ -25,6 +25,9 @@ export class HeaderComponent implements OnInit {
     this.currencyService.getCurrencyFromLocalStorage();
   currency = ['EUR', 'USD', 'RUB', 'PLN'];
 
+  dateSelectForm = new FormControl('MM/DD/YYYY');
+  currencySelectForm!: FormControl;
+
   constructor(
     private AuthService: AuthService,
     private locationService: LocationService,
@@ -34,6 +37,9 @@ export class HeaderComponent implements OnInit {
   ) {
     this.currencyService.currencySubject.subscribe((el) => {
       this.currentCurrency = el.toUpperCase();
+      this.currencySelectForm = new FormControl(
+        this.currentCurrency?.toUpperCase()
+      );
     });
   }
 
@@ -51,9 +57,6 @@ export class HeaderComponent implements OnInit {
   get dateType() {
     return this.dateSelectForm.value;
   }
-
-  dateSelectForm = new FormControl('MM/DD/YYYY');
-  currencySelectForm = new FormControl(this.currentCurrency?.toUpperCase());
 
   openDialog() {
     this.AuthService.onOpen();

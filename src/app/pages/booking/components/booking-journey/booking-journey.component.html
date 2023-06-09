@@ -141,3 +141,13 @@
     </div>
   </ng-container>
 </div>
+
+<div
+  class="flight__attention"
+  *ngIf="!isAttentionClose"
+  (click)="closeAttention()"
+>
+  <div class="attention-wrapper">
+    <span>Please select all tickets</span>
+  </div>
+</div>

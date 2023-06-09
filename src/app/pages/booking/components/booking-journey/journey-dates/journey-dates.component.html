@@ -1,4 +1,4 @@
-<div class="booking-journey__carousel" [class.trip-selected]="isSelected">
+<div class="booking-journey__carousel">
   <button class="carousel-btn carousel-btn_prev" (click)="prevSlide()">
     <span class="carousel-btn_icon">
       <img src="./assets/booking/arrow.svg" alt="Arrow" />
@@ -16,18 +16,15 @@
       (click)="onClickThere(item)"
       (click)="onClickBack(item)"
       [ngClass]="{
-        selected: isCheckedDate(item.date) || isFirsTicketDate(index)
+        selected: isCheckedDate(item.date)
       }"
     >
       <p
-        *ngIf="isCheckedDate(item.date) || isFirsTicketDate(index)"
+        *ngIf="isCheckedDate(item.date)"
         class="borderBlock"
         [ngClass]="item.date | checkDateColor : flight"
       ></p>
-      <button
-        class="date-item"
-        [ngClass]="{ disabled: !item.price }"
-      >
+      <button class="date-item" [ngClass]="{ disabled: !item.price }">
         <div class="date-item__date">
           <div class="date-item__day-of-month">
             <span class="date-item__day">

@@ -314,8 +314,6 @@ export class SearchFlightsComponent implements OnInit {
   onDateChange() {
     const startDate = this.searchForm.get('date.startDate')?.value;
     const endDate = this.searchForm.get('date.endDate')?.value;
-    console.log('startdate', startDate);
-    console.log('endDate', endDate);
 
     if (startDate && endDate) {
       const startDateValue = new Date(startDate);
@@ -344,6 +342,7 @@ export class SearchFlightsComponent implements OnInit {
       }
       this.sliderService.setDates(dates);
     }
+    this.setDatesForSingleFlight();
   }
 
   setPassengers() {
@@ -357,6 +356,38 @@ export class SearchFlightsComponent implements OnInit {
       if (triptype === 'oneWay') {
         this.isOneWay = true;
       } else this.isOneWay = false;
+    }
+  }
+
+  setDatesForSingleFlight() {
+    if (this.singleDate) {
+      let date = new Date(this.singleDate);
+      const datesArray: Date[] = [];
+      let day: number = 86400000;
+      for (let i = 6; i > 0; i--) {
+        let nextDay = date.getTime() - day;
+        let nextDate = new Date(nextDay);
+        datesArray.push(nextDate);
+        day = day - 86400000;
+      }
+      for (let i = 0; i < 5; i++) {
+        let nextDay = date.getTime() + day;
+        let nextDate = new Date(nextDay);
+        datesArray.push(nextDate);
+        day = day + 86400000;
+      }
+      let filtredArr = datesArray
+        .sort((a: Date, b: Date) => {
+          return a.getTime() - b.getTime();
+        })
+        .map((el: Date) => el.getTime());
+      let uniq = [...new Set(filtredArr)];
+      let fullDatesArray: Date[] = uniq.map((el: number) => {
+        let a = new Date(el);
+        return a;
+      });
+
+      this.sliderService.setDates(fullDatesArray);
     }
   }
 }

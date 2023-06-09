@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ISearchFlightsForm } from '../../models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchFlightsStateService {
   private searchFlightsForm: ISearchFlightsForm | null = null;
@@ -22,8 +22,6 @@ export class SearchFlightsStateService {
 
   private loadFormFromLocalStorage(): void {
     const storedForm = localStorage.getItem('searchFlightsForm');
-    if (storedForm) {
-      this.searchFlightsForm = JSON.parse(storedForm);
-    }
+    if (storedForm) this.searchFlightsForm = JSON.parse(storedForm);
   }
 }

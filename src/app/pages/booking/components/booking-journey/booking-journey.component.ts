@@ -7,6 +7,7 @@ import {
   SliderService,
   FlightAvailabilityService,
   CurrencyService,
+  SearchFlightsStateService,
 } from '../../../../core/index';
 
 @Component({
@@ -27,6 +28,7 @@ export class BookingJourneyComponent implements OnInit {
   public isSelectedThere: boolean = false;
   public isSelectedBack: boolean = false;
   public currencyType!: string;
+  public isAttentionClose = true;
 
   public datesThere: DateWithPrice[] = [];
   public datesBack: DateWithPrice[] = [];
@@ -38,7 +40,8 @@ export class BookingJourneyComponent implements OnInit {
     private flightsStateService: FlightsStateService,
     private sliderService: SliderService,
     private flightAvailabilityService: FlightAvailabilityService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private searchFormService: SearchFlightsStateService
   ) {}
 
   ngOnInit(): void {
@@ -46,8 +49,6 @@ export class BookingJourneyComponent implements OnInit {
       (flights: FlightsResponse[] | null) => {
         this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
         this.updateDatePrices();
-        //  console.log(flights)
-
       }
     );
 
@@ -55,12 +56,9 @@ export class BookingJourneyComponent implements OnInit {
       this.currencyType = currency;
     });
 
-    const currentDate = new Date();
-    this.selectedDateButtonThere = currentDate;
-    this.selectedDateButtonBack = currentDate;
-
     this.updateDatePrices();
 
+    this.setOneWayDate();
     this.flightAvailabilityService.flightsAvailableThere$.subscribe(
       (areFlightsAvailable: boolean) => {
         this.areFlightsAvailableThere = areFlightsAvailable;
@@ -71,6 +69,41 @@ export class BookingJourneyComponent implements OnInit {
         this.areFlightsAvailableBack = areFlightsAvailable;
       }
     );
+    this.selectedDateButtonThere = this.setSelectedDateButtonThere();
+    this.selectedDateButtonBack = this.setSelectedDateButtonBack();
+  }
+
+  setSelectedDateButtonThere(): Date | null {
+    let dateStr: string | undefined =
+      this.searchFormService.getSearchFlightsForm()?.date.startDate;
+
+    if (dateStr) {
+      let fullDate = new Date(dateStr);
+
+      return this.datesThere.filter((el) => {
+        return fullDate.getDate() === el.date.getDate();
+      })[0].date;
+    }
+    return null;
+  }
+
+  setSelectedDateButtonBack(): Date | null {
+    let dateStr = this.searchFormService.getSearchFlightsForm()?.date.endDate;
+    if (dateStr) {
+      let fullDate = new Date(dateStr);
+      return this.datesBack.filter((el) => {
+        return fullDate.getDate() === el.date.getDate();
+      })[0].date;
+    }
+    return null;
+  }
+
+  setOneWayDate() {
+    let dateStr: string | undefined =
+      this.searchFormService.getSearchFlightsForm()?.date.singleDate;
+    if (dateStr) {
+      this.selectedDateButtonThere = new Date(dateStr);
+    }
   }
 
   getFirstDateBack() {
@@ -88,8 +121,6 @@ export class BookingJourneyComponent implements OnInit {
       const price = this.flightsStateService.getPriceForDate(date);
       return { date, price } as DateWithPrice;
     });
-
-
 
     this.datesBack = storedDates.map((dateString) => {
       const date = new Date(dateString);
@@ -120,5 +151,9 @@ export class BookingJourneyComponent implements OnInit {
 
       this.flightsStateService.setBackFlight(flight);
     }
+  }
+
+  closeAttention() {
+    this.isAttentionClose = false;
   }
 }

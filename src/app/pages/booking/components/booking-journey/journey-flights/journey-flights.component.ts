@@ -68,19 +68,13 @@ export class JourneyFlightsComponent implements OnInit {
         this.isDateBackCheked = true;
         return true;
       }
-
-      if (
-        flightDate.toDateString() === this.firstDateBack.toDateString() &&
-        !this.isDateBackCheked
-      ) {
-        return true;
-      }
     }
 
     if (this.selectedDateButtonThere) {
       const selectedDateThere = new Date(this.selectedDateButtonThere);
-      if (flightDate.toDateString() === selectedDateThere.toDateString())
+      if (flightDate.toDateString() === selectedDateThere.toDateString()) {
         return true;
+      }
     }
     return false;
   }

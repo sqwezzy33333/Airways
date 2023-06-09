@@ -314,6 +314,8 @@ export class SearchFlightsComponent implements OnInit {
   onDateChange() {
     const startDate = this.searchForm.get('date.startDate')?.value;
     const endDate = this.searchForm.get('date.endDate')?.value;
+    console.log('startdate', startDate);
+    console.log('endDate', endDate);
 
     if (startDate && endDate) {
       const startDateValue = new Date(startDate);
@@ -340,7 +342,6 @@ export class SearchFlightsComponent implements OnInit {
         dates.push(new Date(endDateOffset));
         endDateOffset.setDate(endDateOffset.getDate() + 1);
       }
-
       this.sliderService.setDates(dates);
     }
   }

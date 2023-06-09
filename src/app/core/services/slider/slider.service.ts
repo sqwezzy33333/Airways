@@ -12,7 +12,6 @@ export class SliderService {
     const storedDates = localStorage.getItem('sliderDates');
     if (storedDates) {
       this.dates = JSON.parse(storedDates);
-      this.currentIndex = 5;
     }
 
     const storedPassengers = localStorage.getItem('totalPassengers');
@@ -33,6 +32,10 @@ export class SliderService {
   public setDates(dates: Date[]): void {
     this.dates = dates;
     localStorage.setItem('sliderDates', JSON.stringify(this.dates));
+  }
+
+  public setIndex(index: number) {
+    this.currentIndex = index;
   }
 
   public getDates() {

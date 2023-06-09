@@ -46,6 +46,8 @@ export class BookingJourneyComponent implements OnInit {
       (flights: FlightsResponse[] | null) => {
         this.flights$ = new BehaviorSubject<FlightsResponse[] | null>(flights);
         this.updateDatePrices();
+        //  console.log(flights)
+
       }
     );
 
@@ -75,18 +77,19 @@ export class BookingJourneyComponent implements OnInit {
     let arr = this.datesBack.filter((el) => {
       return el.price;
     });
-    let firstDate = new Date(arr[0].date)
-    return firstDate
+    let firstDate = new Date(arr[0].date);
+    return firstDate;
   }
 
   private updateDatePrices(): void {
     const storedDates = this.sliderService.getDates();
-
     this.datesThere = storedDates.map((dateString) => {
       const date = new Date(dateString);
       const price = this.flightsStateService.getPriceForDate(date);
       return { date, price } as DateWithPrice;
     });
+
+
 
     this.datesBack = storedDates.map((dateString) => {
       const date = new Date(dateString);

@@ -26,7 +26,7 @@
       ></p>
       <button
         class="date-item"
-        [ngClass]="{ disabled: item.price === undefined }"
+        [ngClass]="{ disabled: !item.price }"
       >
         <div class="date-item__date">
           <div class="date-item__day-of-month">

@@ -67,8 +67,8 @@ export class JourneyDatesComponent {
   ) {}
 
   ngOnInit(): void {
-    this.currentIndex = this.sliderService.getCurrentIndex();
     this.getFirstTicket();
+    this.currentIndex = this.firstTicketIndex - 2;
   }
 
   public onDateButtonClickThere(item: Date) {
@@ -82,14 +82,16 @@ export class JourneyDatesComponent {
   }
 
   public nextSlide(): void {
-    this.sliderService.nextSlide();
-    this.currentIndex = this.sliderService.getCurrentIndex();
+    if (this.currentIndex === this.dates.length - 5) return;
+    this.currentIndex++;
+    this.sliderService.setIndex(this.firstTicketIndex);
   }
 
   public prevSlide(): void {
-    this.sliderService.prevSlide();
-    this.currentIndex =
-      this.sliderService.getCurrentIndex();
+    if (this.currentIndex === 0) return;
+    this.currentIndex--;
+    this.sliderService.setIndex(this.firstTicketIndex);
+    console.log(this.currentIndex)
   }
 
   public isCheckedDate(item: any): boolean {
